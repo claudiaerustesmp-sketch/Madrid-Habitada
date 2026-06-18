@@ -63,6 +63,20 @@
       height: 34px;
     }
 
+    .navbar-toggler {
+      border-color: rgba(243, 230, 211, 0.4);
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23F3E6D3' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    @media (max-width: 991.98px) {
+      .navbar-nav {
+        text-align: right;
+      }
+    }
+
     /* ===========================================
        BOTONES
        =========================================== */
@@ -466,6 +480,10 @@
       font-weight: 700;
       padding: 6px 16px;
       display: inline-block;
+    }
+
+    .atributos-lista {
+      justify-content: space-between;
     }
 
     /* ===========================================
@@ -995,17 +1013,77 @@
               <p class="small mt-2 mb-0">Gris piedra<br><strong>#323232</strong></p>
             </div>
           </div>
-          <h3 class="h5 fw-bold mb-3">Atributos de marca</h3>
-          <div class="d-flex flex-wrap gap-2">
-            <span class="pildora-marca">Cotidiana</span>
-            <span class="pildora-marca">Cercana</span>
-            <span class="pildora-marca">Discreta</span>
-            <span class="pildora-marca">Identitaria</span>
-            <span class="pildora-marca">Urbana</span>
-            <span class="pildora-marca">Fiable</span>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <h3 class="h5 fw-bold mb-3">Atributos de marca</h3>
+        <div class="d-flex flex-wrap gap-2 atributos-lista">
+          <span class="pildora-marca">Cotidiana</span>
+          <span class="pildora-marca">Cercana</span>
+          <span class="pildora-marca">Discreta</span>
+          <span class="pildora-marca">Identitaria</span>
+          <span class="pildora-marca">Urbana</span>
+          <span class="pildora-marca">Fiable</span>
+        </div>
+      </div>
+
+      <!-- Iconografía -->
+      <div class="mt-4">
+        <h3 class="h5 fw-bold mb-1">Iconografía</h3>
+        <p class="text-muted small mb-4">Lucide Icons · Coherente con la discreción del sistema.</p>
+        <div class="row g-3 text-center">
+          <div class="col-6 col-sm-3 col-md">
+            <div class="icono-propuesta mx-auto mb-2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <p class="small mb-0" style="color:var(--azul-sombra);">Lugar</p>
+          </div>
+          <div class="col-6 col-sm-3 col-md">
+            <div class="icono-propuesta mx-auto mb-2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <p class="small mb-0" style="color:var(--azul-sombra);">Guardado</p>
+          </div>
+          <div class="col-6 col-sm-3 col-md">
+            <div class="icono-propuesta mx-auto mb-2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <p class="small mb-0" style="color:var(--azul-sombra);">Mi barrio</p>
+          </div>
+          <div class="col-6 col-sm-3 col-md">
+            <div class="icono-propuesta mx-auto mb-2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <p class="small mb-0" style="color:var(--azul-sombra);">Momento</p>
+          </div>
+          <div class="col-6 col-sm-3 col-md">
+            <div class="icono-propuesta mx-auto mb-2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            </div>
+            <p class="small mb-0" style="color:var(--azul-sombra);">Ruta</p>
+          </div>
+          <div class="col-6 col-sm-3 col-md">
+            <div class="icono-propuesta mx-auto mb-2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <p class="small mb-0" style="color:var(--azul-sombra);">Explorar</p>
+          </div>
+          <div class="col-6 col-sm-3 col-md">
+            <div class="icono-propuesta mx-auto mb-2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            </div>
+            <p class="small mb-0" style="color:var(--azul-sombra);">Comercio</p>
+          </div>
+          <div class="col-6 col-sm-3 col-md">
+            <div class="icono-propuesta mx-auto mb-2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <p class="small mb-0" style="color:var(--azul-sombra);">Residentes</p>
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
