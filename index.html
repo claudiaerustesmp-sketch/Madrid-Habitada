@@ -1,511 +1,1056 @@
 <!doctype html>
 <html lang="es">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Madrid Habitada · Ciudad como lugar vivido</title>
-<meta name="description" content="Sistema digital para redescubrir Madrid desde la vida cotidiana, el barrio y la pertenencia. Sin rankings turísticos, sin viralidad, sin ruido.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-:root{
-  --granate:#8A3A32;
-  --terracota:#C46A4A;
-  --azul-sombra:#2F3A45;
-  --verde-persiana:#5E6049;
-  --crema:#F3E6D3;
-  --crema-oscura:#E8D5BA;
-  --gris-piedra:#323232;
-  --azul-fondo:#1a1f25;
-}
-html{scroll-behavior:smooth;}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--crema);color:var(--gris-piedra);line-height:1.6;overflow-x:hidden;}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Madrid Habitada · Ciudad como lugar vivido</title>
+  <meta name="description"
+    content="Sistema digital para redescubrir Madrid desde la vida cotidiana, el barrio y la pertenencia.">
 
-/* NAV */
-.navbar{background:var(--azul-fondo);border-bottom:1px solid rgba(243,230,211,.1);}
-.nav-link{font-size:13px;font-weight:500;color:var(--crema)!important;opacity:.8;transition:.2s;}
-.nav-link:hover{color:var(--terracota)!important;opacity:1;}
-.navbar-toggler{border-color:rgba(243,230,211,.3);}
-.navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(243,230,211,0.85)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");}
-.navbar-logo{height:34px;width:auto;}
+  <!-- Tipografía Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
-/* BUTTONS */
-.btn-mh-primary{background:var(--granate);color:var(--crema)!important;border:none;border-radius:100px;font-size:14px;font-weight:600;padding:12px 28px;text-decoration:none;display:inline-block;transition:.2s;}
-.btn-mh-primary:hover{background:#6e2e27;transform:translateY(-1px);}
-.btn-mh-outline{background:transparent;color:var(--azul-sombra)!important;border:1.5px solid rgba(47,58,69,.35);border-radius:100px;font-size:14px;font-weight:600;padding:11px 28px;text-decoration:none;display:inline-block;transition:.2s;}
-.btn-mh-outline:hover{border-color:var(--azul-sombra);}
-.btn-mh-outline-light{background:transparent;color:var(--crema)!important;border:1.5px solid rgba(243,230,211,.3);border-radius:100px;font-size:14px;font-weight:600;padding:11px 28px;text-decoration:none;display:inline-block;transition:.2s;}
-.btn-mh-outline-light:hover{border-color:var(--crema);}
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-/* EYEBROW */
-.eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--granate);}
+  <style>
+    /* ===========================================
+       VARIABLES DE COLOR
+       =========================================== */
+    :root {
+      --granate: #8A3A32;
+      --terracota: #C46A4A;
+      --azul-sombra: #2F3A45;
+      --verde-persiana: #5E6049;
+      --crema: #F3E6D3;
+      --crema-oscura: #E8D5BA;
+      --gris-piedra: #323232;
+      --azul-fondo: #1a1f25;
+    }
 
-/* TITLES */
-.section-title{font-weight:800;color:var(--azul-sombra);line-height:1.1;}
-.section-title em{font-style:normal;color:var(--terracota);}
-.section-lead{font-size:17px;color:var(--azul-sombra);opacity:.7;line-height:1.7;max-width:640px;}
-.section-lead.wide{max-width:none;}
+    /* ===========================================
+       ESTILOS GENERALES
+       =========================================== */
+    html {
+      scroll-behavior: smooth;
+    }
 
-/* HERO */
-.hero{background:var(--crema);overflow:hidden;}
-.hero-grid{display:flex;align-items:stretch;min-height:90vh;}
-.hero-text{flex:1 1 50%;display:flex;flex-direction:column;justify-content:center;padding:110px clamp(24px,6vw,80px) 60px;padding-left:max(24px,calc((100vw - 1320px)/2 + 12px));}
-.hero-media{flex:1 1 50%;position:relative;min-height:360px;}
-.hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;}
-.hero-eyebrow{display:inline-flex;align-self:flex-start;align-items:center;gap:6px;border:1px solid rgba(138,58,50,.35);border-radius:100px;padding:7px 18px;}
-.hero h1{font-size:clamp(38px,5.5vw,68px);font-weight:800;color:var(--azul-sombra);line-height:1.08;}
-.hero h1 em{font-style:normal;color:var(--granate);}
-.hero-subtitle{font-size:clamp(20px,2.4vw,28px);font-weight:700;color:var(--terracota);line-height:1.3;}
-.lead-hero{font-size:17px;color:rgba(47,58,69,.75);max-width:480px;line-height:1.7;}
-.lead-highlight{color:var(--terracota);font-weight:600;}
-@media(max-width:991.98px){.hero-grid{flex-direction:column;min-height:auto;}.hero-text{padding:100px 24px 40px;}.hero-media{height:420px;}}
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--crema);
+      color: var(--gris-piedra);
+      line-height: 1.6;
+    }
 
-/* DARK */
-.section-dark{background:var(--azul-fondo);color:var(--crema);}
-.section-dark .eyebrow{color:var(--terracota);}
-.section-dark .section-title{color:var(--crema);}
-.section-dark .section-lead{color:var(--crema);opacity:.65;}
-.section-dark p{color:rgba(243,230,211,.75);}
+    /* ===========================================
+       BARRA DE NAVEGACIÓN
+       =========================================== */
+    .navbar {
+      background-color: var(--azul-fondo);
+    }
 
-/* PROBLEM CARDS */
-.problem-card{background:rgba(243,230,211,.06);border:1px solid rgba(243,230,211,.12);border-radius:18px;height:100%;transition:.25s;}
-.problem-card:hover{background:rgba(243,230,211,.1);}
-.problem-card .icon{width:44px;height:44px;background:rgba(196,106,74,.22);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
-.problem-card h3{color:var(--crema);}
-.problem-card p{color:rgba(243,230,211,.6);font-size:14px;margin-bottom:0;}
+    .navbar .nav-link {
+      color: var(--crema);
+      font-size: 14px;
+      font-weight: 500;
+    }
 
-/* PROBLEMA IMAGE STRIP */
-.problema-img{width:100%;height:280px;object-fit:cover;border-radius:16px;opacity:.6;}
+    .navbar .nav-link:hover {
+      color: var(--terracota);
+    }
 
-/* SOFT CARDS */
-.soft-card{background:white;border:1px solid rgba(138,58,50,.1);border-radius:18px;height:100%;transition:.25s;}
-.soft-card:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(47,58,69,.1);}
-.soft-card .icon{width:40px;height:40px;background:rgba(138,58,50,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--granate);margin-bottom:14px;}
-.soft-card h3{color:var(--azul-sombra);font-size:15px;}
-.soft-card p{color:var(--azul-sombra);opacity:.65;font-size:14px;}
+    .navbar-logo {
+      height: 34px;
+    }
 
-/* APP MOCKUP */
-.app-mockup{display:block;width:100%;max-width:300px;margin:0 auto;border-radius:28px;box-shadow:0 32px 64px rgba(47,58,69,.28);border:1px solid rgba(47,58,69,.1);}
+    /* ===========================================
+       BOTONES
+       =========================================== */
+    .boton-principal {
+      background-color: var(--granate);
+      color: var(--crema);
+      border: none;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 28px;
+      text-decoration: none;
+      display: inline-block;
+    }
 
-/* METRICS */
-.metric-card{background:rgba(243,230,211,.08);border:1px solid rgba(243,230,211,.12);border-radius:18px;text-align:center;height:100%;padding:1.5rem 1rem;}
-.metric-card p{color:rgba(243,230,211,.75);}
-.metric-number{font-size:40px;font-weight:800;color:var(--terracota);line-height:1;display:block;margin-bottom:8px;}
+    .boton-principal:hover {
+      background-color: #6e2e27;
+      color: var(--crema);
+    }
 
-/* PERSONA (sin foto, tipográfica) */
-.persona-card{background:white;border:1px solid rgba(138,58,50,.1);border-radius:20px;height:100%;overflow:hidden;transition:.25s;}
-.persona-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(47,58,69,.1);}
-.persona-head{padding:28px 28px 0;}
-.persona-initials{width:64px;height:64px;border-radius:50%;background:var(--granate);color:var(--crema);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;margin-bottom:16px;}
-.persona-card h3{font-size:18px;font-weight:800;color:var(--azul-sombra);}
-.persona-card .quote{font-size:13.5px;font-style:italic;color:var(--azul-sombra);background:var(--crema);border-left:3px solid var(--terracota);border-radius:0 10px 10px 0;padding:12px 16px;margin-top:12px;line-height:1.6;}
+    .boton-secundario {
+      background-color: transparent;
+      color: var(--azul-sombra);
+      border: 1.5px solid var(--azul-sombra);
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 11px 28px;
+      text-decoration: none;
+      display: inline-block;
+    }
 
-/* WIREFRAME */
-.wireframe-img{width:100%;border-radius:14px;}
+    .boton-secundario-claro {
+      background-color: transparent;
+      color: var(--crema);
+      border: 1.5px solid var(--crema);
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 11px 28px;
+      text-decoration: none;
+      display: inline-block;
+    }
 
-/* RACE FLOW */
-.flow-card{background:rgba(243,230,211,.07);border:1px solid rgba(243,230,211,.12);border-radius:16px;height:100%;transition:.25s;}
-.flow-card:hover{background:rgba(243,230,211,.12);}
-.flow-num{width:44px;height:44px;background:var(--terracota);color:var(--crema);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;margin:0 auto 12px;}
-.flow-card h3{color:var(--crema);font-size:12px;letter-spacing:.06em;}
-.flow-card p{color:rgba(243,230,211,.6);font-size:12px;margin:0;}
-.race-arrow{color:rgba(243,230,211,.35);font-size:22px;display:block;}
-@media(max-width:767px){.race-arrow{display:none;}}
+    /* ===========================================
+       TEXTOS Y TÍTULOS
+       =========================================== */
+    .etiqueta {
+      color: var(--granate);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
 
-/* CTA PANEL */
-.cta-panel{background:var(--azul-sombra);border-radius:28px;overflow:hidden;position:relative;}
-.cta-panel .eyebrow{color:var(--terracota);}
-.cta-panel .section-title{color:var(--crema);}
-.cta-panel .section-lead{color:rgba(243,230,211,.65);margin:0 auto;}
-.cta-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.14;}
-.cta-content{position:relative;z-index:1;}
+    .titulo-seccion {
+      color: var(--azul-sombra);
+      font-weight: 800;
+    }
 
-/* IDENTITY GALLERY */
-.gallery-img{width:100%;height:220px;object-fit:cover;border-radius:14px;transition:.3s;display:block;}
-.gallery-img:hover{transform:scale(1.02);box-shadow:0 12px 28px rgba(47,58,69,.18);}
-.gallery-label{font-size:11px;font-weight:600;color:var(--azul-sombra);opacity:.5;text-transform:uppercase;letter-spacing:.08em;margin-top:8px;}
+    .titulo-seccion em {
+      color: var(--terracota);
+      font-style: normal;
+    }
 
-/* IDENTITY */
-.identity-card{background:var(--crema-oscura);border-radius:20px;}
-.swatch{height:72px;border-radius:12px;border:1px solid rgba(0,0,0,.07);}
-.brand-pill{background:rgba(138,58,50,.1);color:var(--granate);border:1px solid rgba(138,58,50,.2);font-size:12px;font-weight:700;padding:6px 16px;border-radius:100px;display:inline-block;}
+    .texto-seccion {
+      color: var(--azul-sombra);
+      font-size: 17px;
+      opacity: 0.7;
+    }
 
-/* FOOTER */
-footer{background:var(--gris-piedra);color:rgba(243,230,211,.75);}
-footer a{color:rgba(243,230,211,.55);text-decoration:none;transition:.2s;}
-footer a:hover{color:var(--crema);}
-footer h2,footer h3{color:var(--crema);}</style>
+    /* ===========================================
+       SECCIÓN HERO (cabecera principal)
+       =========================================== */
+    .hero {
+      background-color: var(--crema);
+    }
+
+    .hero h1 {
+      color: var(--azul-sombra);
+      font-size: 60px;
+      font-weight: 800;
+    }
+
+    .hero h1 em {
+      color: var(--granate);
+      font-style: normal;
+    }
+
+    .hero-subtitulo {
+      color: var(--terracota);
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    .hero-imagen {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+
+    .dato-numero {
+      color: var(--granate);
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .dato-texto {
+      color: var(--azul-sombra);
+      font-size: 11px;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    /* ===========================================
+       SECCIONES OSCURAS
+       =========================================== */
+    .seccion-oscura {
+      background-color: var(--azul-fondo);
+      color: var(--crema);
+    }
+
+    .seccion-oscura .etiqueta {
+      color: var(--terracota);
+    }
+
+    .seccion-oscura .titulo-seccion {
+      color: var(--crema);
+    }
+
+    .seccion-oscura .texto-seccion {
+      color: var(--crema);
+      opacity: 0.7;
+    }
+
+    /* ===========================================
+       TARJETAS DEL PROBLEMA
+       =========================================== */
+    .tarjeta-problema {
+      background-color: rgba(243, 230, 211, 0.06);
+      border: 1px solid rgba(243, 230, 211, 0.12);
+      border-radius: 18px;
+      height: 100%;
+    }
+
+    .tarjeta-problema h3 {
+      color: var(--crema);
+    }
+
+    .tarjeta-problema p {
+      color: rgba(243, 230, 211, 0.6);
+      font-size: 14px;
+    }
+
+    .icono-problema {
+      width: 44px;
+      height: 44px;
+      background-color: rgba(196, 106, 74, 0.22);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .imagen-problema {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 16px;
+      opacity: 0.6;
+    }
+
+    /* ===========================================
+       TARJETAS DE LA PROPUESTA
+       =========================================== */
+    .tarjeta-propuesta {
+      background-color: white;
+      border: 1px solid rgba(138, 58, 50, 0.1);
+      border-radius: 18px;
+      height: 100%;
+    }
+
+    .tarjeta-propuesta h3 {
+      color: var(--azul-sombra);
+      font-size: 15px;
+    }
+
+    .tarjeta-propuesta p {
+      color: var(--azul-sombra);
+      font-size: 14px;
+      opacity: 0.65;
+    }
+
+    .icono-propuesta {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(138, 58, 50, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--granate);
+      margin-bottom: 14px;
+    }
+
+    .imagen-app {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 28px;
+      border: 1px solid rgba(47, 58, 69, 0.1);
+    }
+
+    /* ===========================================
+       TARJETAS DE MÉTRICAS (objetivo SMART)
+       =========================================== */
+    .tarjeta-metrica {
+      background-color: rgba(243, 230, 211, 0.08);
+      border: 1px solid rgba(243, 230, 211, 0.12);
+      border-radius: 18px;
+      text-align: center;
+      height: 100%;
+      padding: 24px 16px;
+    }
+
+    .tarjeta-metrica p {
+      color: rgba(243, 230, 211, 0.75);
+    }
+
+    .numero-metrica {
+      color: var(--terracota);
+      font-size: 40px;
+      font-weight: 800;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* ===========================================
+       TARJETAS DE PERSONAS (para quién)
+       =========================================== */
+    .tarjeta-persona {
+      background-color: white;
+      border: 1px solid rgba(138, 58, 50, 0.1);
+      border-radius: 20px;
+      height: 100%;
+      padding: 28px;
+    }
+
+    .tarjeta-persona h3 {
+      color: var(--azul-sombra);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .iniciales-persona {
+      width: 64px;
+      height: 64px;
+      background-color: var(--granate);
+      color: var(--crema);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .cita-persona {
+      background-color: var(--crema);
+      border-left: 3px solid var(--terracota);
+      border-radius: 0 10px 10px 0;
+      color: var(--azul-sombra);
+      font-size: 14px;
+      font-style: italic;
+      padding: 12px 16px;
+      margin-top: 12px;
+    }
+
+    /* ===========================================
+       IMAGEN DE WIREFRAMES (arquitectura)
+       =========================================== */
+    .imagen-wireframes {
+      width: 100%;
+      border-radius: 14px;
+    }
+
+    /* ===========================================
+       TARJETAS DEL EMBUDO RACE (cómo funciona)
+       =========================================== */
+    .tarjeta-fase {
+      background-color: rgba(243, 230, 211, 0.07);
+      border: 1px solid rgba(243, 230, 211, 0.12);
+      border-radius: 16px;
+      height: 100%;
+      text-align: center;
+    }
+
+    .tarjeta-fase h3 {
+      color: var(--crema);
+      font-size: 12px;
+    }
+
+    .tarjeta-fase p {
+      color: rgba(243, 230, 211, 0.6);
+      font-size: 12px;
+    }
+
+    .numero-fase {
+      width: 44px;
+      height: 44px;
+      background-color: var(--terracota);
+      color: var(--crema);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      margin: 0 auto 12px auto;
+    }
+
+    /* ===========================================
+       PANEL DE LLAMADA A LA ACCIÓN (CTA)
+       =========================================== */
+    .panel-cta {
+      background-color: var(--azul-sombra);
+      border-radius: 28px;
+      padding: 48px;
+      text-align: center;
+    }
+
+    .panel-cta .etiqueta {
+      color: var(--terracota);
+    }
+
+    .panel-cta .titulo-seccion {
+      color: var(--crema);
+    }
+
+    .panel-cta .texto-seccion {
+      color: rgba(243, 230, 211, 0.7);
+    }
+
+    /* ===========================================
+       GALERÍA DE IDENTIDAD VISUAL
+       =========================================== */
+    .imagen-galeria {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 14px;
+    }
+
+    .etiqueta-galeria {
+      color: var(--azul-sombra);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-top: 8px;
+    }
+
+    .tarjeta-identidad {
+      background-color: var(--crema-oscura);
+      border-radius: 20px;
+    }
+
+    .muestra-color {
+      height: 72px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.07);
+    }
+
+    .pildora-marca {
+      background-color: rgba(138, 58, 50, 0.1);
+      color: var(--granate);
+      border: 1px solid rgba(138, 58, 50, 0.2);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 16px;
+      display: inline-block;
+    }
+
+    /* ===========================================
+       PIE DE PÁGINA
+       =========================================== */
+    footer {
+      background-color: var(--gris-piedra);
+      color: rgba(243, 230, 211, 0.75);
+    }
+
+    footer h2,
+    footer h3 {
+      color: var(--crema);
+    }
+
+    footer a {
+      color: rgba(243, 230, 211, 0.55);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--crema);
+    }
+
+    .imagen-footer {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 14px;
+      opacity: 0.5;
+      margin-bottom: 16px;
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ═══ NAV ═══ -->
-<nav class="navbar navbar-expand-lg sticky-top">
-  <div class="container">
-    <a class="navbar-brand" href="#inicio">
-      <img src="img/logo.png" alt="Madrid Habitada" class="navbar-logo">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Abrir menú">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
-        <li class="nav-item"><a class="nav-link" href="#problema">El problema</a></li>
-        <li class="nav-item"><a class="nav-link" href="#propuesta">La propuesta</a></li>
-        <li class="nav-item"><a class="nav-link" href="#personas">Para quién</a></li>
-        <li class="nav-item"><a class="nav-link" href="#funciona">Cómo funciona</a></li>
-        <li class="nav-item ms-lg-2"><a class="btn-mh-primary" href="#empezar">Descarga la app</a></li>
-      </ul>
+  <!-- ===========================================
+       NAVEGACIÓN
+       =========================================== -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#inicio">
+        <img src="img/logo.png" alt="Madrid Habitada" class="navbar-logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+        aria-label="Abrir menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
+          <li class="nav-item"><a class="nav-link" href="#problema">El problema</a></li>
+          <li class="nav-item"><a class="nav-link" href="#propuesta">La propuesta</a></li>
+          <li class="nav-item"><a class="nav-link" href="#personas">Para quién</a></li>
+          <li class="nav-item"><a class="nav-link" href="#funciona">Cómo funciona</a></li>
+          <li class="nav-item"><a class="boton-principal" href="#empezar">Descarga la app</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<!-- ═══ HERO ═══ -->
-<header class="hero" id="inicio">
-  <div class="hero-grid">
-    <div class="hero-text">
-      <p class="eyebrow hero-eyebrow mb-3">● App para residentes de Madrid</p>
-      <h1 class="mb-2">Madrid como<br><em>lugar vivido.</em></h1>
-      <p class="hero-subtitle mb-4">No como decorado.</p>
-      <p class="lead-hero mb-4">
-        Redescubre tu ciudad desde el barrio, la vida cotidiana y la afinidad.
-        <span class="lead-highlight">Sin rankings turísticos, sin viralidad, sin ruido.</span>
+  <!-- ===========================================
+       HERO
+       =========================================== -->
+  <header class="hero py-5" id="inicio">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <p class="etiqueta mb-3">App para residentes de Madrid</p>
+          <h1 class="mb-2">Madrid como <em>lugar vivido.</em></h1>
+          <p class="hero-subtitulo mb-4">No como decorado.</p>
+          <p class="texto-seccion mb-4">
+            Redescubre tu ciudad desde el barrio, la vida cotidiana y la afinidad.
+            Sin rankings turísticos, sin viralidad, sin ruido.
+          </p>
+          <div class="d-flex flex-column flex-sm-row gap-3 mb-5">
+            <a class="boton-principal" href="#empezar">Descarga la app</a>
+            <a class="boton-secundario" href="#funciona">Ver cómo funciona →</a>
+          </div>
+          <div class="d-flex gap-4">
+            <div>
+              <span class="dato-numero">40+</span>
+              <p class="dato-texto mb-0">Usuarios piloto</p>
+            </div>
+            <div>
+              <span class="dato-numero">21</span>
+              <p class="dato-texto mb-0">Barrios</p>
+            </div>
+            <div>
+              <span class="dato-numero">0</span>
+              <p class="dato-texto mb-0">Rankings</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <img src="img/calle.png" alt="Vecina caminando por una calle de Madrid al atardecer" class="hero-imagen">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===========================================
+       EL PROBLEMA
+       =========================================== -->
+  <section class="seccion-oscura py-5" id="problema">
+    <div class="container">
+      <p class="etiqueta mb-3">El problema</p>
+      <h2 class="titulo-seccion mb-3">Madrid <em>estandarizado</em> por likes y rankings.</h2>
+      <p class="texto-seccion mb-5">
+        Las apps de recomendación actuales muestran Madrid desde lógicas turísticas,
+        invisibilizando la vida cotidiana de quienes la habitan.
       </p>
-      <div class="d-flex flex-column flex-sm-row gap-3 mb-5">
-        <a class="btn-mh-primary" href="#empezar">Descarga la app</a>
-        <a class="btn-mh-outline" href="#funciona">Ver cómo funciona →</a>
-      </div>
-      <div class="d-flex gap-4 flex-wrap">
-        <div>
-          <span style="font-size:26px;font-weight:800;color:var(--granate);line-height:1;">40+</span><br>
-          <span style="font-size:11px;font-weight:500;color:var(--azul-sombra);opacity:.55;text-transform:uppercase;letter-spacing:.06em;">usuarios piloto</span>
+
+      <img src="img/mercado.png" alt="Vecina comprando en un mercado de barrio de Madrid"
+        class="imagen-problema mb-5">
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <article class="tarjeta-problema p-4">
+            <div class="icono-problema">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C46A4A" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                <polyline points="16 7 22 7 22 13" />
+              </svg>
+            </div>
+            <h3 class="h5 fw-bold mb-2">Saturación por popularidad</h3>
+            <p class="mb-0">
+              Los rankings generan un efecto acumulativo: cuanto más visible es un lugar,
+              más se visita y más se satura. Los barrios pierden su identidad.
+            </p>
+          </article>
         </div>
-        <div>
-          <span style="font-size:26px;font-weight:800;color:var(--granate);line-height:1;">21</span><br>
-          <span style="font-size:11px;font-weight:500;color:var(--azul-sombra);opacity:.55;text-transform:uppercase;letter-spacing:.06em;">barrios</span>
+        <div class="col-md-4">
+          <article class="tarjeta-problema p-4">
+            <div class="icono-problema">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C46A4A" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              </svg>
+            </div>
+            <h3 class="h5 fw-bold mb-2">Invisibilización de lo cotidiano</h3>
+            <p class="mb-0">
+              Los comercios locales y ubicaciones de barrio quedan sepultados bajo
+              recomendaciones virales y rutas turísticas estándar.
+            </p>
+          </article>
         </div>
-        <div>
-          <span style="font-size:26px;font-weight:800;color:var(--granate);line-height:1;">0</span><br>
-          <span style="font-size:11px;font-weight:500;color:var(--azul-sombra);opacity:.55;text-transform:uppercase;letter-spacing:.06em;">rankings</span>
-        </div>
-      </div>
-    </div>
-    <div class="hero-media">
-      <img src="img/calle.png" alt="Vecina caminando por una calle de Madrid al atardecer">
-    </div>
-  </div>
-</header>
-
-<!-- ═══ PROBLEMA ═══ -->
-<section class="section-dark py-5" id="problema">
-  <div class="container py-lg-4">
-    <p class="eyebrow mb-3">● El problema</p>
-    <h2 class="section-title display-5 mb-3">Madrid <em>estandarizado</em><br>por likes y rankings.</h2>
-    <p class="section-lead wide mb-5">Las apps de recomendación actuales muestran Madrid desde lógicas turísticas, invisibilizando la vida cotidiana de quienes la habitan.</p>
-
-    <div class="mb-5">
-      <img src="img/mercado.png" alt="Vecina comprando en un mercado de barrio de Madrid" class="problema-img w-100">
-    </div>
-
-    <div class="row g-4">
-      <div class="col-md-4">
-        <article class="problem-card p-4">
-          <div class="icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C46A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-          </div>
-          <h3 class="h5 fw-bold mb-2">Saturación por popularidad</h3>
-          <p>Los rankings generan un efecto acumulativo: cuanto más visible es un lugar, más se visita y más se satura. Los barrios pierden su identidad.</p>
-        </article>
-      </div>
-      <div class="col-md-4">
-        <article class="problem-card p-4">
-          <div class="icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C46A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-          </div>
-          <h3 class="h5 fw-bold mb-2">Invisibilización de lo cotidiano</h3>
-          <p>Los comercios locales y ubicaciones de barrio quedan sepultados bajo recomendaciones virales y rutas turísticas estándar.</p>
-        </article>
-      </div>
-      <div class="col-md-4">
-        <article class="problem-card p-4">
-          <div class="icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C46A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-          </div>
-          <h3 class="h5 fw-bold mb-2">La ciudad como producto</h3>
-          <p>Las plataformas reorganizan cómo se percibe, se recorre y se consume la ciudad, reduciendo su complejidad a consumo rápido.</p>
-        </article>
-      </div>
-    </div>
-    <p class="mt-5 mb-0" style="color:rgba(243,230,211,.75)">Madrid Habitada existe para devolver al residente una relación más propia, próxima y cotidiana con la ciudad.</p>
-  </div>
-</section>
-
-<!-- ═══ PROPUESTA ═══ -->
-<section class="py-5" id="propuesta" style="background:white;">
-  <div class="container py-lg-4">
-    <div class="row align-items-center g-5">
-      <div class="col-lg-5 order-lg-2">
-        <img src="img/app.png" alt="Pantalla de la app Madrid Habitada mostrando el detalle de Café Athenea" class="app-mockup">
-      </div>
-      <div class="col-lg-7 order-lg-1">
-        <p class="eyebrow mb-3">● La propuesta</p>
-        <h2 class="section-title display-5 mb-3">Tecnología como mediadora <em>silenciosa</em>.</h2>
-        <p class="section-lead mb-5">Madrid Habitada ayuda a redescubrir la ciudad desde barrios, usos reales y experiencias no turistificadas.</p>
-        <div class="row g-3">
-          <div class="col-sm-6">
-            <article class="soft-card p-4">
-              <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/><circle cx="12" cy="12" r="10"/></svg></div>
-              <h3 class="fw-bold mb-2">Exploración por afinidad</h3>
-              <p class="mb-0">Recomendaciones por barrio habitual, contexto de uso y afinidad personal. Sin rankings, sin modas.</p>
-            </article>
-          </div>
-          <div class="col-sm-6">
-            <article class="soft-card p-4">
-              <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg></div>
-              <h3 class="fw-bold mb-2">Fichas contextuales</h3>
-              <p class="mb-0">Cada lugar explica su papel en la vida del barrio: qué hay, por qué encaja contigo y qué puedes hacer.</p>
-            </article>
-          </div>
-          <div class="col-sm-6">
-            <article class="soft-card p-4">
-              <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-              <h3 class="fw-bold mb-2">Momentos del día</h3>
-              <p class="mb-0">Mañana, tarde o noche. La app propone lugares según el momento con baja carga cognitiva.</p>
-            </article>
-          </div>
-          <div class="col-sm-6">
-            <article class="soft-card p-4">
-              <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
-              <h3 class="fw-bold mb-2">Guardados privados</h3>
-              <p class="mb-0">Tu memoria personal de la ciudad. Sin rankings sociales ni obligación de publicar o compartir.</p>
-            </article>
-          </div>
+        <div class="col-md-4">
+          <article class="tarjeta-problema p-4">
+            <div class="icono-problema">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C46A4A" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+              </svg>
+            </div>
+            <h3 class="h5 fw-bold mb-2">La ciudad como producto</h3>
+            <p class="mb-0">
+              Las plataformas reorganizan cómo se percibe, se recorre y se consume la
+              ciudad, reduciendo su complejidad a consumo rápido.
+            </p>
+          </article>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- ═══ OBJETIVO SMART ═══ -->
-<section class="section-dark py-5" id="objetivo">
-  <div class="container py-lg-4">
-    <p class="eyebrow mb-3">● Objetivo SMART</p>
-    <h2 class="section-title display-6 mb-3">Validar la <em>experiencia</em> en cuatro semanas.</h2>
-    <p class="section-lead wide mb-5">Validar con una muestra mínima de 40 usuarios residentes en Madrid si la experiencia de exploración permite que al menos el 60 % encuentre y guarde un lugar afín o inicie una ruta cotidiana en menos de 3 minutos, con valoración media mínima de 4/5 en claridad, utilidad y afinidad percibida.</p>
-    <div class="row g-3">
-      <div class="col-6 col-lg"><article class="metric-card"><span class="metric-number">4</span><p class="fw-bold mb-1">semanas</p><p class="small mb-0">Periodo de validación del prototipo.</p></article></div>
-      <div class="col-6 col-lg"><article class="metric-card"><span class="metric-number">&lt;3'</span><p class="fw-bold mb-1">minutos</p><p class="small mb-0">Tiempo máximo para completar la acción.</p></article></div>
-      <div class="col-6 col-lg"><article class="metric-card"><span class="metric-number">4/5</span><p class="fw-bold mb-1">valoración</p><p class="small mb-0">Claridad, utilidad y afinidad percibida.</p></article></div>
-      <div class="col-6 col-lg"><article class="metric-card"><span class="metric-number">60%</span><p class="fw-bold mb-1">conversión</p><p class="small mb-0">Guardar un lugar o iniciar una ruta.</p></article></div>
-      <div class="col-6 col-lg"><article class="metric-card"><span class="metric-number">40</span><p class="fw-bold mb-1">usuarios</p><p class="small mb-0">Muestra mínima de residentes.</p></article></div>
+      <p class="mt-5 mb-0">
+        Madrid Habitada existe para devolver al residente una relación más propia,
+        próxima y cotidiana con la ciudad.
+      </p>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══ PERSONAS ═══ -->
-<section class="py-5" id="personas">
-  <div class="container py-lg-4">
-    <p class="eyebrow mb-3">● Para quién</p>
-    <h2 class="section-title display-5 mb-3">Tres formas de <em>habitar</em> Madrid</h2>
-    <p class="section-lead wide mb-5">Madrid Habitada se adapta a distintas relaciones con la ciudad, siempre desde la vida cotidiana y la proximidad.</p>
-    <div class="row g-4">
-      <div class="col-lg-4">
-        <article class="persona-card">
-          <div class="persona-head">
-            <div class="persona-initials">ML</div>
-            <p class="eyebrow mb-1">Residente arraigada</p>
+  <!-- ===========================================
+       LA PROPUESTA
+       =========================================== -->
+  <section class="py-5 bg-white" id="propuesta">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-5 order-lg-2 text-center">
+          <img src="img/app.png" alt="Pantalla de la app mostrando el detalle de Café Athenea" class="imagen-app">
+        </div>
+        <div class="col-lg-7 order-lg-1">
+          <p class="etiqueta mb-3">La propuesta</p>
+          <h2 class="titulo-seccion mb-3">Tecnología como mediadora <em>silenciosa</em>.</h2>
+          <p class="texto-seccion mb-5">
+            Madrid Habitada ayuda a redescubrir la ciudad desde barrios, usos reales
+            y experiencias no turistificadas.
+          </p>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <article class="tarjeta-propuesta p-4">
+                <div class="icono-propuesta">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" />
+                    <circle cx="12" cy="12" r="10" />
+                  </svg>
+                </div>
+                <h3 class="fw-bold mb-2">Exploración por afinidad</h3>
+                <p class="mb-0">
+                  Recomendaciones por barrio habitual, contexto de uso y afinidad
+                  personal. Sin rankings, sin modas.
+                </p>
+              </article>
+            </div>
+            <div class="col-sm-6">
+              <article class="tarjeta-propuesta p-4">
+                <div class="icono-propuesta">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                    <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                    <path d="M10 9H8" />
+                    <path d="M16 13H8" />
+                    <path d="M16 17H8" />
+                  </svg>
+                </div>
+                <h3 class="fw-bold mb-2">Fichas contextuales</h3>
+                <p class="mb-0">
+                  Cada lugar explica su papel en la vida del barrio: qué hay, por qué
+                  encaja contigo y qué puedes hacer.
+                </p>
+              </article>
+            </div>
+            <div class="col-sm-6">
+              <article class="tarjeta-propuesta p-4">
+                <div class="icono-propuesta">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                </div>
+                <h3 class="fw-bold mb-2">Momentos del día</h3>
+                <p class="mb-0">
+                  Mañana, tarde o noche. La app propone lugares según el momento con
+                  baja carga cognitiva.
+                </p>
+              </article>
+            </div>
+            <div class="col-sm-6">
+              <article class="tarjeta-propuesta p-4">
+                <div class="icono-propuesta">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                  </svg>
+                </div>
+                <h3 class="fw-bold mb-2">Guardados privados</h3>
+                <p class="mb-0">
+                  Tu memoria personal de la ciudad. Sin rankings sociales ni obligación
+                  de publicar o compartir.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       OBJETIVO SMART
+       =========================================== -->
+  <section class="seccion-oscura py-5" id="objetivo">
+    <div class="container">
+      <p class="etiqueta mb-3">Objetivo SMART</p>
+      <h2 class="titulo-seccion mb-3">Validar la <em>experiencia</em> en cuatro semanas.</h2>
+      <p class="texto-seccion mb-5">
+        Validar con una muestra mínima de 40 usuarios residentes en Madrid si la
+        experiencia de exploración permite que al menos el 60 % encuentre y guarde un
+        lugar afín o inicie una ruta cotidiana en menos de 3 minutos, con valoración
+        media mínima de 4/5 en claridad, utilidad y afinidad percibida.
+      </p>
+      <div class="row g-3">
+        <div class="col-6 col-lg">
+          <article class="tarjeta-metrica">
+            <span class="numero-metrica">4</span>
+            <p class="fw-bold mb-1">semanas</p>
+            <p class="small mb-0">Periodo de validación del prototipo.</p>
+          </article>
+        </div>
+        <div class="col-6 col-lg">
+          <article class="tarjeta-metrica">
+            <span class="numero-metrica">&lt;3'</span>
+            <p class="fw-bold mb-1">minutos</p>
+            <p class="small mb-0">Tiempo máximo para completar la acción.</p>
+          </article>
+        </div>
+        <div class="col-6 col-lg">
+          <article class="tarjeta-metrica">
+            <span class="numero-metrica">4/5</span>
+            <p class="fw-bold mb-1">valoración</p>
+            <p class="small mb-0">Claridad, utilidad y afinidad percibida.</p>
+          </article>
+        </div>
+        <div class="col-6 col-lg">
+          <article class="tarjeta-metrica">
+            <span class="numero-metrica">60%</span>
+            <p class="fw-bold mb-1">conversión</p>
+            <p class="small mb-0">Guardar un lugar o iniciar una ruta.</p>
+          </article>
+        </div>
+        <div class="col-6 col-lg">
+          <article class="tarjeta-metrica">
+            <span class="numero-metrica">40</span>
+            <p class="fw-bold mb-1">usuarios</p>
+            <p class="small mb-0">Muestra mínima de residentes.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       PARA QUIÉN (personas)
+       =========================================== -->
+  <section class="py-5" id="personas">
+    <div class="container">
+      <p class="etiqueta mb-3">Para quién</p>
+      <h2 class="titulo-seccion mb-3">Tres formas de <em>habitar</em> Madrid</h2>
+      <p class="texto-seccion mb-5">
+        Madrid Habitada se adapta a distintas relaciones con la ciudad, siempre desde
+        la vida cotidiana y la proximidad.
+      </p>
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <article class="tarjeta-persona">
+            <div class="iniciales-persona">ML</div>
+            <p class="etiqueta mb-1">Residente arraigada</p>
             <h3>María Luengo</h3>
             <p class="text-muted small mb-1">36 años · Administrativa</p>
-            <p class="text-muted small mb-0">Carabanchel</p>
-          </div>
-          <div class="px-4 pb-4 pt-3">
+            <p class="text-muted small mb-3">Carabanchel</p>
             <p>Necesita proteger sus rutinas y espacios de confianza frente a la masificación.</p>
-            <div class="quote">«Quiero seguir yendo a mis sitios sin que se llenen de gente que los descubrió en Instagram.»</div>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4">
-        <article class="persona-card">
-          <div class="persona-head">
-            <div class="persona-initials">JR</div>
-            <p class="eyebrow mb-1">Residente largo plazo</p>
+            <p class="cita-persona mb-0">
+              «Quiero seguir yendo a mis sitios sin que se llenen de gente que los
+              descubrió en Instagram.»
+            </p>
+          </article>
+        </div>
+        <div class="col-lg-4">
+          <article class="tarjeta-persona">
+            <div class="iniciales-persona">JR</div>
+            <p class="etiqueta mb-1">Residente largo plazo</p>
             <h3>Javier Rodríguez</h3>
             <p class="text-muted small mb-1">42 años · Informático</p>
-            <p class="text-muted small mb-0">Chamberí</p>
-          </div>
-          <div class="px-4 pb-4 pt-3">
+            <p class="text-muted small mb-3">Chamberí</p>
             <p>Busca seguir descubriendo Madrid sin depender de rankings ni recomendaciones masivas.</p>
-            <div class="quote">«Llevo 15 años aquí y aún quiero descubrir sin que me lo dé un algoritmo de turistas.»</div>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4">
-        <article class="persona-card">
-          <div class="persona-head">
-            <div class="persona-initials">CS</div>
-            <p class="eyebrow mb-1">Residente reciente</p>
+            <p class="cita-persona mb-0">
+              «Llevo 15 años aquí y aún quiero descubrir sin que me lo dé un algoritmo
+              de turistas.»
+            </p>
+          </article>
+        </div>
+        <div class="col-lg-4">
+          <article class="tarjeta-persona">
+            <div class="iniciales-persona">CS</div>
+            <p class="etiqueta mb-1">Residente reciente</p>
             <h3>Claudia Sánchez</h3>
             <p class="text-muted small mb-1">29 años · Diseñadora</p>
-            <p class="text-muted small mb-0">Aluche</p>
-          </div>
-          <div class="px-4 pb-4 pt-3">
+            <p class="text-muted small mb-3">Aluche</p>
             <p>Necesita orientación para construir pertenencia de forma progresiva.</p>
-            <div class="quote">«Me mudé hace 6 meses y no quiero que mi única referencia sean las rutas de siempre.»</div>
-          </div>
-        </article>
+            <p class="cita-persona mb-0">
+              «Me mudé hace 6 meses y no quiero que mi única referencia sean las rutas
+              de siempre.»
+            </p>
+          </article>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══ ARQUITECTURA + RACE ═══ -->
-<section class="section-dark py-5" id="arquitectura">
-  <div class="container py-lg-4">
-    <p class="eyebrow mb-3">● Arquitectura de la información</p>
-    <h2 class="section-title display-5 mb-3">Diseñada para generar una <em>relación real</em>.</h2>
-    <p class="section-lead wide mb-4">El diseño no busca retener atención; busca resolver una consulta y devolver al usuario a la ciudad. La información se organiza en tres niveles.</p>
-    <div class="d-flex flex-wrap gap-2 mb-5">
-      <span class="badge rounded-pill px-3 py-2" style="background:rgba(243,230,211,.12);color:var(--crema);font-weight:600;">Esencial</span>
-      <span class="badge rounded-pill px-3 py-2" style="background:rgba(243,230,211,.12);color:var(--crema);font-weight:600;">Contexto</span>
-      <span class="badge rounded-pill px-3 py-2" style="background:rgba(243,230,211,.12);color:var(--crema);font-weight:600;">Ampliada</span>
+  <!-- ===========================================
+       ARQUITECTURA DE LA INFORMACIÓN
+       =========================================== -->
+  <section class="seccion-oscura py-5" id="arquitectura">
+    <div class="container">
+      <p class="etiqueta mb-3">Arquitectura de la información</p>
+      <h2 class="titulo-seccion mb-3">Diseñada para generar una <em>relación real</em>.</h2>
+      <p class="texto-seccion mb-4">
+        El diseño no busca retener atención; busca resolver una consulta y devolver al
+        usuario a la ciudad. La información se organiza en tres niveles.
+      </p>
+      <div class="d-flex flex-wrap gap-2 mb-5">
+        <span class="badge rounded-pill bg-secondary px-3 py-2">Esencial</span>
+        <span class="badge rounded-pill bg-secondary px-3 py-2">Contexto</span>
+        <span class="badge rounded-pill bg-secondary px-3 py-2">Ampliada</span>
+      </div>
+      <img src="img/wireframes.png" alt="Wireframes de las pantallas principales de la app" class="imagen-wireframes">
     </div>
-    <img src="img/wireframes.png" alt="Wireframes de las pantallas principales: inicio, mi barrio, guardados, explorar, momentos y ficha de lugar" class="wireframe-img mb-5">
+  </section>
 
-    <p class="eyebrow mb-3" id="funciona">● Embudo de conversión · RACE</p>
-    <h2 class="section-title display-5 mb-3">El embudo que mide <em>conexión</em>,<br>no tráfico.</h2>
-    <p class="section-lead wide mb-5">Cada fase del producto está diseñada para reducir fricción y generar una relación real. El modelo RACE se interpreta como indicador de valor experiencial.</p>
-    <div class="row g-3 align-items-stretch text-center">
-      <div class="col"><article class="flow-card p-4"><div class="flow-num">1</div><h3 class="h6 fw-bold text-uppercase mb-1">Planificar</h3><p>Base estratégica y definición de audiencia.</p></article></div>
-      <div class="col-auto d-flex align-items-center"><span class="race-arrow">→</span></div>
-      <div class="col"><article class="flow-card p-4"><div class="flow-num">2</div><h3 class="h6 fw-bold text-uppercase mb-1">Alcanzar</h3><p>Atraer residentes, no turistas.</p></article></div>
-      <div class="col-auto d-flex align-items-center"><span class="race-arrow">→</span></div>
-      <div class="col"><article class="flow-card p-4"><div class="flow-num">3</div><h3 class="h6 fw-bold text-uppercase mb-1">Actuar</h3><p>Exploración útil sin fricciones.</p></article></div>
-      <div class="col-auto d-flex align-items-center"><span class="race-arrow">→</span></div>
-      <div class="col"><article class="flow-card p-4"><div class="flow-num">4</div><h3 class="h6 fw-bold text-uppercase mb-1">Convertir</h3><p>Guardar un lugar o iniciar una ruta.</p></article></div>
-      <div class="col-auto d-flex align-items-center"><span class="race-arrow">→</span></div>
-      <div class="col"><article class="flow-card p-4"><div class="flow-num">5</div><h3 class="h6 fw-bold text-uppercase mb-1">Involucrar</h3><p>Retorno y vínculo emocional.</p></article></div>
+  <!-- ===========================================
+       CÓMO FUNCIONA (embudo RACE)
+       =========================================== -->
+  <section class="seccion-oscura pb-5" id="funciona">
+    <div class="container">
+      <p class="etiqueta mb-3">Embudo de conversión · RACE</p>
+      <h2 class="titulo-seccion mb-3">El embudo que mide <em>conexión</em>, no tráfico.</h2>
+      <p class="texto-seccion mb-5">
+        Cada fase del producto está diseñada para reducir fricción y generar una
+        relación real. El modelo RACE se interpreta como indicador de valor experiencial.
+      </p>
+      <div class="row g-3">
+        <div class="col-6 col-md">
+          <article class="tarjeta-fase p-4">
+            <div class="numero-fase">1</div>
+            <h3 class="fw-bold text-uppercase mb-1">Planificar</h3>
+            <p class="mb-0">Base estratégica y definición de audiencia.</p>
+          </article>
+        </div>
+        <div class="col-6 col-md">
+          <article class="tarjeta-fase p-4">
+            <div class="numero-fase">2</div>
+            <h3 class="fw-bold text-uppercase mb-1">Alcanzar</h3>
+            <p class="mb-0">Atraer residentes, no turistas.</p>
+          </article>
+        </div>
+        <div class="col-6 col-md">
+          <article class="tarjeta-fase p-4">
+            <div class="numero-fase">3</div>
+            <h3 class="fw-bold text-uppercase mb-1">Actuar</h3>
+            <p class="mb-0">Exploración útil sin fricciones.</p>
+          </article>
+        </div>
+        <div class="col-6 col-md">
+          <article class="tarjeta-fase p-4">
+            <div class="numero-fase">4</div>
+            <h3 class="fw-bold text-uppercase mb-1">Convertir</h3>
+            <p class="mb-0">Guardar un lugar o iniciar una ruta.</p>
+          </article>
+        </div>
+        <div class="col-6 col-md">
+          <article class="tarjeta-fase p-4">
+            <div class="numero-fase">5</div>
+            <h3 class="fw-bold text-uppercase mb-1">Involucrar</h3>
+            <p class="mb-0">Retorno y vínculo emocional.</p>
+          </article>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══ CTA ═══ -->
-<section class="py-5" id="empezar">
-  <div class="container py-lg-4">
-    <div class="cta-panel p-4 p-lg-5 text-center">
-      <img src="img/plaza.png" alt="" class="cta-bg" aria-hidden="true">
-      <div class="cta-content">
-        <p class="eyebrow mb-3">● Empieza hoy</p>
-        <h2 class="section-title display-4 mb-3">Madrid se habita,<br>no se consume.</h2>
-        <p class="section-lead mx-auto mb-4">Únete a los primeros residentes que redescubren su ciudad desde la proximidad, sin ruido y sin rankings.</p>
+  <!-- ===========================================
+       LLAMADA A LA ACCIÓN
+       =========================================== -->
+  <section class="py-5" id="empezar">
+    <div class="container">
+      <div class="panel-cta">
+        <p class="etiqueta mb-3">Empieza hoy</p>
+        <h2 class="titulo-seccion mb-3">Madrid se habita, no se consume.</h2>
+        <p class="texto-seccion mb-4">
+          Únete a los primeros residentes que redescubren su ciudad desde la
+          proximidad, sin ruido y sin rankings.
+        </p>
         <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mb-4">
-          <a class="btn-mh-primary" href="#">Descarga gratis</a>
-          <a class="btn-mh-outline-light" href="#">Ver el prototipo →</a>
+          <a class="boton-principal" href="#">Descarga gratis</a>
+          <a class="boton-secundario-claro" href="#">Ver el prototipo →</a>
         </div>
-        <p class="small mb-0" style="color:rgba(243,230,211,.45)">Sin publicidad · Sin rankings turísticos · Tecnología discreta</p>
+        <p class="small mb-0">Sin publicidad · Sin rankings turísticos · Tecnología discreta</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══ IDENTIDAD VISUAL ═══ -->
-<section class="py-5" id="identidad" style="background:white;">
-  <div class="container py-lg-4">
-    <p class="eyebrow mb-3">● Identidad visual</p>
-    <h2 class="section-title display-6 mb-2">Referencias visuales de la ciudad cotidiana.</h2>
-    <p class="section-lead wide mb-5">Fachadas, ladrillo, persianas, portales, mercados, bares, calles secundarias y comercio local. Criterio fotográfico documental, a nivel de calle, con luz natural.</p>
+  <!-- ===========================================
+       IDENTIDAD VISUAL
+       =========================================== -->
+  <section class="py-5 bg-white" id="identidad">
+    <div class="container">
+      <p class="etiqueta mb-3">Identidad visual</p>
+      <h2 class="titulo-seccion mb-2">Referencias visuales de la ciudad cotidiana.</h2>
+      <p class="texto-seccion mb-5">
+        Fachadas, ladrillo, persianas, portales, mercados, bares, calles secundarias y
+        comercio local. Criterio fotográfico documental, a nivel de calle, con luz natural.
+      </p>
 
-    <div class="row g-3 mb-5">
-      <div class="col-md-4">
-        <img src="img/bar.png" alt="Bar de barrio en la Calle Martín de los Heros" class="gallery-img">
-        <p class="gallery-label">Bar de barrio</p>
-      </div>
-      <div class="col-md-4">
-        <img src="img/mercado.png" alt="Puesto de frutas y verduras en un mercado de barrio" class="gallery-img">
-        <p class="gallery-label">Mercado de barrio</p>
-      </div>
-      <div class="col-md-4">
-        <img src="img/kiosko.png" alt="Kiosco de prensa en una plaza de Madrid" class="gallery-img">
-        <p class="gallery-label">Kiosco de prensa</p>
-      </div>
-    </div>
-
-    <div class="row g-5">
-      <div class="col-lg-6">
-        <div class="identity-card p-4">
-          <h3 class="h5 fw-bold mb-2">Referencias visuales</h3>
-          <p>Fachadas, ladrillo, persianas, portales, mercados, bares, calles secundarias y comercio local.</p>
-          <h3 class="h5 fw-bold mt-4 mb-2">Criterio fotográfico</h3>
-          <p class="mb-0">Documental · nivel de calle · luz natural · escenas no monumentales.</p>
-          <h3 class="h5 fw-bold mt-4 mb-2">Tipografía</h3>
-          <p class="mb-0">Plus Jakarta Sans — Clara, funcional y amable.</p>
+      <!-- Galería de fotos -->
+      <div class="row g-3 mb-5">
+        <div class="col-md-4">
+          <img src="img/bar.png" alt="Bar de barrio en la Calle Martín de los Heros" class="imagen-galeria">
+          <p class="etiqueta-galeria">Bar de barrio</p>
+        </div>
+        <div class="col-md-4">
+          <img src="img/mercado.png" alt="Puesto de frutas y verduras en un mercado de barrio" class="imagen-galeria">
+          <p class="etiqueta-galeria">Mercado de barrio</p>
+        </div>
+        <div class="col-md-4">
+          <img src="img/kiosko.png" alt="Kiosco de prensa en una plaza de Madrid" class="imagen-galeria">
+          <p class="etiqueta-galeria">Kiosco de prensa</p>
         </div>
       </div>
-      <div class="col-lg-6">
-        <h3 class="h5 fw-bold mb-3">Paleta de color</h3>
-        <div class="row g-3 mb-4">
-          <div class="col-6 col-md-4"><div class="swatch" style="background:#8A3A32"></div><p class="small mt-2 mb-0">Granate ladrillo<br><strong>#8A3A32</strong></p></div>
-          <div class="col-6 col-md-4"><div class="swatch" style="background:#C46A4A"></div><p class="small mt-2 mb-0">Terracota suave<br><strong>#C46A4A</strong></p></div>
-          <div class="col-6 col-md-4"><div class="swatch" style="background:#2F3A45"></div><p class="small mt-2 mb-0">Azul sombra<br><strong>#2F3A45</strong></p></div>
-          <div class="col-6 col-md-4"><div class="swatch" style="background:#5E6049"></div><p class="small mt-2 mb-0">Verde persiana<br><strong>#5E6049</strong></p></div>
-          <div class="col-6 col-md-4"><div class="swatch" style="background:#F3E6D3;border:1px solid rgba(0,0,0,.1)"></div><p class="small mt-2 mb-0">Crema fachada<br><strong>#F3E6D3</strong></p></div>
-          <div class="col-6 col-md-4"><div class="swatch" style="background:#323232"></div><p class="small mt-2 mb-0">Gris piedra<br><strong>#323232</strong></p></div>
+
+      <div class="row g-5">
+        <!-- Referencias y criterio -->
+        <div class="col-lg-6">
+          <div class="tarjeta-identidad p-4">
+            <h3 class="h5 fw-bold mb-2">Referencias visuales</h3>
+            <p>Fachadas, ladrillo, persianas, portales, mercados, bares, calles secundarias y comercio local.</p>
+            <h3 class="h5 fw-bold mt-4 mb-2">Criterio fotográfico</h3>
+            <p class="mb-0">Documental · nivel de calle · luz natural · escenas no monumentales.</p>
+            <h3 class="h5 fw-bold mt-4 mb-2">Tipografía</h3>
+            <p class="mb-0">Plus Jakarta Sans — Clara, funcional y amable.</p>
+          </div>
         </div>
-        <h3 class="h5 fw-bold mb-3">Atributos de marca</h3>
-        <div class="d-flex flex-wrap gap-2">
-          <span class="brand-pill">Cotidiana</span>
-          <span class="brand-pill">Cercana</span>
-          <span class="brand-pill">Discreta</span>
-          <span class="brand-pill">Identitaria</span>
-          <span class="brand-pill">Urbana</span>
-          <span class="brand-pill">Fiable</span>
+        <!-- Paleta y atributos -->
+        <div class="col-lg-6">
+          <h3 class="h5 fw-bold mb-3">Paleta de color</h3>
+          <div class="row g-3 mb-4">
+            <div class="col-6 col-md-4">
+              <div class="muestra-color" style="background-color: #8A3A32;"></div>
+              <p class="small mt-2 mb-0">Granate ladrillo<br><strong>#8A3A32</strong></p>
+            </div>
+            <div class="col-6 col-md-4">
+              <div class="muestra-color" style="background-color: #C46A4A;"></div>
+              <p class="small mt-2 mb-0">Terracota suave<br><strong>#C46A4A</strong></p>
+            </div>
+            <div class="col-6 col-md-4">
+              <div class="muestra-color" style="background-color: #2F3A45;"></div>
+              <p class="small mt-2 mb-0">Azul sombra<br><strong>#2F3A45</strong></p>
+            </div>
+            <div class="col-6 col-md-4">
+              <div class="muestra-color" style="background-color: #5E6049;"></div>
+              <p class="small mt-2 mb-0">Verde persiana<br><strong>#5E6049</strong></p>
+            </div>
+            <div class="col-6 col-md-4">
+              <div class="muestra-color" style="background-color: #F3E6D3;"></div>
+              <p class="small mt-2 mb-0">Crema fachada<br><strong>#F3E6D3</strong></p>
+            </div>
+            <div class="col-6 col-md-4">
+              <div class="muestra-color" style="background-color: #323232;"></div>
+              <p class="small mt-2 mb-0">Gris piedra<br><strong>#323232</strong></p>
+            </div>
+          </div>
+          <h3 class="h5 fw-bold mb-3">Atributos de marca</h3>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="pildora-marca">Cotidiana</span>
+            <span class="pildora-marca">Cercana</span>
+            <span class="pildora-marca">Discreta</span>
+            <span class="pildora-marca">Identitaria</span>
+            <span class="pildora-marca">Urbana</span>
+            <span class="pildora-marca">Fiable</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══ FOOTER ═══ -->
-<footer class="py-5">
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-lg-5">
-        <h2 class="h4 fw-bold text-uppercase mb-3">Madrid<br>Habitada</h2>
-        <p class="mb-2">Ciudad como lugar vivido, no como decorado.</p>
-        <p class="small mb-0" style="color:rgba(243,230,211,.45)">Sistema digital para redescubrir Madrid desde la vida cotidiana, el barrio y la pertenencia. Sin ruido, sin rankings, sin turismo.</p>
+  <!-- ===========================================
+       PIE DE PÁGINA
+       =========================================== -->
+  <footer class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <img src="img/bar.png" alt="Bar de barrio de Madrid al atardecer" class="imagen-footer">
+          <h2 class="h4 fw-bold text-uppercase mb-3">Madrid Habitada</h2>
+          <p class="mb-2">Ciudad como lugar vivido, no como decorado.</p>
+          <p class="small mb-0">
+            Sistema digital para redescubrir Madrid desde la vida cotidiana, el barrio
+            y la pertenencia. Sin ruido, sin rankings, sin turismo.
+          </p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold text-uppercase mb-3">Explorar</h3>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="#">Mi barrio</a></li>
+            <li class="mb-2"><a href="#">Momentos</a></li>
+            <li class="mb-2"><a href="#">Guardados</a></li>
+            <li class="mb-2"><a href="#">Rutas cotidianas</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold text-uppercase mb-3">Proyecto</h3>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="#">Sobre Madrid Habitada</a></li>
+            <li class="mb-2"><a href="#">Design System</a></li>
+            <li class="mb-2"><a href="#">Investigación UX</a></li>
+            <li class="mb-2"><a href="#">TFM</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold text-uppercase mb-3">Legal</h3>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="#">Privacidad</a></li>
+            <li class="mb-2"><a href="#">Términos de uso</a></li>
+            <li class="mb-2"><a href="#">Accesibilidad</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="col-6 col-lg-2">
-        <h3 class="h6 fw-bold text-uppercase mb-3">Explorar</h3>
-        <ul class="list-unstyled small d-grid gap-2">
-          <li><a href="#">Mi barrio</a></li>
-          <li><a href="#">Momentos</a></li>
-          <li><a href="#">Guardados</a></li>
-          <li><a href="#">Rutas cotidianas</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-lg-2">
-        <h3 class="h6 fw-bold text-uppercase mb-3">Proyecto</h3>
-        <ul class="list-unstyled small d-grid gap-2">
-          <li><a href="#">Sobre Madrid Habitada</a></li>
-          <li><a href="#">Design System</a></li>
-          <li><a href="#">Investigación UX</a></li>
-          <li><a href="#">TFM</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-lg-2">
-        <h3 class="h6 fw-bold text-uppercase mb-3">Legal</h3>
-        <ul class="list-unstyled small d-grid gap-2">
-          <li><a href="#">Privacidad</a></li>
-          <li><a href="#">Términos de uso</a></li>
-          <li><a href="#">Accesibilidad</a></li>
-        </ul>
-      </div>
+      <hr class="my-4">
+      <p class="small mb-0">
+        © 2026 Madrid Habitada · Claudia Erustes · TFM Diseño UX/UI · Universidad Europea · Repensar Ciudades
+      </p>
     </div>
-    <hr style="border-color:rgba(243,230,211,.1);" class="my-4">
-    <p class="small mb-0" style="color:rgba(243,230,211,.35)">© 2026 Madrid Habitada · Claudia Erustes · TFM Diseño UX/UI · Universidad Europea · Repensar Ciudades</p>
-  </div>
-</footer>
+  </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
