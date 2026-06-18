@@ -192,8 +192,9 @@
     }
 
     .hero-contenido {
-      max-width: 560px;
       width: 100%;
+      padding-left: max(1.5rem, calc((100vw - 1320px) / 2 + 1.5rem));
+      padding-right: 2rem;
     }
 
     .dato-numero {
@@ -550,15 +551,15 @@
   <header class="hero" id="inicio">
     <div class="container-fluid px-0">
       <div class="row align-items-stretch g-0">
-        <div class="col-lg-6 py-5 d-flex align-items-center justify-content-lg-end">
-          <div class="hero-contenido px-4 px-sm-5">
+        <div class="col-lg-7 py-5 d-flex align-items-center">
+          <div class="hero-contenido">
             <p class="etiqueta mb-3">App para residentes de Madrid</p>
-            <h1 class="mb-2">Madrid como <em>lugar vivido.</em></h1>
+            <h1 class="mb-2">Madrid como<br><em>lugar vivido.</em></h1>
             <p class="hero-subtitulo mb-4">No como decorado.</p>
-            <p class="texto-seccion mb-4">
+            <p class="texto-seccion mb-2">
               Redescubre tu ciudad desde el barrio, la vida cotidiana y la afinidad.
-              <span style="font-weight:600;color:var(--terracota);">Sin rankings turísticos, sin viralidad, sin ruido.</span>
             </p>
+            <p class="mb-4" style="font-size:17px;font-weight:600;color:var(--terracota);">Sin rankings turísticos, sin viralidad, sin ruido.</p>
             <div class="d-flex flex-column flex-sm-row gap-3 mb-5">
               <a class="boton-principal" href="#empezar">Descarga la app</a>
               <a class="boton-secundario" href="#funciona">Ver cómo funciona →</a>
@@ -579,7 +580,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6 hero-imagen-col">
+        <div class="col-lg-5 hero-imagen-col">
           <img src="img/calle.png" alt="Vecina caminando por una calle de Madrid al atardecer" class="hero-imagen">
         </div>
       </div>
