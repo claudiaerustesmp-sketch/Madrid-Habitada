@@ -4,884 +4,1076 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Madrid Habitada · Ciudad como lugar vivido</title>
-  <meta name="description"
-    content="Sistema digital para redescubrir Madrid desde la vida cotidiana, el barrio y la pertenencia.">
 
-  <!-- Tipografía Google Fonts -->
+  <title>Madrid Habitada · Caso de estudio UX/UI · Claudia Erustes</title>
+  <meta name="description"
+    content="Caso de estudio UX/UI: sistema digital para redescubrir Madrid desde el barrio y la vida cotidiana. Investigación, arquitectura de la información, sistema de diseño, prototipo y plan de crecimiento. TFM del Máster en UX/UI Design, Universidad Europea.">
+  <meta name="author" content="Claudia Erustes">
+  <link rel="canonical" href="https://claudiaerustesmp-sketch.github.io/Madrid-Habitada/">
+  <meta name="theme-color" content="#1A1F25">
+
+  <!-- Redes sociales (LinkedIn, WhatsApp, X…) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="Claudia Erustes · Portfolio UX/UI">
+  <meta property="og:title" content="Madrid Habitada · Caso de estudio UX/UI">
+  <meta property="og:description"
+    content="Cómo diseñar una app que ayude a habitar Madrid en lugar de consumirla. Investigación, sistema de diseño, prototipo y plan de crecimiento.">
+  <meta property="og:url" content="https://claudiaerustesmp-sketch.github.io/Madrid-Habitada/">
+  <meta property="og:image" content="https://claudiaerustesmp-sketch.github.io/Madrid-Habitada/img/og-madrid-habitada.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Vecina caminando por una calle de barrio de Madrid al atardecer">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%238A3A32'/><path d='M16 6.5c-3.4 0-6.2 2.7-6.2 6.1 0 4.6 6.2 12.4 6.2 12.4s6.2-7.8 6.2-12.4c0-3.4-2.8-6.1-6.2-6.1z' fill='%23F3E6D3'/><circle cx='16' cy='12.4' r='2.5' fill='%238A3A32'/></svg>">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
 
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <style>
-    /* ===========================================
-       VARIABLES DE COLOR
-       =========================================== */
+    /* =========================================================
+       1 · TOKENS DEL SISTEMA
+       ========================================================= */
     :root {
+      /* Color de marca */
       --granate: #8A3A32;
+      --granate-oscuro: #6E2E27;
       --terracota: #C46A4A;
-      --azul-sombra: #2F3A45;
-      --verde-persiana: #5E6049;
+      --terracota-claro: #E28C66;
+      --azul: #2F3A45;
+      --azul-fondo: #1A1F25;
+      --verde: #5E6049;
       --crema: #F3E6D3;
       --crema-oscura: #E8D5BA;
-      --gris-piedra: #323232;
-      --azul-fondo: #1a1f25;
+      --piedra: #323232;
+
+      /* Superficies */
+      --fondo: #FAF5EC;
+      --fondo-alt: #F3E6D3;
+      --panel: #FFFFFF;
+
+      /* Texto (contraste comprobado sobre cada fondo) */
+      --texto: #232B33;
+      --texto-suave: #58646F;
+      --texto-oscuro: var(--crema);
+      --texto-oscuro-suave: rgba(243, 230, 211, .72);
+
+      /* Bordes */
+      --borde: rgba(138, 58, 50, .14);
+      --borde-oscuro: rgba(243, 230, 211, .14);
+
+      /* Radios */
+      --r-s: 10px;
+      --r-m: 16px;
+      --r-l: 24px;
+      --r-xl: 32px;
+
+      /* Sombras */
+      --sombra-s: 0 1px 2px rgba(35, 43, 51, .04), 0 4px 14px rgba(35, 43, 51, .05);
+      --sombra-m: 0 2px 6px rgba(35, 43, 51, .05), 0 18px 40px rgba(35, 43, 51, .09);
+
+      /* Ritmo */
+      --gutter: clamp(20px, 5vw, 44px);
+      --ancho: 1180px;
+      --seccion: clamp(72px, 8.5vw, 128px);
+      --medida: 66ch;
+      --nav-h: 66px;
     }
 
-    /* ===========================================
-       ESTILOS GENERALES
-       =========================================== */
+    /* =========================================================
+       2 · BASE
+       ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--crema);
-      color: var(--gris-piedra);
-      line-height: 1.6;
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      color: var(--texto);
+      background-color: var(--fondo);
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ===========================================
-       BARRA DE NAVEGACIÓN
-       =========================================== */
-    .navbar {
+    img { max-width: 100%; height: auto; display: block; }
+
+    h1, h2, h3, h4 {
+      margin: 0 0 .5em;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      color: var(--azul);
+      text-wrap: balance;
+    }
+
+    h1 {
+      font-size: clamp(2.55rem, 5.6vw, 4.35rem);
+      line-height: 1.02;
+      letter-spacing: -.035em;
+    }
+
+    h2 { font-size: clamp(1.85rem, 3.4vw, 2.85rem); }
+    h3 { font-size: 1.1875rem; letter-spacing: -.01em; }
+    h4 { font-size: 1rem; letter-spacing: 0; }
+
+    p { margin: 0 0 1.1em; max-width: 100%; }
+    p:last-child { margin-bottom: 0; }
+
+    a { color: var(--granate); }
+
+    ul { margin: 0 0 1.1em; padding-left: 1.15em; }
+    li { margin-bottom: .45em; }
+
+    strong { font-weight: 700; }
+
+    em {
+      font-style: normal;
+      color: var(--granate);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--terracota);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* Enlace de salto para teclado / lector de pantalla */
+    .saltar {
+      position: absolute;
+      left: 12px;
+      top: -100px;
+      z-index: 200;
+      background: var(--granate);
+      color: var(--crema);
+      padding: 12px 20px;
+      border-radius: var(--r-s);
+      font-weight: 700;
+      text-decoration: none;
+      transition: top .2s ease;
+    }
+    .saltar:focus { top: 12px; }
+
+    /* =========================================================
+       3 · LAYOUT
+       ========================================================= */
+    .contenedor {
+      width: min(var(--ancho), 100%);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+
+    .seccion {
+      padding-block: var(--seccion);
+      scroll-margin-top: var(--nav-h);
+    }
+
+    .seccion--alt { background-color: var(--fondo-alt); }
+    .seccion--panel { background-color: var(--panel); }
+
+    .seccion--oscura {
       background-color: var(--azul-fondo);
+      color: var(--texto-oscuro-suave);
     }
 
-    .navbar .nav-link {
-      color: var(--crema);
-      font-size: 14px;
-      font-weight: 500;
-    }
+    .seccion--oscura h2,
+    .seccion--oscura h3,
+    .seccion--oscura h4 { color: var(--crema); }
 
-    .navbar .nav-link:hover {
-      color: var(--terracota);
-    }
+    .seccion--oscura em { color: var(--terracota-claro); }
+    .seccion--oscura .etiqueta { color: var(--terracota-claro); }
+    .seccion--oscura .entradilla { color: var(--texto-oscuro-suave); }
+    .seccion--oscura a { color: var(--terracota-claro); }
 
-    .navbar-logo {
-      height: 34px;
-    }
+    .rejilla { display: grid; gap: clamp(16px, 2vw, 24px); }
+    .rejilla--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 430px), 1fr)); }
+    .rejilla--3 { grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); }
+    .rejilla--4 { grid-template-columns: repeat(auto-fit, minmax(212px, 1fr)); }
 
-    .navbar-toggler {
-      border-color: rgba(243, 230, 211, 0.4);
-    }
+    .pila-s > * + * { margin-top: 12px; }
+    .centrado { text-align: center; }
+    .centrado p { margin-inline: auto; }
 
-    .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23F3E6D3' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-    }
-
-    @media (max-width: 991.98px) {
-      .navbar-nav {
-        text-align: right;
-      }
-    }
-
-    /* ===========================================
-       BOTONES
-       =========================================== */
-    .boton-principal {
-      background-color: var(--granate);
-      color: var(--crema);
-      border: none;
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 12px 28px;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .boton-principal:hover {
-      background-color: #6e2e27;
-      color: var(--crema);
-    }
-
-    .boton-secundario {
-      background-color: transparent;
-      color: var(--azul-sombra);
-      border: 1.5px solid var(--azul-sombra);
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 11px 28px;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .boton-secundario-claro {
-      background-color: transparent;
-      color: var(--crema);
-      border: 1.5px solid var(--crema);
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 11px 28px;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    /* ===========================================
-       TEXTOS Y TÍTULOS
-       =========================================== */
+    /* =========================================================
+       4 · TIPOGRAFÍA DE SECCIÓN
+       ========================================================= */
     .etiqueta {
+      display: block;
+      margin: 0 0 14px;
       color: var(--granate);
-      font-size: 11px;
+      font-size: .72rem;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: .18em;
       text-transform: uppercase;
     }
 
-    .titulo-seccion {
-      color: var(--azul-sombra);
-      font-weight: 800;
+    .entradilla {
+      font-size: clamp(1.05rem, 1.5vw, 1.22rem);
+      line-height: 1.6;
+      color: var(--texto-suave);
+      max-width: 100%;
     }
 
-    .titulo-seccion em {
-      color: var(--terracota);
-      font-style: normal;
+    .cabecera-seccion { margin-bottom: clamp(36px, 5vw, 60px); }
+
+    .nota {
+      font-size: .875rem;
+      line-height: 1.55;
+      color: var(--texto-suave);
     }
 
-    .texto-seccion {
-      color: var(--azul-sombra);
-      font-size: 17px;
-      opacity: 0.7;
-    }
+    .seccion--oscura .nota { color: rgba(243, 230, 211, .55); }
 
-    /* ===========================================
-       SECCIÓN HERO (cabecera principal)
-       =========================================== */
-    .hero {
-      background-color: var(--crema);
-    }
-
-    .hero h1 {
-      color: var(--azul-sombra);
-      font-size: 60px;
-      font-weight: 800;
-    }
-
-    .hero h1 em {
-      color: var(--granate);
-      font-style: normal;
-    }
-
-    .hero-subtitulo {
-      color: var(--terracota);
-      font-size: 26px;
+    /* =========================================================
+       5 · BOTONES Y PÍLDORAS
+       ========================================================= */
+    .boton {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 26px;
+      border: 1.5px solid transparent;
+      border-radius: 100px;
+      font-size: .9375rem;
       font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
     }
 
-    .hero-imagen {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
+    .boton:hover { transform: translateY(-1px); }
 
-    .hero-imagen-col {
-      display: flex;
-      padding: 0;
-      overflow: hidden;
-    }
-
-    .hero-imagen-col img {
-      width: 100%;
-    }
-
-    .hero-contenido {
-      width: 100%;
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-    }
-
-    @media (max-width: 991.98px) {
-      .hero h1 {
-        font-size: 40px;
-      }
-
-      .hero-imagen {
-        aspect-ratio: 4 / 3;
-        max-height: 320px;
-      }
-    }
-
-    @media (min-width: 992px) {
-      .hero-contenido {
-        padding-left: max(0.75rem, calc((100vw - 960px) / 2 + 0.75rem));
-        padding-right: 2.5rem;
-      }
-    }
-
-    @media (min-width: 1200px) {
-      .hero-contenido {
-        padding-left: max(0.75rem, calc((100vw - 1140px) / 2 + 0.75rem));
-      }
-    }
-
-    @media (min-width: 1400px) {
-      .hero-contenido {
-        padding-left: max(0.75rem, calc((100vw - 1320px) / 2 + 0.75rem));
-      }
-    }
-
-    .dato-numero {
-      color: var(--granate);
-      font-size: 26px;
-      font-weight: 800;
-    }
-
-    .dato-texto {
-      color: var(--azul-sombra);
-      font-size: 11px;
-      text-transform: uppercase;
-      opacity: 0.6;
-    }
-
-    /* ===========================================
-       SECCIONES OSCURAS
-       =========================================== */
-    .seccion-oscura {
-      background-color: var(--azul-fondo);
-      color: var(--crema);
-    }
-
-    .seccion-oscura .etiqueta {
-      color: var(--terracota);
-    }
-
-    .seccion-oscura .titulo-seccion {
-      color: var(--crema);
-    }
-
-    .seccion-oscura .texto-seccion {
-      color: var(--crema);
-      opacity: 0.7;
-    }
-
-    /* ===========================================
-       TARJETAS DEL PROBLEMA
-       =========================================== */
-    .tarjeta-problema {
-      background-color: rgba(243, 230, 211, 0.06);
-      border: 1px solid rgba(243, 230, 211, 0.12);
-      border-radius: 18px;
-      height: 100%;
-    }
-
-    .tarjeta-problema h3 {
-      color: var(--crema);
-    }
-
-    .tarjeta-problema p {
-      color: rgba(243, 230, 211, 0.6);
-      font-size: 14px;
-    }
-
-    .icono-problema {
-      width: 44px;
-      height: 44px;
-      background-color: rgba(196, 106, 74, 0.22);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-
-    .imagen-problema {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      border-radius: 16px;
-    }
-
-    .imagen-personas {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      object-position: center 20%;
-      border-radius: 16px;
-    }
-
-    /* ===========================================
-       TARJETAS DE LA PROPUESTA
-       =========================================== */
-    .tarjeta-propuesta {
-      background-color: white;
-      border: 1px solid rgba(138, 58, 50, 0.1);
-      border-radius: 18px;
-      height: 100%;
-    }
-
-    .tarjeta-propuesta h3 {
-      color: var(--azul-sombra);
-      font-size: 15px;
-    }
-
-    .tarjeta-propuesta p {
-      color: var(--azul-sombra);
-      font-size: 14px;
-      opacity: 0.65;
-    }
-
-    .icono-propuesta {
-      width: 40px;
-      height: 40px;
-      background-color: rgba(138, 58, 50, 0.1);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--granate);
-      margin-bottom: 14px;
-    }
-
-    .imagen-app {
-      width: 100%;
-      max-width: 300px;
-      border-radius: 28px;
-      border: 1px solid rgba(47, 58, 69, 0.1);
-    }
-
-    /* ===========================================
-       TARJETAS DE MÉTRICAS (objetivo SMART)
-       =========================================== */
-    .tarjeta-metrica {
-      background-color: rgba(243, 230, 211, 0.08);
-      border: 1px solid rgba(243, 230, 211, 0.12);
-      border-radius: 18px;
-      text-align: center;
-      height: 100%;
-      padding: 24px 16px;
-    }
-
-    .tarjeta-metrica p {
-      color: rgba(243, 230, 211, 0.75);
-    }
-
-    .numero-metrica {
-      color: var(--terracota);
-      font-size: 40px;
-      font-weight: 800;
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    /* ===========================================
-       TARJETAS DE PERSONAS (para quién)
-       =========================================== */
-    .tarjeta-persona {
-      background-color: white;
-      border: 1px solid rgba(138, 58, 50, 0.1);
-      border-radius: 20px;
-      height: 100%;
-      padding: 28px;
-    }
-
-    .tarjeta-persona h3 {
-      color: var(--azul-sombra);
-      font-size: 18px;
-      font-weight: 800;
-    }
-
-    .iniciales-persona {
-      width: 64px;
-      height: 64px;
+    .boton--principal {
       background-color: var(--granate);
       color: var(--crema);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      font-weight: 800;
-      margin-bottom: 16px;
     }
+    .boton--principal:hover { background-color: var(--granate-oscuro); color: var(--crema); }
 
-    .cita-persona {
-      background-color: var(--crema);
-      border-left: 3px solid var(--terracota);
-      border-radius: 0 10px 10px 0;
-      color: var(--azul-sombra);
-      font-size: 14px;
-      font-style: italic;
-      padding: 12px 16px;
-      margin-top: 12px;
+    .boton--secundario {
+      color: var(--azul);
+      border-color: rgba(47, 58, 69, .35);
     }
+    .boton--secundario:hover { border-color: var(--azul); background-color: rgba(47, 58, 69, .05); }
 
-    /* ===========================================
-       IMAGEN DE WIREFRAMES (arquitectura)
-       =========================================== */
-    .imagen-wireframes {
-      width: 100%;
-      border-radius: 14px;
-    }
-
-    /* ===========================================
-       TARJETAS DEL EMBUDO RACE (cómo funciona)
-       =========================================== */
-    .tarjeta-fase {
-      background-color: rgba(243, 230, 211, 0.07);
-      border: 1px solid rgba(243, 230, 211, 0.12);
-      border-radius: 16px;
-      height: 100%;
-      text-align: center;
-    }
-
-    .tarjeta-fase h3 {
+    .boton--claro {
       color: var(--crema);
-      font-size: 12px;
+      border-color: rgba(243, 230, 211, .45);
     }
+    .boton--claro:hover { border-color: var(--crema); background-color: rgba(243, 230, 211, .1); color: var(--crema); }
 
-    .tarjeta-fase p {
-      color: rgba(243, 230, 211, 0.6);
-      font-size: 12px;
-    }
-
-    .numero-fase {
-      width: 44px;
-      height: 44px;
-      background-color: var(--terracota);
-      color: var(--crema);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      font-weight: 800;
-      margin: 0 auto 12px auto;
-    }
-
-    /* ===========================================
-       PANEL DE LLAMADA A LA ACCIÓN (CTA)
-       =========================================== */
-    .panel-cta {
-      background-color: var(--azul-sombra);
-      border-radius: 28px;
-      padding: 48px;
-      text-align: center;
-    }
-
-    .panel-cta .etiqueta {
-      color: var(--terracota);
-    }
-
-    .panel-cta .titulo-seccion {
-      color: var(--crema);
-    }
-
-    .panel-cta .texto-seccion {
-      color: rgba(243, 230, 211, 0.7);
-    }
-
-    /* ===========================================
-       GALERÍA DE IDENTIDAD VISUAL
-       =========================================== */
-    .imagen-galeria {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 14px;
-    }
-
-    .etiqueta-galeria {
-      color: var(--azul-sombra);
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      opacity: 0.5;
-      margin-top: 8px;
-    }
-
-    .tarjeta-identidad {
-      background-color: var(--crema-oscura);
-      border-radius: 20px;
-    }
-
-    .muestra-color {
-      height: 72px;
-      border-radius: 12px;
-      border: 1px solid rgba(0, 0, 0, 0.07);
-    }
-
-    .pildora-marca {
-      background-color: rgba(138, 58, 50, 0.1);
-      color: var(--granate);
-      border: 1px solid rgba(138, 58, 50, 0.2);
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 6px 16px;
-      display: inline-block;
-    }
-
-    .iconos-lista {
+    .grupo-botones {
       display: flex;
       flex-wrap: wrap;
-      gap: 28px;
-    }
-
-    .icono-item {
-      text-align: center;
-      width: 72px;
-    }
-
-    /* ===========================================
-       SECCIÓN GROWTH
-       =========================================== */
-    .panel-oscuro {
-      background-color: var(--azul-fondo);
-      color: var(--crema);
-      border-radius: 18px;
-      padding: 28px 32px;
-    }
-
-    .panel-oscuro .etiqueta {
-      color: var(--terracota);
-    }
-
-    .panel-oscuro h3 {
-      color: var(--crema);
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-
-    .panel-oscuro p {
-      color: rgba(243, 230, 211, 0.75);
-      font-size: 15px;
-      margin-bottom: 0;
-    }
-
-    .panel-oscuro strong {
-      color: var(--terracota);
-    }
-
-    .pildora-contorno {
-      background-color: transparent;
-      color: var(--azul-sombra);
-      border: 1.5px solid var(--terracota);
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 6px 16px;
-      display: inline-block;
-    }
-
-    .tarjeta-meta {
-      background-color: white;
-      border: 1px solid rgba(196, 106, 74, 0.35);
-      border-radius: 16px;
-      height: 100%;
-      padding: 24px;
-    }
-
-    .tarjeta-meta .etiqueta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .tarjeta-meta .etiqueta::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      flex-shrink: 0;
-      border-radius: 50%;
-      background-color: var(--terracota);
-    }
-
-    .tarjeta-meta p {
-      color: var(--azul-sombra);
-      font-size: 14px;
-      opacity: 0.75;
-    }
-
-    .tarjeta-meta .meta-valor {
-      display: block;
-      color: var(--granate);
-      font-weight: 700;
-      font-size: 14px;
-      opacity: 1;
-      margin-top: 10px;
-    }
-
-    .tarjeta-hipotesis {
-      background-color: white;
-      border: 1px solid rgba(138, 58, 50, 0.1);
-      border-radius: 16px;
-      display: flex;
-      gap: 16px;
-      padding: 20px;
-      height: 100%;
-    }
-
-    .numero-hipotesis {
-      flex-shrink: 0;
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background-color: rgba(138, 58, 50, 0.1);
-      color: var(--granate);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 13px;
-    }
-
-    .tarjeta-hipotesis p {
-      color: var(--azul-sombra);
-      font-size: 14px;
-      opacity: 0.8;
-      margin-bottom: 0;
-    }
-
-    .tabla-crecimiento {
-      width: 100%;
-      border-collapse: collapse;
-      background-color: white;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(138, 58, 50, 0.15);
-    }
-
-    .tabla-crecimiento th {
-      background-color: var(--azul-sombra);
-      color: var(--crema);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 700;
-      padding: 14px 18px;
-      text-align: left;
-      white-space: nowrap;
-    }
-
-    .tabla-crecimiento td {
-      padding: 14px 18px;
-      font-size: 14px;
-      color: var(--azul-sombra);
-      border-top: 1px solid rgba(138, 58, 50, 0.1);
-    }
-
-    .tabla-crecimiento tbody tr:nth-child(even) {
-      background-color: rgba(243, 230, 211, 0.4);
-    }
-
-    .tabla-crecimiento .valor-ice {
-      color: var(--granate);
-      font-weight: 800;
-    }
-
-    /* ===========================================
-       EMBUDO VISUAL (RACE · AARRR)
-       =========================================== */
-    .embudo {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .embudo-paso {
-      width: var(--w);
-      max-width: 100%;
-      display: flex;
-      align-items: stretch;
-      gap: 16px;
-      padding: 16px 22px;
-      border-radius: 14px;
-      color: var(--crema);
-      background-color: var(--bg);
-      box-shadow: 0 6px 16px rgba(47, 58, 69, 0.12);
-      transition: transform 0.2s ease;
-    }
-
-    .embudo-paso:hover {
-      transform: translateY(-2px);
-    }
-
-    .embudo-num {
-      flex-shrink: 0;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background-color: rgba(243, 230, 211, 0.22);
-      color: var(--crema);
-      font-weight: 800;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .embudo-cuerpo {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .embudo-titulo {
-      font-weight: 800;
-      font-size: 15px;
-      line-height: 1.3;
-      margin-bottom: 4px;
-    }
-
-    .embudo-titulo span {
-      display: block;
-      font-weight: 500;
-      font-size: 12px;
-      opacity: 0.8;
-    }
-
-    .embudo-medida {
-      font-size: 13px;
-      opacity: 0.9;
-      margin-bottom: 8px;
-    }
-
-    .embudo-meta {
-      display: inline-block;
-      background-color: rgba(243, 230, 211, 0.95);
-      color: var(--granate);
-      font-weight: 700;
-      font-size: 12px;
-      padding: 4px 12px;
-      border-radius: 999px;
-    }
-
-    /* ===========================================
-       RANKING ICE (barras)
-       =========================================== */
-    .ranking-ice {
-      display: flex;
-      flex-direction: column;
       gap: 14px;
     }
 
-    .ice-fila {
-      background-color: white;
-      border: 1px solid rgba(138, 58, 50, 0.15);
-      border-radius: 14px;
-      padding: 14px 18px;
+    .pildora {
+      display: inline-block;
+      padding: 6px 15px;
+      border: 1px solid rgba(138, 58, 50, .22);
+      border-radius: 100px;
+      background-color: rgba(138, 58, 50, .07);
+      color: var(--granate);
+      font-size: .78rem;
+      font-weight: 700;
+      line-height: 1.5;
     }
 
-    .ice-cabecera {
+    .pildora--contorno { background-color: transparent; border-color: var(--terracota); color: var(--granate); }
+
+    .seccion--oscura .pildora {
+      background-color: rgba(226, 140, 102, .13);
+      border-color: rgba(226, 140, 102, .3);
+      color: var(--terracota-claro);
+    }
+
+    .lista-pildoras {
       display: flex;
-      align-items: baseline;
       flex-wrap: wrap;
+      gap: 9px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .lista-pildoras li { margin: 0; }
+
+    /* =========================================================
+       6 · TARJETAS
+       ========================================================= */
+    .tarjeta {
+      background-color: var(--panel);
+      border: 1px solid var(--borde);
+      border-radius: var(--r-l);
+      padding: clamp(22px, 2.6vw, 30px);
+      height: 100%;
+      box-shadow: var(--sombra-s);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .tarjeta h3 { margin-bottom: .4em; }
+    .tarjeta p { font-size: .95rem; color: var(--texto-suave); }
+
+    .tarjeta--enlazable:hover { transform: translateY(-3px); box-shadow: var(--sombra-m); }
+
+    .seccion--alt .tarjeta { border-color: rgba(138, 58, 50, .12); }
+
+    .tarjeta--oscura {
+      background-color: rgba(243, 230, 211, .05);
+      border: 1px solid var(--borde-oscuro);
+      box-shadow: none;
+    }
+    .tarjeta--oscura p { color: var(--texto-oscuro-suave); }
+
+    .icono {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      margin-bottom: 18px;
+      border-radius: 13px;
+      background-color: rgba(138, 58, 50, .09);
+      color: var(--granate);
+    }
+
+    .tarjeta--oscura .icono {
+      background-color: rgba(226, 140, 102, .16);
+      color: var(--terracota-claro);
+    }
+
+    /* =========================================================
+       7 · BARRA DE NAVEGACIÓN
+       ========================================================= */
+    .progreso {
+      position: fixed;
+      inset: 0 auto auto 0;
+      z-index: 60;
+      width: 100%;
+      height: 3px;
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      background: linear-gradient(90deg, var(--terracota), var(--granate));
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: rgba(26, 31, 37, .92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(243, 230, 211, .09);
+    }
+
+    .nav__interior {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: var(--nav-h);
+      width: min(var(--ancho), 100%);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+
+    .nav__marca { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav__marca img { height: 30px; width: auto; }
+
+    .nav__autoria {
+      padding-left: 12px;
+      border-left: 1px solid rgba(243, 230, 211, .2);
+      color: rgba(243, 230, 211, .6);
+      font-size: .72rem;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: .02em;
+    }
+
+    .nav__menu {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .nav__menu li { margin: 0; }
+
+    .nav__enlace {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      color: rgba(243, 230, 211, .78);
+      font-size: .875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color .2s ease, background-color .2s ease;
+    }
+
+    .nav__enlace:hover { color: var(--crema); background-color: rgba(243, 230, 211, .08); }
+
+    .nav__enlace[aria-current="true"] {
+      color: var(--terracota-claro);
+      background-color: rgba(226, 140, 102, .12);
+    }
+
+    .nav__cta {
+      padding: 9px 20px;
+      font-size: .875rem;
+      border-radius: 100px;
+      background-color: var(--granate);
+      color: var(--crema);
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav__cta:hover { background-color: var(--terracota); color: var(--azul-fondo); }
+
+    .nav__boton {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 1px solid rgba(243, 230, 211, .3);
+      border-radius: 10px;
+      background: transparent;
+      color: var(--crema);
+      cursor: pointer;
+    }
+
+    @media (max-width: 1040px) {
+      .nav__boton { display: inline-flex; }
+
+      .nav__navegacion {
+        position: fixed;
+        inset: var(--nav-h) 0 auto 0;
+        max-height: calc(100dvh - var(--nav-h));
+        overflow-y: auto;
+        padding: 18px var(--gutter) 30px;
+        background-color: rgba(26, 31, 37, .985);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(243, 230, 211, .12);
+        transform: translateY(-8px);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .22s ease, transform .22s ease, visibility .22s;
+      }
+
+      .nav__navegacion[data-abierto="true"] {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .nav__menu { flex-direction: column; align-items: stretch; gap: 2px; }
+      .nav__enlace { padding: 13px 14px; font-size: 1rem; }
+      .nav__cta { display: block; margin-top: 14px; text-align: center; padding: 14px 20px; }
+      .nav__autoria { display: none; }
+    }
+
+    /* =========================================================
+       8 · PORTADA (HERO)
+       ========================================================= */
+    .portada { background-color: var(--fondo); }
+
+    .portada__interior {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    .portada__texto {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(52px, 7vw, 96px) clamp(28px, 4vw, 64px) clamp(52px, 7vw, 96px)
+               max(var(--gutter), calc((100vw - var(--ancho)) / 2 + var(--gutter)));
+    }
+
+    .portada h1 { margin-bottom: .12em; }
+
+    .portada__lema {
+      margin: 0 0 26px;
+      font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+      font-weight: 700;
+      color: var(--terracota);
+      letter-spacing: -.02em;
+    }
+
+    .portada__entradilla {
+      font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+      color: var(--texto-suave);
+      max-width: 100%;
+      margin-bottom: 12px;
+    }
+
+    .portada__afirmacion {
+      margin-bottom: 34px;
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--granate);
+      max-width: 100%;
+    }
+
+    .portada__figura {
+      position: relative;
+      margin: 0;
+      overflow: hidden;
+      background-color: var(--crema-oscura);
+    }
+
+    .portada__figura img {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      object-fit: cover;
+      object-position: center 42%;
+    }
+
+    .portada__figura figcaption {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      padding: 8px 16px;
+      border-radius: 100px;
+      background-color: rgba(26, 31, 37, .72);
+      backdrop-filter: blur(6px);
+      color: var(--crema);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 900px) {
+      .portada__interior { grid-template-columns: 1fr; }
+      .portada__texto { padding-inline: var(--gutter); }
+      .portada__figura { order: -1; }
+      .portada__figura img { min-height: 0; aspect-ratio: 4 / 3; }
+    }
+
+    /* =========================================================
+       9 · COMPONENTES DEL CASO
+       ========================================================= */
+
+    /* Banda de imagen ancha con pie */
+    .banda {
+      margin-block: clamp(34px, 4.5vw, 56px);
+    }
+
+    .banda img {
+      width: 100%;
+      height: clamp(240px, 34vw, 420px);
+      object-fit: cover;
+      border-radius: var(--r-l);
+    }
+
+    .banda figcaption {
+      margin-top: 12px;
+      font-size: .8125rem;
+      color: var(--texto-suave);
+    }
+
+    .seccion--oscura .banda figcaption { color: rgba(243, 230, 211, .55); }
+
+    /* Proceso: doble diamante */
+    .fases { counter-reset: fase; }
+
+    .fase {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: clamp(16px, 2.4vw, 32px);
+      padding: clamp(22px, 2.6vw, 30px) 0;
+      border-top: 1px solid var(--borde);
+    }
+
+    .fase:last-child { border-bottom: 1px solid var(--borde); }
+
+    .fase__num {
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      color: var(--granate);
+      padding-top: 4px;
+    }
+
+    .fase__cuerpo h3 { margin-bottom: .35em; }
+    .fase__cuerpo p { font-size: .95rem; color: var(--texto-suave); margin-bottom: .9em; }
+
+    @media (max-width: 620px) {
+      .fase { grid-template-columns: 1fr; gap: 6px; }
+    }
+
+    /* Insights numerados */
+    .insight {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .insight__marca {
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background-color: rgba(226, 140, 102, .16);
+      color: var(--terracota-claro);
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .insight p { font-size: .95rem; margin: 0; }
+    .insight strong { color: var(--crema); }
+
+    /* Conclusión destacada */
+    .conclusion {
+      display: flex;
+      align-items: center;
+      gap: clamp(18px, 3vw, 30px);
+      margin-top: clamp(30px, 4vw, 44px);
+      padding: clamp(26px, 3.4vw, 40px) clamp(26px, 4vw, 46px);
+      border-radius: var(--r-l);
+      background: linear-gradient(135deg, rgba(196, 106, 74, .16), rgba(138, 58, 50, .1));
+      border: 1px solid rgba(226, 140, 102, .35);
+    }
+
+    .conclusion__marca {
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background-color: var(--terracota);
+      color: var(--azul-fondo);
+    }
+
+    .conclusion p {
+      margin: 0;
+      max-width: 62ch;
+      font-size: clamp(1.15rem, 2vw, 1.5rem);
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -.01em;
+      color: var(--crema);
+    }
+
+    .conclusion__etiqueta {
+      display: block;
+      margin-bottom: 6px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--terracota-claro);
+    }
+
+    .conclusion em {
+      font-style: normal;
+      color: var(--terracota-claro);
+    }
+
+    @media (max-width: 640px) {
+      .conclusion { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* Personas */
+    .persona { padding: 0; overflow: hidden; }
+
+    .persona__foto {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      max-height: 300px;
+      object-fit: cover;
+      object-position: center 22%;
+      background-color: var(--crema-oscura);
+    }
+
+    .persona__cuerpo { padding: clamp(20px, 2.4vw, 26px); }
+
+    .persona__meta {
+      margin: 0 0 14px;
+      font-size: .8125rem;
+      color: var(--texto-suave);
+    }
+
+    .persona__verbo {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 14px;
+      border-radius: 100px;
+      background-color: var(--granate);
+      color: var(--crema);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .persona__cita {
+      margin: 16px 0 0;
+      padding: 14px 18px;
+      border-left: 3px solid var(--terracota);
+      border-radius: 0 var(--r-s) var(--r-s) 0;
+      background-color: var(--fondo-alt);
+      font-size: .9rem;
+      font-style: italic;
+      color: var(--azul);
+    }
+
+    .persona__crecimiento {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--borde);
+      font-size: .8125rem;
+      color: var(--texto-suave);
+    }
+
+    .persona__crecimiento strong { color: var(--granate); }
+
+    /* Solución: pantalla + decisiones */
+    .solucion {
+      display: grid;
+      grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+      gap: clamp(30px, 5vw, 64px);
+      align-items: start;
+    }
+
+    .solucion__movil { position: sticky; top: calc(var(--nav-h) + 28px); }
+
+    .solucion__movil img {
+      width: 100%;
+      border-radius: 26px;
+      border: 1px solid var(--borde);
+      box-shadow: var(--sombra-m);
+    }
+
+    @media (max-width: 860px) {
+      .solucion { grid-template-columns: 1fr; }
+      .solucion__movil { position: static; max-width: 280px; margin-inline: auto; }
+    }
+
+    .decision {
+      padding: 20px 0;
+      border-top: 1px solid var(--borde);
+    }
+
+    .decision:first-child { border-top: 0; padding-top: 0; }
+    .decision h3 { display: flex; align-items: center; gap: 10px; margin-bottom: .3em; font-size: 1.0625rem; }
+    .decision h3 svg { color: var(--granate); flex-shrink: 0; }
+    .decision p { font-size: .95rem; color: var(--texto-suave); margin: 0; }
+
+    /* Niveles de información */
+    .nivel {
+      padding: 22px;
+      border: 1px solid var(--borde-oscuro);
+      border-radius: var(--r-m);
+      background-color: rgba(243, 230, 211, .04);
+    }
+
+    .nivel__num {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--terracota-claro);
+      line-height: 1;
+    }
+
+    .nivel h3 { font-size: 1rem; margin-bottom: .3em; }
+    .nivel p { font-size: .9rem; margin: 0; }
+
+    /* Tablas */
+    .tabla-envoltorio {
+      overflow-x: auto;
+      border-radius: var(--r-m);
+      border: 1px solid var(--borde);
+      background-color: var(--panel);
+    }
+
+    .seccion--oscura .tabla-envoltorio {
+      border-color: var(--borde-oscuro);
+      background-color: rgba(243, 230, 211, .04);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .9rem;
+    }
+
+    thead th {
+      background-color: var(--azul);
+      color: var(--crema);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 13px 18px;
+      white-space: nowrap;
+    }
+
+    tbody td, tbody th {
+      padding: 14px 18px;
+      text-align: left;
+      vertical-align: top;
+      border-top: 1px solid var(--borde);
+      color: var(--texto);
+      font-weight: 400;
+    }
+
+    tbody th { font-weight: 700; white-space: nowrap; color: var(--granate); }
+
+    .seccion--oscura tbody td { border-top-color: var(--borde-oscuro); color: var(--texto-oscuro-suave); }
+    .seccion--oscura tbody th { border-top-color: var(--borde-oscuro); color: var(--terracota-claro); }
+    .seccion--oscura tbody tr:nth-child(even) td,
+    .seccion--oscura tbody tr:nth-child(even) th { background-color: rgba(243, 230, 211, .03); }
+
+    tbody tr:nth-child(even) td, tbody tr:nth-child(even) th { background-color: rgba(243, 230, 211, .38); }
+
+    /* Comparativa A/B */
+    .ab { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+
+    .ab__col { padding: clamp(22px, 2.6vw, 28px); border-radius: var(--r-l); border: 1px solid var(--borde); background: var(--panel); }
+    .ab__col--b { border-color: var(--granate); border-width: 2px; }
+
+    .ab__marca {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 4px 13px;
+      border-radius: 6px;
+      background-color: var(--azul);
+      color: var(--crema);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .ab__col--b .ab__marca { background-color: var(--granate); }
+
+    .ab__lista { list-style: none; padding: 0; margin: 0; }
+
+    .ab__lista li {
+      padding: 9px 0;
+      border-top: 1px solid var(--borde);
+      font-size: .9rem;
+      color: var(--texto-suave);
+    }
+    .ab__lista li:first-child { border-top: 0; }
+
+    /* Paleta e identidad */
+    .galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+
+    .galeria img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: var(--r-m);
+    }
+
+    .galeria figcaption {
+      margin-top: 10px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--texto-suave);
+    }
+
+    .paleta { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+
+    .muestra {
+      height: 84px;
+      border-radius: var(--r-m);
+      border: 1px solid rgba(0, 0, 0, .07);
+    }
+
+    .muestra + p { margin-top: 10px; font-size: .82rem; line-height: 1.45; color: var(--texto-suave); }
+    .muestra + p strong { display: block; color: var(--texto); font-size: .9rem; }
+    .muestra + p code { font-size: .78rem; color: var(--granate); font-weight: 700; }
+
+    .especimen {
+      padding: clamp(24px, 3vw, 36px);
+      border-radius: var(--r-l);
+      background-color: var(--fondo-alt);
+      border: 1px solid var(--borde);
+    }
+
+    .especimen__fila {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 22px;
+      padding: 14px 0;
+      border-top: 1px solid rgba(138, 58, 50, .13);
+    }
+    .especimen__fila:first-of-type { border-top: 0; padding-top: 0; }
+
+    .especimen__rol {
+      width: 130px;
+      flex-shrink: 0;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--texto-suave);
+    }
+
+    .iconos { display: flex; flex-wrap: wrap; gap: 24px; }
+
+    .icono-item { width: 76px; text-align: center; }
+    .icono-item .icono { margin: 0 auto 8px; }
+    .icono-item span { font-size: .78rem; color: var(--texto-suave); }
+
+    /* Embudo */
+    .embudo { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+
+    .embudo__paso {
+      width: var(--w);
+      max-width: 100%;
+      display: flex;
+      gap: 16px;
+      padding: 16px 22px;
+      border-radius: var(--r-m);
+      background-color: var(--bg);
+      color: var(--crema);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+    }
+
+    .embudo__num {
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background-color: rgba(243, 230, 211, .22);
+      font-weight: 800;
+      font-size: .9rem;
+    }
+
+    .embudo__cuerpo { min-width: 0; }
+
+    .embudo__titulo { font-weight: 800; font-size: .95rem; line-height: 1.3; }
+    .embudo__titulo span { display: block; font-weight: 500; font-size: .78rem; opacity: .85; }
+    .embudo__medida { margin: 4px 0 8px; font-size: .85rem; opacity: .92; }
+
+    .embudo__meta {
+      display: inline-block;
+      padding: 4px 13px;
+      border-radius: 100px;
+      background-color: rgba(243, 230, 211, .95);
+      color: var(--granate);
+      font-size: .76rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 700px) { .embudo__paso { width: 100% !important; } }
+
+    /* Ranking ICE */
+    .ice { display: flex; flex-direction: column; gap: 12px; }
+
+    .ice__fila {
+      padding: 14px 18px;
+      border: 1px solid var(--borde);
+      border-radius: var(--r-m);
+      background-color: var(--panel);
+    }
+
+    .ice__cabecera {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
       gap: 8px 12px;
       margin-bottom: 10px;
     }
 
-    .ice-codigo {
-      background-color: var(--azul-sombra);
-      color: var(--crema);
-      font-weight: 800;
-      font-size: 12px;
+    .ice__codigo {
+      flex-shrink: 0;
       padding: 3px 10px;
       border-radius: 6px;
-      flex-shrink: 0;
+      background-color: var(--azul);
+      color: var(--crema);
+      font-size: .74rem;
+      font-weight: 800;
     }
 
-    .ice-exp {
-      color: var(--azul-sombra);
-      font-size: 14px;
-      font-weight: 600;
-      flex: 1;
-      min-width: 180px;
-    }
+    .ice__exp { flex: 1; min-width: 180px; font-size: .9rem; font-weight: 600; color: var(--azul); }
 
-    .ice-mejora {
-      color: var(--terracota);
-      font-size: 11px;
+    .ice__mejora {
+      font-size: .68rem;
       font-weight: 700;
+      letter-spacing: .08em;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      color: var(--granate);
     }
 
-    .ice-barra-wrap {
-      position: relative;
-      background-color: rgba(243, 230, 211, 0.6);
-      border-radius: 999px;
-      height: 26px;
-    }
+    .ice__pista { height: 26px; border-radius: 100px; background-color: rgba(243, 230, 211, .7); }
 
-    .ice-barra {
-      height: 100%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--terracota), var(--granate));
+    .ice__barra {
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      height: 100%;
+      min-width: 56px;
       padding-right: 12px;
-      min-width: 54px;
-    }
-
-    .ice-fila.secundaria .ice-barra {
-      background: var(--verde-persiana);
-      opacity: 0.7;
-    }
-
-    .ice-fila.secundaria .ice-codigo {
-      background-color: var(--verde-persiana);
-    }
-
-    .ice-score {
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--terracota), var(--granate));
       color: var(--crema);
+      font-size: .85rem;
       font-weight: 800;
-      font-size: 14px;
     }
 
-    .ice-separador {
+    .ice__fila--secundaria .ice__barra { background: var(--verde); }
+    .ice__fila--secundaria .ice__codigo { background-color: var(--verde); }
+
+    .ice__separador {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin: 4px 0;
-      color: var(--granate);
+      margin-top: 6px;
+      font-size: .7rem;
       font-weight: 700;
-      font-size: 11px;
+      letter-spacing: .12em;
       text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .ice-separador::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background-color: rgba(138, 58, 50, 0.2);
-    }
-
-    .linea-tiempo .paso-tiempo {
-      position: relative;
-      display: flex;
-      gap: 20px;
-      padding-bottom: 34px;
-    }
-
-    .linea-tiempo .paso-tiempo:last-child {
-      padding-bottom: 0;
-    }
-
-    .semana-tiempo {
-      width: 52px;
-      flex-shrink: 0;
       color: var(--granate);
-      font-weight: 800;
-      font-size: 14px;
-      padding-top: 3px;
     }
+    .ice__separador::after { content: ""; flex: 1; height: 1px; background-color: rgba(138, 58, 50, .2); }
 
-    .punto-tiempo {
+    /* Línea de tiempo */
+    .tiempo { margin: 0; padding: 0; list-style: none; }
+
+    .tiempo__paso {
       position: relative;
-      width: 14px;
-      flex-shrink: 0;
+      display: grid;
+      grid-template-columns: 58px 16px 1fr;
+      gap: 18px;
+      padding-bottom: 32px;
+      margin: 0;
     }
+    .tiempo__paso:last-child { padding-bottom: 0; }
 
-    .punto-tiempo span {
+    .tiempo__semana { font-size: .875rem; font-weight: 800; color: var(--granate); padding-top: 2px; }
+
+    .tiempo__punto { position: relative; }
+
+    .tiempo__punto::after {
+      content: "";
       position: absolute;
       top: 6px;
       left: 0;
@@ -889,1036 +1081,1406 @@
       height: 14px;
       border-radius: 50%;
       background-color: var(--terracota);
-      border: 3px solid var(--crema);
-      box-shadow: 0 0 0 1px rgba(138, 58, 50, 0.25);
-      z-index: 1;
+      box-shadow: 0 0 0 4px var(--fondo-alt);
     }
 
-    .paso-tiempo:not(:last-child) .punto-tiempo::before {
+    .tiempo__paso:not(:last-child) .tiempo__punto::before {
       content: "";
       position: absolute;
-      top: 6px;
+      top: 18px;
       left: 6px;
       width: 2px;
-      height: calc(100% + 28px);
-      background-color: rgba(138, 58, 50, 0.2);
+      height: calc(100% + 20px);
+      background-color: rgba(138, 58, 50, .22);
     }
 
-    .contenido-tiempo {
-      flex: 1;
-      padding-top: 1px;
+    .tiempo__cuerpo h3 { font-size: 1rem; margin-bottom: .25em; }
+    .tiempo__cuerpo p { font-size: .9rem; color: var(--texto-suave); margin-bottom: 10px; }
+
+    @media (max-width: 560px) {
+      .tiempo__paso { grid-template-columns: 46px 16px 1fr; gap: 12px; }
     }
 
-    .contenido-tiempo h3 {
-      color: var(--azul-sombra);
+    /* Bloque desplegable */
+    .desplegable {
+      margin-top: 30px;
+      border: 1px solid var(--borde-oscuro);
+      border-radius: var(--r-l);
+      background-color: rgba(243, 230, 211, .04);
+      overflow: hidden;
+    }
+
+    .desplegable summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px clamp(20px, 2.5vw, 30px);
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--crema);
+      list-style: none;
+    }
+
+    .desplegable summary::-webkit-details-marker { display: none; }
+    .desplegable summary::marker { content: ""; }
+
+    .desplegable summary::after {
+      content: "＋";
+      font-size: 1.2rem;
+      color: var(--terracota-claro);
+      transition: transform .2s ease;
+    }
+
+    .desplegable details[open] summary::after { content: "－"; }
+    .desplegable summary:hover { background-color: rgba(243, 230, 211, .05); }
+
+    .desplegable__cuerpo { padding: 4px clamp(20px, 2.5vw, 30px) clamp(24px, 3vw, 34px); }
+
+    .desplegable--claro {
+      border-color: var(--borde);
+      background-color: var(--panel);
+    }
+    .desplegable--claro summary { color: var(--azul); }
+    .desplegable--claro summary::after { color: var(--granate); }
+    .desplegable--claro summary:hover { background-color: rgba(138, 58, 50, .04); }
+
+    /* Aprendizajes */
+    .aprendizaje { border-top: 2px solid var(--granate); padding-top: 20px; }
+    .aprendizaje h3 { font-size: 1.0625rem; }
+    .aprendizaje p { font-size: .95rem; color: var(--texto-suave); margin: 0; }
+
+    /* Cierre / contacto */
+    .cierre__frase {
+      font-size: clamp(1.6rem, 3.4vw, 2.6rem);
       font-weight: 800;
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-
-    .contenido-tiempo p {
-      color: var(--azul-sombra);
-      opacity: 0.65;
-      font-size: 14px;
-      margin-bottom: 0;
-    }
-
-    .etiqueta-tiempo {
-      flex-shrink: 0;
-      padding-top: 2px;
-    }
-
-    @media (max-width: 767.98px) {
-      .linea-tiempo .paso-tiempo {
-        flex-wrap: wrap;
-      }
-
-      .etiqueta-tiempo {
-        margin-left: 72px;
-      }
-    }
-
-    /* ===========================================
-       PIE DE PÁGINA
-       =========================================== */
-    footer {
-      background-color: var(--gris-piedra);
-      color: rgba(243, 230, 211, 0.75);
-    }
-
-    footer h2,
-    footer h3 {
+      letter-spacing: -.025em;
+      line-height: 1.15;
       color: var(--crema);
+      max-width: 20ch;
     }
 
-    footer a {
-      color: rgba(243, 230, 211, 0.55);
-      text-decoration: none;
+    .contacto__enlaces { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+
+    /* Pie */
+    .pie {
+      background-color: var(--piedra);
+      color: rgba(243, 230, 211, .68);
+      padding-block: clamp(48px, 6vw, 72px) 32px;
+      font-size: .9rem;
     }
 
-    footer a:hover {
-      color: var(--crema);
+    .pie h2 { font-size: 1.15rem; color: var(--crema); text-transform: uppercase; letter-spacing: .08em; }
+    .pie h3 { font-size: .74rem; color: var(--crema); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 14px; }
+    .pie ul { list-style: none; padding: 0; margin: 0; }
+    .pie li { margin-bottom: 9px; }
+    .pie a { color: rgba(243, 230, 211, .68); text-decoration: none; }
+    .pie a:hover { color: var(--crema); text-decoration: underline; }
+    .pie p { font-size: .9rem; }
+
+    .pie__rejilla {
+      display: grid;
+      grid-template-columns: 1.7fr repeat(3, minmax(140px, 1fr));
+      gap: 34px;
     }
 
+    @media (max-width: 860px) {
+      .pie__rejilla { grid-template-columns: 1fr 1fr; }
+      .pie__rejilla > :first-child { grid-column: 1 / -1; }
+    }
+
+    .pie__legal {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(243, 230, 211, .15);
+      font-size: .8125rem;
+      color: rgba(243, 230, 211, .5);
+    }
+
+    /* =========================================================
+       10 · ANIMACIÓN DE ENTRADA
+       ========================================================= */
+    .revela {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .revela.visible { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .revela { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+
+    @media print {
+      .nav, .progreso, .saltar { display: none; }
+      body { background: #fff; }
+      .seccion--oscura { background: #fff; color: #000; }
+    }
   </style>
 </head>
 
 <body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <div class="progreso" id="progreso" aria-hidden="true"></div>
 
-  <!-- ===========================================
+  <!-- =====================================================
        NAVEGACIÓN
-       =========================================== -->
-  <nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-      <a class="navbar-brand" href="#inicio">
-        <img src="img/logo.png" alt="Madrid Habitada" class="navbar-logo">
+       ===================================================== -->
+  <header class="nav">
+    <div class="nav__interior">
+      <a class="nav__marca" href="#inicio">
+        <img src="img/logo.png" alt="Madrid Habitada" width="714" height="263">
+        <span class="nav__autoria">Caso de estudio<br>Claudia Erustes</span>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
-        aria-label="Abrir menú">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="menu">
-        <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
-          <li class="nav-item"><a class="nav-link" href="#problema">El problema</a></li>
-          <li class="nav-item"><a class="nav-link" href="#propuesta">La propuesta</a></li>
-          <li class="nav-item"><a class="nav-link" href="#objetivo">Objetivo</a></li>
-          <li class="nav-item"><a class="nav-link" href="#personas">Para quién</a></li>
-          <li class="nav-item"><a class="nav-link" href="#funciona">Cómo funciona</a></li>
-          <li class="nav-item"><a class="nav-link" href="#identidad">Identidad visual</a></li>
-          <li class="nav-item"><a class="nav-link" href="#growth">Plan de crecimiento</a></li>
-          <li class="nav-item"><a class="boton-principal" href="#empezar">Descarga la app</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
 
-  <!-- ===========================================
-       HERO
-       =========================================== -->
-  <header class="hero" id="inicio">
-    <div class="container-fluid px-0">
-      <div class="row align-items-stretch g-0">
-        <div class="col-lg-6 py-5 d-flex align-items-center">
-          <div class="hero-contenido">
-            <p class="etiqueta mb-3">App para residentes de Madrid</p>
-            <h1 class="mb-2">Madrid como<br><em>lugar vivido.</em></h1>
-            <p class="hero-subtitulo mb-4">No como decorado.</p>
-            <p class="texto-seccion mb-2">
-              Redescubre tu ciudad desde el barrio, la vida cotidiana y la afinidad.
-            </p>
-            <p class="mb-4" style="font-size:17px;font-weight:600;color:var(--terracota);">Sin rankings turísticos, sin viralidad, sin ruido.</p>
-            <div class="d-flex flex-column flex-sm-row gap-3 mb-5">
-              <a class="boton-principal" href="#empezar">Descarga la app</a>
-              <a class="boton-secundario" href="#funciona">Ver cómo funciona →</a>
-            </div>
-            <div class="d-flex gap-4">
-              <div>
-                <span class="dato-numero">40+</span>
-                <p class="dato-texto mb-0">Usuarios piloto</p>
-              </div>
-              <div>
-                <span class="dato-numero">21</span>
-                <p class="dato-texto mb-0">Barrios</p>
-              </div>
-              <div>
-                <span class="dato-numero">0</span>
-                <p class="dato-texto mb-0">Rankings</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 hero-imagen-col">
-          <img src="img/calle.png" alt="Vecina caminando por una calle de Madrid al atardecer" class="hero-imagen">
-        </div>
-      </div>
+      <button class="nav__boton" id="navBoton" type="button" aria-expanded="false" aria-controls="navegacion"
+        aria-label="Abrir el menú de navegación">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+
+      <nav class="nav__navegacion" id="navegacion" aria-label="Secciones del caso de estudio">
+        <ul class="nav__menu">
+          <li><a class="nav__enlace" href="#resumen">Resumen</a></li>
+          <li><a class="nav__enlace" href="#problema">Reto</a></li>
+          <li><a class="nav__enlace" href="#proceso">Proceso</a></li>
+          <li><a class="nav__enlace" href="#personas">Personas</a></li>
+          <li><a class="nav__enlace" href="#solucion">Solución</a></li>
+          <li><a class="nav__enlace" href="#identidad">Identidad</a></li>
+          <li><a class="nav__enlace" href="#growth">Growth</a></li>
+          <li><a class="nav__cta" href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
-  <!-- ===========================================
-       EL PROBLEMA
-       =========================================== -->
-  <section class="seccion-oscura py-5" id="problema">
-    <div class="container">
-      <p class="etiqueta mb-3">El problema</p>
-      <h2 class="titulo-seccion mb-3">Madrid <em>estandarizado</em> por likes y rankings.</h2>
-      <p class="texto-seccion mb-5">
-        Las apps de recomendación actuales muestran Madrid desde lógicas turísticas,
-        invisibilizando la vida cotidiana de quienes la habitan.
-      </p>
+  <main id="contenido">
 
-      <img src="img/mercado.png" alt="Vecina comprando en un mercado de barrio de Madrid"
-        class="imagen-problema mb-5">
+    <!-- =====================================================
+         PORTADA
+         ===================================================== -->
+    <section class="portada" id="inicio">
+      <div class="portada__interior">
+        <div class="portada__texto">
+          <span class="etiqueta">Caso de estudio · TFM Máster UX/UI Design</span>
+          <h1>Madrid como<br><em>lugar vivido.</em></h1>
+          <p class="portada__lema">No como decorado.</p>
+          <p class="portada__entradilla">
+            Diseño de un sistema digital que ayuda a quien vive en Madrid a redescubrir
+            su ciudad desde el barrio, la vida cotidiana y la afinidad.
+          </p>
+          <p class="portada__afirmacion">Sin rankings turísticos, sin viralidad, sin ruido.</p>
+          <div class="grupo-botones">
+            <a class="boton boton--principal" href="#proceso">Recorrer el proceso</a>
+            <a class="boton boton--secundario" href="memoria-madrid-habitada.pdf" target="_blank" rel="noopener">
+              Leer la memoria (PDF)
+            </a>
+          </div>
+        </div>
 
-      <div class="row g-4">
-        <div class="col-md-4">
-          <article class="tarjeta-problema p-4">
-            <div class="icono-problema">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C46A4A" stroke-width="2"
+        <figure class="portada__figura">
+          <img src="img/calle.webp" width="1100" height="1375" fetchpriority="high" decoding="async"
+            alt="Vecina caminando por una calle de barrio de Madrid al atardecer">
+          <figcaption>Fotografía documental · nivel de calle</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         RESUMEN
+         ===================================================== -->
+    <section class="seccion" id="resumen">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <span class="etiqueta">El proyecto en 30 segundos</span>
+          <h2>Una ciudad se habita cuando la tecnología que la media <em>acompaña sin imponer</em>.</h2>
+        </div>
+
+        <div class="rejilla rejilla--3 revela">
+          <article class="tarjeta">
+            <div class="icono" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-                <polyline points="16 7 22 7 22 13" />
+                <circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 2" />
               </svg>
             </div>
-            <h3 class="h5 fw-bold mb-2">Saturación por popularidad</h3>
-            <p class="mb-0">
-              Los rankings generan un efecto acumulativo: cuanto más visible es un lugar,
-              más se visita y más se satura. Los barrios pierden su identidad.
+            <h3>El reto</h3>
+            <p>
+              Las plataformas que median la experiencia urbana priorizan visibilidad y popularidad:
+              concentran los flujos, invisibilizan el barrio y convierten la ciudad en un producto.
+              ¿Cómo rediseñar esa arquitectura digital para que Madrid vuelva a ser espacio de vida?
+            </p>
+          </article>
+
+          <article class="tarjeta">
+            <div class="icono" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" />
+              </svg>
+            </div>
+            <h3>La propuesta</h3>
+            <p>
+              Una app que organiza el contenido por barrio, afinidad y momento del día —no por
+              categorías comerciales ni por rankings— y traduce ese principio en seis decisiones de
+              diseño concretas, de los filtros suaves a los guardados privados.
+            </p>
+          </article>
+
+          <article class="tarjeta">
+            <div class="icono" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v18h18" /><path d="m19 9-5 5-4-4-3 3" />
+              </svg>
+            </div>
+            <h3>Cómo se mide</h3>
+            <p>
+              Con una métrica norte propia: <strong>Recomendaciones Conectadas Semanales</strong>.
+              Solo sube cuando alguien guarda un lugar que siente suyo. No se puede inflar con
+              descargas ni con tiempo de pantalla.
             </p>
           </article>
         </div>
-        <div class="col-md-4">
-          <article class="tarjeta-problema p-4">
-            <div class="icono-problema">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C46A4A" stroke-width="2"
+      </div>
+    </section>
+
+    <!-- =====================================================
+         EL PROBLEMA
+         ===================================================== -->
+    <section class="seccion seccion--oscura" id="problema">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <span class="etiqueta">El reto</span>
+          <h2>Madrid <em>estandarizado</em> por likes y rankings.</h2>
+          <p class="entradilla">
+            En el pasado, Madrid funcionaba como una red de barrios donde el espacio público era una
+            extensión de la vida privada. Hoy, las plataformas digitales condicionan cómo se percibe,
+            se recorre y se consume la ciudad.
+          </p>
+        </div>
+
+        <figure class="banda revela">
+          <img src="img/mercado.webp" width="1100" height="1375" loading="lazy" decoding="async"
+            alt="Vecina comprando en un mercado de barrio de Madrid">
+          <figcaption>El comercio de proximidad queda sepultado bajo recomendaciones virales y rutas turísticas estándar.</figcaption>
+        </figure>
+
+        <div class="rejilla rejilla--3 revela">
+          <article class="tarjeta tarjeta--oscura">
+            <div class="icono" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 22 7 22 13" />
+              </svg>
+            </div>
+            <h3>La visibilidad concentra</h3>
+            <p>
+              Los rankings generan un efecto acumulativo: cuanto más visible es un lugar, más se
+              visita y más se satura. Los flujos se concentran en un número muy reducido de espacios.
+            </p>
+          </article>
+
+          <article class="tarjeta tarjeta--oscura">
+            <div class="icono" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
                 <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
               </svg>
             </div>
-            <h3 class="h5 fw-bold mb-2">Invisibilización de lo cotidiano</h3>
-            <p class="mb-0">
-              Los comercios locales y ubicaciones de barrio quedan sepultados bajo
-              recomendaciones virales y rutas turísticas estándar.
+            <h3>La popularidad invisibiliza</h3>
+            <p>
+              Los entornos cotidianos y barriales desaparecen del mapa, y los recorridos urbanos se
+              estandarizan a base de rankings, «me gusta» y reseñas.
             </p>
           </article>
-        </div>
-        <div class="col-md-4">
-          <article class="tarjeta-problema p-4">
-            <div class="icono-problema">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C46A4A" stroke-width="2"
+
+          <article class="tarjeta tarjeta--oscura">
+            <div class="icono" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
               </svg>
             </div>
-            <h3 class="h5 fw-bold mb-2">La ciudad como producto</h3>
-            <p class="mb-0">
-              Las plataformas reorganizan cómo se percibe, se recorre y se consume la
-              ciudad, reduciendo su complejidad a consumo rápido.
+            <h3>La saturación deteriora</h3>
+            <p>
+              Se debilita el comercio local y la identidad barrial, y quien acaba de llegar lo tiene
+              más difícil para integrarse. La ciudad deja de ser espacio de vida y se comporta como
+              producto urbano.
             </p>
           </article>
         </div>
-      </div>
 
-      <p class="mt-5 mb-0">
-        Madrid Habitada existe para devolver al residente una relación más propia,
-        próxima y cotidiana con la ciudad.
-      </p>
-    </div>
-  </section>
-
-  <!-- ===========================================
-       LA PROPUESTA
-       =========================================== -->
-  <section class="py-5 bg-white" id="propuesta">
-    <div class="container">
-      <div class="row align-items-center g-5">
-        <div class="col-lg-5 order-lg-2 text-center">
-          <img src="img/app.png" alt="Pantalla de la app mostrando el detalle de Café Athenea" class="imagen-app">
+        <div class="desplegable revela">
+          <details>
+            <summary>Marco teórico: las cinco lentes del proyecto</summary>
+            <div class="desplegable__cuerpo">
+              <p class="nota" style="margin-bottom:18px;">
+                Una plataforma digital no solo representa la ciudad: puede reorganizar su experiencia,
+                sus recorridos y su valor simbólico.
+              </p>
+              <div class="rejilla rejilla--2">
+                <p style="font-size:.95rem;"><strong>Contexto urbano</strong> — globalización, mercantilización del espacio y pérdida de usos residenciales.</p>
+                <p style="font-size:.95rem;"><strong>Turistificación</strong> — el territorio se reorganiza priorizando ocio, rentabilidad y consumo.</p>
+                <p style="font-size:.95rem;"><strong>Mediación digital</strong> — rankings, métricas y algoritmos redistribuyen los flujos urbanos.</p>
+                <p style="font-size:.95rem;"><strong>Vida cotidiana</strong> — la pertenencia surge de rutinas, recorridos repetidos y familiaridad.</p>
+                <p style="font-size:.95rem;"><strong>Derecho a la ciudad</strong> — el uso cotidiano y la capacidad de participar en la configuración del entorno.</p>
+              </div>
+            </div>
+          </details>
         </div>
-        <div class="col-lg-7 order-lg-1">
-          <p class="etiqueta mb-3">La propuesta</p>
-          <h2 class="titulo-seccion mb-3">Tecnología como mediadora <em>silenciosa</em>.</h2>
-          <p class="texto-seccion mb-5">
-            Madrid Habitada ayuda a redescubrir la ciudad desde barrios, usos reales
-            y experiencias no turistificadas.
+      </div>
+    </section>
+
+    <!-- =====================================================
+         PROCESO
+         ===================================================== -->
+    <section class="seccion" id="proceso">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <span class="etiqueta">Proceso</span>
+          <h2>Un <em>doble diamante</em>, de la investigación al plan de crecimiento.</h2>
+          <p class="entradilla">
+            Cinco fases alternando exploración divergente y síntesis convergente. Cada una se apoya
+            en entregables reales elaborados a lo largo del máster.
           </p>
-          <div class="row g-3">
-            <div class="col-sm-6">
-              <article class="tarjeta-propuesta p-4">
-                <div class="icono-propuesta">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" />
-                    <circle cx="12" cy="12" r="10" />
-                  </svg>
-                </div>
-                <h3 class="fw-bold mb-2">Exploración por afinidad</h3>
-                <p class="mb-0">
-                  Recomendaciones por barrio habitual, contexto de uso y afinidad
-                  personal. Sin rankings, sin modas.
-                </p>
-              </article>
+        </div>
+
+        <div class="fases revela">
+          <article class="fase">
+            <p class="fase__num">01 —</p>
+            <div class="fase__cuerpo">
+              <h3>Descubrir</h3>
+              <p>
+                Investigación exploratoria con tres perfiles de residentes y estudio del universo
+                competitivo por función: Google Maps, Instagram, Fever, Madrid Secreto, Time Out y
+                Tripadvisor, con Fever como caso de referencia por ser una plataforma nacida en Madrid.
+              </p>
+              <ul class="lista-pildoras">
+                <li><span class="pildora">Entrevistas y necesidades</span></li>
+                <li><span class="pildora">Benchmark competitivo</span></li>
+                <li><span class="pildora">Moodboard</span></li>
+              </ul>
             </div>
-            <div class="col-sm-6">
-              <article class="tarjeta-propuesta p-4">
-                <div class="icono-propuesta">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-                    <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-                    <path d="M10 9H8" />
-                    <path d="M16 13H8" />
-                    <path d="M16 17H8" />
-                  </svg>
-                </div>
-                <h3 class="fw-bold mb-2">Fichas contextuales</h3>
-                <p class="mb-0">
-                  Cada lugar explica su papel en la vida del barrio: qué hay, por qué
-                  encaja contigo y qué puedes hacer.
-                </p>
-              </article>
+          </article>
+
+          <article class="fase">
+            <p class="fase__num">02 —</p>
+            <div class="fase__cuerpo">
+              <h3>Definir</h3>
+              <p>
+                Síntesis de la investigación en seis patrones comunes, tres user personas con su
+                necesidad dominante, mapa de empatía, journey, FODA y redefinición del reto. Aquí el
+                encargo pasó de «una manera distinta de explorar la ciudad» a «un sistema de mediación
+                urbana que reduzca las dinámicas de concentración espacial».
+              </p>
+              <ul class="lista-pildoras">
+                <li><span class="pildora">User personas</span></li>
+                <li><span class="pildora">Mapa de empatía</span></li>
+                <li><span class="pildora">Journey</span></li>
+                <li><span class="pildora">Propuesta de valor</span></li>
+                <li><span class="pildora">6 principios UX/UI</span></li>
+              </ul>
             </div>
-            <div class="col-sm-6">
-              <article class="tarjeta-propuesta p-4">
-                <div class="icono-propuesta">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 16 14" />
-                  </svg>
-                </div>
-                <h3 class="fw-bold mb-2">Momentos del día</h3>
-                <p class="mb-0">
-                  Mañana, tarde o noche. La app propone lugares según el momento,
-                  sin que tengas que pensar demasiado.
-                </p>
-              </article>
+          </article>
+
+          <article class="fase">
+            <p class="fase__num">03 —</p>
+            <div class="fase__cuerpo">
+              <h3>Idear y diseñar</h3>
+              <p>
+                Arquitectura de la información de baja profundidad, mapa del sitio, ocho wireframes
+                de las pantallas clave y un sistema de diseño completo: marca, color, tipografía,
+                iconografía y librería de componentes. La landing pasó de Figma a HTML.
+              </p>
+              <ul class="lista-pildoras">
+                <li><span class="pildora">Bocetos</span></li>
+                <li><span class="pildora">Mapa del sitio</span></li>
+                <li><span class="pildora">8 wireframes</span></li>
+                <li><span class="pildora">Sistema de diseño</span></li>
+                <li><span class="pildora">Prototipo de papel</span></li>
+              </ul>
             </div>
-            <div class="col-sm-6">
-              <article class="tarjeta-propuesta p-4">
-                <div class="icono-propuesta">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-                  </svg>
-                </div>
-                <h3 class="fw-bold mb-2">Guardados privados</h3>
-                <p class="mb-0">
-                  Tu memoria personal de la ciudad. Sin rankings sociales ni obligación
-                  de publicar o compartir.
-                </p>
-              </article>
+          </article>
+
+          <article class="fase">
+            <p class="fase__num">04 —</p>
+            <div class="fase__cuerpo">
+              <h3>Validar</h3>
+              <p>
+                Diseño de una prueba A/B sobre la pantalla de exploración y definición del embudo de
+                crecimiento (RACE), con objetivo, métrica principal y riesgo para cada fase.
+              </p>
+              <ul class="lista-pildoras">
+                <li><span class="pildora">Prueba A/B</span></li>
+                <li><span class="pildora">Embudo RACE</span></li>
+                <li><span class="pildora">Objetivos SMART</span></li>
+              </ul>
             </div>
+          </article>
+
+          <article class="fase">
+            <p class="fase__num">05 —</p>
+            <div class="fase__cuerpo">
+              <h3>Impacto y cierre</h3>
+              <p>
+                Métrica norte propia, backlog de experimentos priorizado con ICE, hoja de ruta de seis
+                semanas y un conjunto de guardrails que protegen la tesis del proyecto frente a las
+                métricas de vanidad.
+              </p>
+              <ul class="lista-pildoras">
+                <li><span class="pildora">Métrica norte (RCS)</span></li>
+                <li><span class="pildora">Backlog ICE</span></li>
+                <li><span class="pildora">Roadmap 6 semanas</span></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         HALLAZGOS
+         ===================================================== -->
+    <section class="seccion seccion--oscura" id="hallazgos">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <span class="etiqueta">Hallazgos de la investigación</span>
+          <h2>Cinco ideas que cambiaron el <em>planteamiento</em>.</h2>
+        </div>
+
+        <div class="rejilla rejilla--2 revela" style="gap:26px 44px;">
+          <div class="insight">
+            <span class="insight__marca" aria-hidden="true">01</span>
+            <p><strong>La mediación digital no es neutral.</strong> Reorganiza los flujos urbanos y consolida jerarquías territoriales.</p>
+          </div>
+          <div class="insight">
+            <span class="insight__marca" aria-hidden="true">02</span>
+            <p><strong>La popularidad genera un efecto acumulativo.</strong> Cuanto más visible es un lugar, más se visita y más se satura.</p>
+          </div>
+          <div class="insight">
+            <span class="insight__marca" aria-hidden="true">03</span>
+            <p><strong>La visibilidad transforma el espacio.</strong> Un lugar muy compartido cambia de uso y de percepción social.</p>
+          </div>
+          <div class="insight">
+            <span class="insight__marca" aria-hidden="true">04</span>
+            <p><strong>La pertenencia se construye por repetición.</strong> El vínculo urbano nace de rutinas y familiaridad progresiva.</p>
+          </div>
+          <div class="insight">
+            <span class="insight__marca" aria-hidden="true">05</span>
+            <p><strong>El diseño puede intervenir.</strong> Modificar métricas, algoritmos e incentivos altera la experiencia urbana.</p>
+          </div>
+        </div>
+
+        <div class="conclusion revela">
+          <span class="conclusion__marca" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </span>
+          <p>
+            <span class="conclusion__etiqueta">La conclusión</span>
+            Si el diseño prioriza la popularidad, <em>la ciudad se consume</em>.
+            Si prioriza la proximidad y la cotidianidad, <em>la ciudad se habita</em>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         PERSONAS
+         ===================================================== -->
+    <section class="seccion seccion--alt" id="personas">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <span class="etiqueta">Para quién</span>
+          <h2>Tres formas de <em>habitar</em> Madrid.</h2>
+          <p class="entradilla">
+            Cada persona aporta un verbo clave que funciona como criterio de diseño, y una implicación
+            directa sobre el embudo de crecimiento.
+          </p>
+        </div>
+
+        <div class="rejilla rejilla--3 revela">
+          <article class="tarjeta persona">
+            <img class="persona__foto" src="img/persona-1.webp" width="480" height="600" loading="lazy"
+              decoding="async" alt="Retrato de María Luengo, residente arraigada en Carabanchel">
+            <div class="persona__cuerpo">
+              <span class="persona__verbo">Proteger</span>
+              <h3>María Luengo</h3>
+              <p class="persona__meta">Residente arraigada · 36 años · Administrativa · Carabanchel</p>
+              <p style="font-size:.95rem;">
+                Vínculo fuerte y consolidado con su barrio. Necesita proteger sus rutinas y sus
+                espacios de confianza frente a la masificación.
+              </p>
+              <p class="persona__cita">«Quiero seguir yendo a mis sitios sin que se llenen de gente que los descubrió en Instagram.»</p>
+              <p class="persona__crecimiento"><strong>Implicación:</strong> retención por memoria local y valor percibido, sin presión.</p>
+            </div>
+          </article>
+
+          <article class="tarjeta persona">
+            <img class="persona__foto" src="img/persona-2.webp" width="480" height="600" loading="lazy"
+              decoding="async" alt="Retrato de Javier Rodríguez, residente de largo plazo en Chamberí">
+            <div class="persona__cuerpo">
+              <span class="persona__verbo">Profundizar</span>
+              <h3>Javier Rodríguez</h3>
+              <p class="persona__meta">Residente de largo plazo · 42 años · Informático · Chamberí</p>
+              <p style="font-size:.95rem;">
+                Conoce la ciudad y quiere seguir descubriéndola sin depender de rankings ni de
+                recomendaciones masivas.
+              </p>
+              <p class="persona__cita">«Llevo 15 años aquí y aún quiero descubrir sin que me lo dé un algoritmo de turistas.»</p>
+              <p class="persona__crecimiento"><strong>Implicación:</strong> activación por afinidad y exploración de calidad.</p>
+            </div>
+          </article>
+
+          <article class="tarjeta persona">
+            <img class="persona__foto" src="img/persona-3.webp" width="480" height="600" loading="lazy"
+              decoding="async" alt="Retrato de Claudia Sánchez, residente reciente en Aluche">
+            <div class="persona__cuerpo">
+              <span class="persona__verbo">Orientar</span>
+              <h3>Claudia Sánchez</h3>
+              <p class="persona__meta">Residente reciente · 25 años · Diseñadora gráfica · Aluche</p>
+              <p style="font-size:.95rem;">
+                Aún está aprendiendo a habitar Madrid. Necesita orientarse de forma progresiva y
+                comprensible, sin rutas cerradas.
+              </p>
+              <p class="persona__cita">«Me mudé hace 6 meses y no quiero que mi única referencia sean las rutas de siempre.»</p>
+              <p class="persona__crecimiento"><strong>Implicación:</strong> adquisición cualificada y onboarding guiado.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="desplegable desplegable--claro revela">
+          <details>
+            <summary>El tercer perfil de la investigación: el usuario crítico con la saturación digital</summary>
+            <div class="desplegable__cuerpo">
+              <p style="font-size:.95rem;color:var(--texto-suave);">
+                Persona adulta (25-55 años), digitalmente competente pero cansada de la
+                hiperconectividad. Usa el móvil de forma funcional y selectiva, con baja tolerancia al
+                ruido digital: rechaza notificaciones constantes, scroll infinito, rankings y
+                recomendaciones agresivas. Prefiere ver primero lo esencial y ampliar información solo
+                si lo necesita. De este perfil salió la exigencia de una arquitectura minimalista,
+                jerarquizada y modular, y de capas de información progresivas.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SOLUCIÓN
+         ===================================================== -->
+    <section class="seccion seccion--panel" id="solucion">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <span class="etiqueta">La solución</span>
+          <h2>Tecnología como mediadora <em>silenciosa</em>.</h2>
+          <p class="entradilla">
+            La propuesta de valor se traduce en seis decisiones de diseño que funcionan a la vez como
+            prioridades y como restricciones en todo el sistema.
+          </p>
+        </div>
+
+        <div class="solucion revela">
+          <div class="solucion__movil">
+            <img src="img/app.webp" width="440" height="956" loading="lazy" decoding="async"
+              alt="Pantalla de la app mostrando la ficha contextual de Café Athenea">
+          </div>
+
+          <div>
+            <article class="decision">
+              <h3>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" /><path d="M8 12h8" />
+                </svg>
+                Baja carga cognitiva
+              </h3>
+              <p>Pocas opciones visibles y navegación breve. La pantalla de inicio evita el feed infinito: prioriza pocos elementos y decisiones claras.</p>
+            </article>
+
+            <article class="decision">
+              <h3>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 6h18M7 12h10M11 18h2" />
+                </svg>
+                Filtros suaves
+              </h3>
+              <p>«Cerca de mí», «tranquilo», «cotidiano», «con historia», «para ir andando». Nada de «mejor valorado» ni «más popular».</p>
+            </article>
+
+            <article class="decision">
+              <h3>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" />
+                </svg>
+                Mapa discreto
+              </h3>
+              <p>El mapa apoya la ubicación sin dominar la experiencia ni convertirla en una app de rutas turísticas.</p>
+            </article>
+
+            <article class="decision">
+              <h3>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                </svg>
+                Guardados privados
+              </h3>
+              <p>Una memoria personal de la ciudad, sin obligación de publicar, valorar ni compartir.</p>
+            </article>
+
+            <article class="decision">
+              <h3>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                  <path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M16 13H8M16 17H8M10 9H8" />
+                </svg>
+                Fichas contextuales
+              </h3>
+              <p>Cada ficha explica el papel del lugar en la vida del barrio y por qué encaja contigo, no solo dónde está o qué puntuación tiene.</p>
+            </article>
+
+            <article class="decision">
+              <h3>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m2 2 20 20" /><path d="M8.5 3h7l1.5 5H7z" /><path d="M6 21h12" />
+                </svg>
+                Sin ranking turístico
+              </h3>
+              <p>La ordenación es por cercanía, utilidad, afinidad y relación barrial. Es una ausencia deliberada, y es lo que diferencia el producto.</p>
+            </article>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===========================================
-       OBJETIVO SMART
-       =========================================== -->
-  <section class="seccion-oscura py-5" id="objetivo">
-    <div class="container">
-      <p class="etiqueta mb-3">Objetivo SMART</p>
-      <h2 class="titulo-seccion mb-3">Validar la <em>experiencia</em> en cuatro semanas.</h2>
-      <p class="texto-seccion mb-2">
-        Queremos comprobar, con al menos 40 residentes de Madrid y durante 4 semanas,
-        que la app cumple su promesa: que al menos el 60&nbsp;% encuentre y guarde un
-        lugar que encaje con su vida —o empiece una ruta cotidiana— en menos de
-        3 minutos, y que valoren la experiencia con un 4 sobre 5 o más en claridad,
-        utilidad y afinidad.
-      </p>
-      <p class="texto-seccion small mb-5" style="opacity:.5;">
-        SMART: un objetivo específico, medible, alcanzable, relevante y con plazo.
-      </p>
-      <div class="row g-3">
-        <div class="col-6 col-lg">
-          <article class="tarjeta-metrica">
-            <span class="numero-metrica">4</span>
-            <p class="fw-bold mb-1">semanas</p>
-            <p class="small mb-0">Periodo de validación del prototipo.</p>
-          </article>
+    <!-- =====================================================
+         ARQUITECTURA
+         ===================================================== -->
+    <section class="seccion seccion--oscura" id="arquitectura">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <span class="etiqueta">Arquitectura de la información</span>
+          <h2>Diseñada para generar una <em>relación real</em>.</h2>
+          <p class="entradilla">
+            El diseño no busca retener tu atención: busca resolver una consulta y devolverte a la
+            calle. Por eso la información de cada lugar se muestra en tres niveles progresivos.
+          </p>
         </div>
-        <div class="col-6 col-lg">
-          <article class="tarjeta-metrica">
-            <span class="numero-metrica">&lt;3'</span>
-            <p class="fw-bold mb-1">minutos</p>
-            <p class="small mb-0">Tiempo máximo para completar la acción.</p>
-          </article>
+
+        <div class="rejilla rejilla--3 revela" style="margin-bottom:clamp(30px,4vw,46px);">
+          <div class="nivel">
+            <span class="nivel__num">1</span>
+            <h3>Esencial</h3>
+            <p>Lo primero que ves: qué es el lugar y dónde está.</p>
+          </div>
+          <div class="nivel">
+            <span class="nivel__num">2</span>
+            <h3>Contexto</h3>
+            <p>Por qué encaja contigo y qué papel juega en el barrio.</p>
+          </div>
+          <div class="nivel">
+            <span class="nivel__num">3</span>
+            <h3>Ampliada</h3>
+            <p>Más detalle solo si lo pides: horarios, historia, alrededores.</p>
+          </div>
         </div>
-        <div class="col-6 col-lg">
-          <article class="tarjeta-metrica">
-            <span class="numero-metrica">4/5</span>
-            <p class="fw-bold mb-1">valoración</p>
-            <p class="small mb-0">Claridad, utilidad y afinidad percibida.</p>
-          </article>
-        </div>
-        <div class="col-6 col-lg">
-          <article class="tarjeta-metrica">
-            <span class="numero-metrica">60%</span>
-            <p class="fw-bold mb-1">conversión</p>
-            <p class="small mb-0">Guardar un lugar o iniciar una ruta.</p>
-          </article>
-        </div>
-        <div class="col-6 col-lg">
-          <article class="tarjeta-metrica">
-            <span class="numero-metrica">40</span>
-            <p class="fw-bold mb-1">usuarios</p>
-            <p class="small mb-0">Muestra mínima de residentes.</p>
-          </article>
+
+        <figure class="banda revela" style="margin-top:0;">
+          <img src="img/wireframes.webp" width="1200" height="384" loading="lazy" decoding="async"
+            style="height:auto;object-fit:contain;background:rgba(243,230,211,.04);padding:18px;"
+            alt="Wireframes de las pantallas principales: inicio, mi barrio, guardados, explorar, momentos y ficha de lugar">
+          <figcaption>Ocho pantallas clave resueltas en wireframe, de la bienvenida a la ficha de lugar.</figcaption>
+        </figure>
+
+        <div class="desplegable revela">
+          <details>
+            <summary>Ver la estructura completa de secciones</summary>
+            <div class="desplegable__cuerpo">
+              <div class="tabla-envoltorio">
+                <table>
+                  <caption class="nota" style="text-align:left;padding:14px 18px;">Arquitectura de la información de Madrid Habitada.</caption>
+                  <thead>
+                    <tr><th scope="col">Sección</th><th scope="col">Contenido</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><th scope="row">Inicio</th><td>Resumen del barrio · Lugar cercano · Sugerencia del día</td></tr>
+                    <tr><th scope="row">Mi barrio</th><td>Lugares · Historias · Comunidad</td></tr>
+                    <tr><th scope="row">Explorar</th><td>Búsqueda · Filtros de afinidad · Mapa de apoyo · Lugares afines</td></tr>
+                    <tr><th scope="row">Momentos</th><td>Mañana · Tarde · Noche</td></tr>
+                    <tr><th scope="row">Guardados</th><td>Lugares · Historias · Recorridos · Listas personales</td></tr>
+                    <tr><th scope="row">Perfil</th><td>Barrio principal · Preferencias · Nivel de acompañamiento · Notificaciones · Privacidad</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="nota" style="margin-top:16px;">
+                Cada sección responde a un patrón detectado en la investigación: el barrio como unidad
+                de organización, la afinidad en lugar del ranking, la temporalidad de uso real y una
+                memoria personal sin exposición pública.
+              </p>
+            </div>
+          </details>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===========================================
-       PARA QUIÉN (personas)
-       =========================================== -->
-  <section class="py-5" id="personas">
-    <div class="container">
-      <p class="etiqueta mb-3">Para quién</p>
-      <h2 class="titulo-seccion mb-3">Tres formas de <em>habitar</em> Madrid</h2>
-      <p class="texto-seccion mb-5">
-        Madrid Habitada se adapta a distintas relaciones con la ciudad, siempre desde
-        la vida cotidiana y la proximidad.
-      </p>
-      <img src="img/personas.png" alt="Residentes de Madrid en su vida cotidiana" class="imagen-personas mb-5">
-      <div class="row g-4">
-        <div class="col-lg-4">
-          <article class="tarjeta-persona">
-            <div class="iniciales-persona">ML</div>
-            <p class="etiqueta mb-1">Residente arraigada</p>
-            <h3>María Luengo</h3>
-            <p class="text-muted small mb-1">36 años · Administrativa</p>
-            <p class="text-muted small mb-3">Carabanchel</p>
-            <p>Necesita proteger sus rutinas y espacios de confianza frente a la masificación.</p>
-            <p class="cita-persona mb-0">
-              «Quiero seguir yendo a mis sitios sin que se llenen de gente que los
-              descubrió en Instagram.»
+    <!-- =====================================================
+         IDENTIDAD VISUAL
+         ===================================================== -->
+    <section class="seccion" id="identidad">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <span class="etiqueta">Identidad y sistema de diseño</span>
+          <h2>Una ciudad vivida, próxima y <em>material</em>.</h2>
+          <p class="entradilla">
+            Fachadas, ladrillo, persianas, portales, mercados, bares, calles secundarias y comercio
+            local. Criterio fotográfico documental, a nivel de calle y con luz natural: nunca la
+            postal turística.
+          </p>
+        </div>
+
+        <div class="galeria revela" style="margin-bottom:clamp(36px,5vw,56px);">
+          <figure style="margin:0;">
+            <img src="img/bar.webp" width="1000" height="1333" loading="lazy" decoding="async"
+              alt="Bar de barrio en la calle Martín de los Heros">
+            <figcaption>Bar de barrio</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <img src="img/kiosko.webp" width="1000" height="1250" loading="lazy" decoding="async"
+              alt="Kiosco de prensa en una plaza de Madrid">
+            <figcaption>Kiosco de prensa</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <img src="img/plaza.webp" width="1000" height="1250" loading="lazy" decoding="async"
+              alt="Plaza de barrio de Madrid a primera hora">
+            <figcaption>Plaza de barrio</figcaption>
+          </figure>
+        </div>
+
+        <h3 style="margin-bottom:18px;">Paleta cromática</h3>
+        <div class="paleta revela" style="margin-bottom:clamp(36px,5vw,52px);">
+          <div>
+            <div class="muestra" style="background-color:#8A3A32;"></div>
+            <p><strong>Granate ladrillo</strong><code>#8A3A32</code><br>Acento principal, botones primarios.</p>
+          </div>
+          <div>
+            <div class="muestra" style="background-color:#C46A4A;"></div>
+            <p><strong>Terracota suave</strong><code>#C46A4A</code><br>Acento secundario, calidez.</p>
+          </div>
+          <div>
+            <div class="muestra" style="background-color:#F3E6D3;"></div>
+            <p><strong>Crema fachada</strong><code>#F3E6D3</code><br>Fondo principal, deja respirar.</p>
+          </div>
+          <div>
+            <div class="muestra" style="background-color:#323232;"></div>
+            <p><strong>Gris piedra</strong><code>#323232</code><br>Texto principal, con matiz cálido.</p>
+          </div>
+          <div>
+            <div class="muestra" style="background-color:#5E6049;"></div>
+            <p><strong>Verde persiana</strong><code>#5E6049</code><br>Comercio y vida local.</p>
+          </div>
+          <div>
+            <div class="muestra" style="background-color:#2F3A45;"></div>
+            <p><strong>Azul sombra</strong><code>#2F3A45</code><br>La dimensión digital, sobria.</p>
+          </div>
+        </div>
+
+        <div class="rejilla rejilla--2 revela" style="gap:clamp(24px,3vw,40px);align-items:start;">
+          <div class="especimen">
+            <h3 style="margin-bottom:16px;">Espécimen tipográfico</h3>
+            <div class="especimen__fila">
+              <span class="especimen__rol">Titular · Bold</span>
+              <span style="font-size:1.6rem;font-weight:800;letter-spacing:-.03em;color:var(--azul);">Madrid Habitada</span>
+            </div>
+            <div class="especimen__fila">
+              <span class="especimen__rol">Párrafo · Regular</span>
+              <span style="font-size:1rem;color:var(--texto-suave);">Cada barrio tiene su propio ritmo y su manera de habitarlo.</span>
+            </div>
+            <div class="especimen__fila">
+              <span class="especimen__rol">Botón · Semi Bold</span>
+              <span class="boton boton--principal" style="pointer-events:none;padding:10px 20px;">Ver ficha completa</span>
+            </div>
+            <div class="especimen__fila">
+              <span class="especimen__rol">Enlace · Medium</span>
+              <span style="color:var(--granate);font-weight:500;text-decoration:underline;">Descubre tu barrio</span>
+            </div>
+            <p class="nota" style="margin-top:18px;">
+              Plus Jakarta Sans, de Thin a Extra Bold: toda la jerarquía visual se construye sin una
+              segunda familia tipográfica.
             </p>
-          </article>
-        </div>
-        <div class="col-lg-4">
-          <article class="tarjeta-persona">
-            <div class="iniciales-persona">JR</div>
-            <p class="etiqueta mb-1">Residente largo plazo</p>
-            <h3>Javier Rodríguez</h3>
-            <p class="text-muted small mb-1">42 años · Informático</p>
-            <p class="text-muted small mb-3">Chamberí</p>
-            <p>Busca descubrir Madrid sin depender de rankings ni recomendaciones masivas.</p>
-            <p class="cita-persona mb-0">
-              «Llevo 15 años aquí y aún quiero descubrir sin que me lo dé un algoritmo
-              de turistas.»
+          </div>
+
+          <div>
+            <h3 style="margin-bottom:6px;">Atributos de marca</h3>
+            <p class="nota" style="margin-bottom:16px;">Siete atributos que funcionan como filtro de cada decisión.</p>
+            <ul class="lista-pildoras" style="margin-bottom:32px;">
+              <li><span class="pildora">Cotidiana</span></li>
+              <li><span class="pildora">Cercana</span></li>
+              <li><span class="pildora">Sobria</span></li>
+              <li><span class="pildora">Urbana</span></li>
+              <li><span class="pildora">Discreta</span></li>
+              <li><span class="pildora">Fiable</span></li>
+              <li><span class="pildora">Identitaria</span></li>
+            </ul>
+
+            <h3 style="margin-bottom:6px;">Iconografía</h3>
+            <p class="nota" style="margin-bottom:18px;">Lucide Icons · trazo lineal, sin estética tecnológica ni comercial.</p>
+            <div class="iconos">
+              <div class="icono-item">
+                <div class="icono" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+                <span>Inicio</span>
+              </div>
+              <div class="icono-item">
+                <div class="icono" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <span>Mi barrio</span>
+              </div>
+              <div class="icono-item">
+                <div class="icono" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                <span>Explorar</span>
+              </div>
+              <div class="icono-item">
+                <div class="icono" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <span>Momentos</span>
+              </div>
+              <div class="icono-item">
+                <div class="icono" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+                <span>Guardados</span>
+              </div>
+              <div class="icono-item">
+                <div class="icono" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <span>Perfil</span>
+              </div>
+            </div>
+
+            <p class="nota" style="margin-top:24px;">
+              Referentes metodológicos —no visuales— del sistema: Material Design, IBM Carbon y
+              Atlassian Design System.
             </p>
-          </article>
+          </div>
         </div>
-        <div class="col-lg-4">
-          <article class="tarjeta-persona">
-            <div class="iniciales-persona">CS</div>
-            <p class="etiqueta mb-1">Residente reciente</p>
-            <h3>Claudia Sánchez</h3>
-            <p class="text-muted small mb-1">29 años · Diseñadora</p>
-            <p class="text-muted small mb-3">Aluche</p>
-            <p>Necesita orientación para construir pertenencia de forma progresiva.</p>
-            <p class="cita-persona mb-0">
-              «Me mudé hace 6 meses y no quiero que mi única referencia sean las rutas
-              de siempre.»
-            </p>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         VALIDACIÓN
+         ===================================================== -->
+    <section class="seccion seccion--alt" id="validacion">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <span class="etiqueta">Validación</span>
+          <h2>Una prueba A/B para saber si la <em>afinidad</em> funciona mejor que la categoría.</h2>
+          <p class="entradilla">
+            Hipótesis: organizar la información por afinidad y contexto de uso mejora la comprensión
+            y facilita encontrar recomendaciones relevantes. Tarea: «busca un lugar que encaje contigo
+            para un plan cotidiano y guárdalo».
+          </p>
+        </div>
+
+        <div class="ab revela">
+          <div class="ab__col">
+            <span class="ab__marca">Versión A · control</span>
+            <h3>Categorías funcionales</h3>
+            <ul class="ab__lista">
+              <li>Comer</li>
+              <li>Pasear</li>
+              <li>Comprar</li>
+              <li>Cultura</li>
+              <li>Cerca de ti</li>
+              <li>Más populares</li>
+            </ul>
+          </div>
+
+          <div class="ab__col ab__col--b">
+            <span class="ab__marca">Versión B · propuesta</span>
+            <h3>Intención, momento y afinidad</h3>
+            <ul class="ab__lista">
+              <li>Para desconectar</li>
+              <li>Para ir sin prisa</li>
+              <li>Para redescubrir tu barrio</li>
+              <li>Para quedar cerca</li>
+              <li>Para un plan cotidiano</li>
+              <li>Para sentir Madrid más tuya</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="rejilla rejilla--3 revela" style="margin-top:clamp(26px,3vw,38px);">
+          <article class="tarjeta">
+            <h3>Qué se mide</h3>
+            <p>Tiempo hasta encontrar un lugar, clics hasta guardarlo, errores o retrocesos de navegación y porcentaje de tarea completada.</p>
+          </article>
+          <article class="tarjeta">
+            <h3>Cómo se valora</h3>
+            <p>Claridad de la pantalla, facilidad para guardar sin dificultad y percepción de afinidad: ¿el lugar guardado encajaba con lo que buscaba?</p>
+          </article>
+          <article class="tarjeta">
+            <h3>Estado honesto</h3>
+            <p>Los dos prototipos en Figma y el diseño del experimento están listos. La ejecución sobre la muestra de residentes es el siguiente paso del proyecto.</p>
           </article>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===========================================
-       ARQUITECTURA DE LA INFORMACIÓN
-       =========================================== -->
-  <section class="seccion-oscura py-5" id="arquitectura">
-    <div class="container">
-      <p class="etiqueta mb-3">Arquitectura de la información</p>
-      <h2 class="titulo-seccion mb-3">Diseñada para generar una <em>relación real</em>.</h2>
-      <p class="texto-seccion mb-4">
-        El diseño no busca retener tu atención; busca resolver una consulta y
-        devolverte a la ciudad. Por eso la información de cada lugar se muestra en
-        tres niveles, de lo esencial a lo opcional.
-      </p>
-      <div class="row g-3 mb-5">
-        <div class="col-md-4">
-          <span class="badge rounded-pill bg-secondary px-3 py-2 mb-2">1 · Esencial</span>
-          <p class="texto-seccion small mb-0">Lo primero que ves: qué es el lugar y dónde está.</p>
+    <!-- =====================================================
+         GROWTH
+         ===================================================== -->
+    <section class="seccion seccion--oscura" id="growth">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <span class="etiqueta">Plan de crecimiento</span>
+          <h2>Crecer por <em>conexión</em>, no por tráfico.</h2>
+          <p class="entradilla">
+            El reto: conseguir los primeros usuarios sin traicionar los valores del producto. El mayor
+            riesgo del proyecto es parecer «otra app de planes».
+          </p>
         </div>
-        <div class="col-md-4">
-          <span class="badge rounded-pill bg-secondary px-3 py-2 mb-2">2 · Contexto</span>
-          <p class="texto-seccion small mb-0">Por qué encaja contigo y qué papel juega en el barrio.</p>
-        </div>
-        <div class="col-md-4">
-          <span class="badge rounded-pill bg-secondary px-3 py-2 mb-2">3 · Ampliada</span>
-          <p class="texto-seccion small mb-0">Más detalle solo si lo pides: horarios, historia, alrededores.</p>
-        </div>
-      </div>
-      <img src="img/wireframes.png" alt="Wireframes de las pantallas principales de la app" class="imagen-wireframes">
-    </div>
-  </section>
 
-  <!-- ===========================================
-       CÓMO FUNCIONA (la app en cuatro pasos)
-       =========================================== -->
-  <section class="seccion-oscura pb-5" id="funciona">
-    <div class="container">
-      <p class="etiqueta mb-3">Cómo funciona</p>
-      <h2 class="titulo-seccion mb-3">De abrir la app a <em>salir a la calle</em> en cuatro pasos.</h2>
-      <p class="texto-seccion mb-5">
-        La app está pensada para usarse en poco tiempo: resuelve tu consulta y te
-        devuelve a la ciudad.
-      </p>
-      <div class="row g-3">
-        <div class="col-6 col-md-3">
-          <article class="tarjeta-fase p-4">
-            <div class="numero-fase">1</div>
-            <h3 class="fw-bold text-uppercase mb-1">Cuéntale cómo vives Madrid</h3>
-            <p class="mb-0">Tu barrio, tus momentos del día y lo que te interesa.</p>
-          </article>
+        <div class="tarjeta tarjeta--oscura tarjeta--ancha revela" style="margin-bottom:clamp(30px,4vw,44px);">
+          <span class="etiqueta">Métrica norte</span>
+          <h3>Recomendaciones Conectadas Semanales (RCS)</h3>
+          <p style="margin-bottom:1em;">
+            Número de personas que, cada semana, guardan un lugar afín o inician una ruta cotidiana
+            con una afinidad percibida igual o superior a 4/5.
+          </p>
+          <p>
+            <strong style="color:var(--terracota-claro);">Por qué esta métrica:</strong> solo sube
+            cuando alguien siente la recomendación como propia. No puede inflarse con descargas ni con
+            tiempo de pantalla, cifras que lucen mucho pero no dicen nada del valor real.
+          </p>
         </div>
-        <div class="col-6 col-md-3">
-          <article class="tarjeta-fase p-4">
-            <div class="numero-fase">2</div>
-            <h3 class="fw-bold text-uppercase mb-1">Recibe lugares afines</h3>
-            <p class="mb-0">Propuestas cercanas y cotidianas, sin rankings ni modas.</p>
-          </article>
-        </div>
-        <div class="col-6 col-md-3">
-          <article class="tarjeta-fase p-4">
-            <div class="numero-fase">3</div>
-            <h3 class="fw-bold text-uppercase mb-1">Entiende por qué encajan</h3>
-            <p class="mb-0">Cada ficha explica el papel del lugar en su barrio y por qué va contigo.</p>
-          </article>
-        </div>
-        <div class="col-6 col-md-3">
-          <article class="tarjeta-fase p-4">
-            <div class="numero-fase">4</div>
-            <h3 class="fw-bold text-uppercase mb-1">Guárdalo o inicia una ruta</h3>
-            <p class="mb-0">Tu memoria personal de la ciudad, privada y sin obligación de compartir.</p>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ===========================================
-       LLAMADA A LA ACCIÓN
-       =========================================== -->
-  <section class="py-5" id="empezar">
-    <div class="container">
-      <div class="panel-cta">
-        <p class="etiqueta mb-3">Empieza hoy</p>
-        <h2 class="titulo-seccion mb-3">Madrid se habita, no se consume.</h2>
-        <p class="texto-seccion mb-4">
-          Únete a los primeros residentes que redescubren su ciudad desde la
-          proximidad, sin ruido y sin rankings.
+        <h3 style="margin-bottom:16px;">El embudo del usuario, paso a paso</h3>
+        <p class="nota" style="margin-bottom:26px;">
+          Modelo RACE · AARRR. En cada etapa se mide algo concreto y se fija un mínimo para darla por
+          buena.
         </p>
-        <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mb-4">
-          <a class="boton-principal" href="#">Descarga gratis</a>
-          <a class="boton-secundario-claro" href="#">Ver el prototipo →</a>
-        </div>
-        <p class="small mb-0" style="color:var(--crema);">Sin publicidad · Sin rankings turísticos · Tecnología discreta</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- ===========================================
-       IDENTIDAD VISUAL
-       =========================================== -->
-  <section class="py-5 bg-white" id="identidad">
-    <div class="container">
-      <p class="etiqueta mb-3">Identidad visual</p>
-      <h2 class="titulo-seccion mb-2">Referencias visuales de la ciudad cotidiana.</h2>
-      <p class="texto-seccion mb-5">
-        Fachadas, ladrillo, persianas, portales, mercados, bares, calles secundarias y
-        comercio local. Criterio fotográfico documental, a nivel de calle, con luz natural.
-      </p>
-
-      <!-- Galería de fotos -->
-      <div class="row g-3 mb-5">
-        <div class="col-md-4">
-          <img src="img/bar.png" alt="Bar de barrio en la Calle Martín de los Heros" class="imagen-galeria">
-          <p class="etiqueta-galeria">Bar de barrio</p>
-        </div>
-        <div class="col-md-4">
-          <img src="img/mercado.png" alt="Puesto de frutas y verduras en un mercado de barrio" class="imagen-galeria">
-          <p class="etiqueta-galeria">Mercado de barrio</p>
-        </div>
-        <div class="col-md-4">
-          <img src="img/kiosko.png" alt="Kiosco de prensa en una plaza de Madrid" class="imagen-galeria">
-          <p class="etiqueta-galeria">Kiosco de prensa</p>
-        </div>
-      </div>
-
-      <div class="row g-5">
-        <!-- Referencias y criterio -->
-        <div class="col-lg-6">
-          <div class="tarjeta-identidad p-4">
-            <h3 class="h5 fw-bold mb-2">Referencias visuales</h3>
-            <p>Fachadas, ladrillo, persianas, portales, mercados, bares, calles secundarias y comercio local.</p>
-            <h3 class="h5 fw-bold mt-4 mb-2">Criterio fotográfico</h3>
-            <p class="mb-0">Documental · nivel de calle · luz natural · escenas no monumentales.</p>
-            <h3 class="h5 fw-bold mt-4 mb-2">Tipografía</h3>
-            <p class="mb-0">Plus Jakarta Sans — Clara, funcional y amable.</p>
+        <div class="embudo revela" style="margin-bottom:clamp(30px,4vw,44px);">
+          <div class="embudo__paso" style="--w:100%; --bg:#C46A4A;">
+            <span class="embudo__num" aria-hidden="true">1</span>
+            <div class="embudo__cuerpo">
+              <p class="embudo__titulo">Alcanzar · Adquisición <span>Descubrir la app</span></p>
+              <p class="embudo__medida">Visitas cualificadas y cuántas personas piden probar la app.</p>
+              <span class="embudo__meta">8 de cada 100 piden acceso · coste ≈ 0</span>
+            </div>
           </div>
-        </div>
-        <!-- Paleta y atributos -->
-        <div class="col-lg-6">
-          <h3 class="h5 fw-bold mb-3">Paleta de color</h3>
-          <div class="row g-3 mb-4">
-            <div class="col-6 col-md-4">
-              <div class="muestra-color" style="background-color: #8A3A32;"></div>
-              <p class="small mt-2 mb-0">Granate ladrillo<br><strong>#8A3A32</strong></p>
+          <div class="embudo__paso" style="--w:90%; --bg:#B15540;">
+            <span class="embudo__num" aria-hidden="true">2</span>
+            <div class="embudo__cuerpo">
+              <p class="embudo__titulo">Actuar · Activación <span>Primera prueba</span></p>
+              <p class="embudo__medida">Cuántas llegan a su primera recomendación y cuánto tardan.</p>
+              <span class="embudo__meta">6 de cada 10 · en menos de 3 min</span>
             </div>
-            <div class="col-6 col-md-4">
-              <div class="muestra-color" style="background-color: #C46A4A;"></div>
-              <p class="small mt-2 mb-0">Terracota suave<br><strong>#C46A4A</strong></p>
+          </div>
+          <div class="embudo__paso" style="--w:80%; --bg:#9E4539;">
+            <span class="embudo__num" aria-hidden="true">3</span>
+            <div class="embudo__cuerpo">
+              <p class="embudo__titulo">Convertir · Conversión <span>La conexión</span></p>
+              <p class="embudo__medida">Cuántas guardan un lugar afín o inician una ruta.</p>
+              <span class="embudo__meta">6 de cada 10 · afinidad 4/5 o más</span>
             </div>
-            <div class="col-6 col-md-4">
-              <div class="muestra-color" style="background-color: #2F3A45;"></div>
-              <p class="small mt-2 mb-0">Azul sombra<br><strong>#2F3A45</strong></p>
+          </div>
+          <div class="embudo__paso" style="--w:70%; --bg:#8A3A32;">
+            <span class="embudo__num" aria-hidden="true">4</span>
+            <div class="embudo__cuerpo">
+              <p class="embudo__titulo">Involucrar · Retención <span>Que vuelvan</span></p>
+              <p class="embudo__medida">Retorno a 7 y a 30 días, y acciones de conexión por usuario.</p>
+              <span class="embudo__meta">1 de cada 4 vuelve la 1.ª semana</span>
             </div>
-            <div class="col-6 col-md-4">
-              <div class="muestra-color" style="background-color: #5E6049;"></div>
-              <p class="small mt-2 mb-0">Verde persiana<br><strong>#5E6049</strong></p>
+          </div>
+          <div class="embudo__paso" style="--w:60%; --bg:#74332F;">
+            <span class="embudo__num" aria-hidden="true">5</span>
+            <div class="embudo__cuerpo">
+              <p class="embudo__titulo">Involucrar · Recomendación <span>Boca a boca</span></p>
+              <p class="embudo__medida">Invitaciones entre vecinos y cuántas traen un residente activo.</p>
+              <span class="embudo__meta">2 de cada 10 invitan · 1 de 4 se queda</span>
             </div>
-            <div class="col-6 col-md-4">
-              <div class="muestra-color" style="background-color: #F3E6D3;"></div>
-              <p class="small mt-2 mb-0">Crema fachada<br><strong>#F3E6D3</strong></p>
-            </div>
-            <div class="col-6 col-md-4">
-              <div class="muestra-color" style="background-color: #323232;"></div>
-              <p class="small mt-2 mb-0">Gris piedra<br><strong>#323232</strong></p>
+          </div>
+          <div class="embudo__paso" style="--w:50%; --bg:#2F3A45;">
+            <span class="embudo__num" aria-hidden="true">6</span>
+            <div class="embudo__cuerpo">
+              <p class="embudo__titulo">Planificar · Monetización <span>Sostener el proyecto</span></p>
+              <p class="embudo__medida">Disposición a apoyar el proyecto, medida en entrevistas.</p>
+              <span class="embudo__meta">Sostenibilidad sin dañar la experiencia</span>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="mt-4">
-        <h3 class="h5 fw-bold mb-3">Atributos de marca</h3>
-        <div class="d-flex flex-wrap gap-2">
-          <span class="pildora-marca">Cotidiana</span>
-          <span class="pildora-marca">Cercana</span>
-          <span class="pildora-marca">Discreta</span>
-          <span class="pildora-marca">Identitaria</span>
-          <span class="pildora-marca">Urbana</span>
-          <span class="pildora-marca">Fiable</span>
-        </div>
-      </div>
-
-      <!-- Iconografía -->
-      <div class="mt-4">
-        <h3 class="h5 fw-bold mb-1">Iconografía</h3>
-        <p class="text-muted small mb-4">Lucide Icons · Coherente con la discreción del sistema.</p>
-        <div class="iconos-lista">
-          <div class="icono-item">
-            <div class="icono-propuesta mx-auto mb-2">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            </div>
-            <p class="small mb-0" style="color:var(--azul-sombra);">Lugar</p>
-          </div>
-          <div class="icono-item">
-            <div class="icono-propuesta mx-auto mb-2">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <p class="small mb-0" style="color:var(--azul-sombra);">Guardado</p>
-          </div>
-          <div class="icono-item">
-            <div class="icono-propuesta mx-auto mb-2">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-            </div>
-            <p class="small mb-0" style="color:var(--azul-sombra);">Mi barrio</p>
-          </div>
-          <div class="icono-item">
-            <div class="icono-propuesta mx-auto mb-2">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <p class="small mb-0" style="color:var(--azul-sombra);">Momento</p>
-          </div>
-          <div class="icono-item">
-            <div class="icono-propuesta mx-auto mb-2">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-            </div>
-            <p class="small mb-0" style="color:var(--azul-sombra);">Ruta</p>
-          </div>
-          <div class="icono-item">
-            <div class="icono-propuesta mx-auto mb-2">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            </div>
-            <p class="small mb-0" style="color:var(--azul-sombra);">Explorar</p>
-          </div>
-          <div class="icono-item">
-            <div class="icono-propuesta mx-auto mb-2">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-            </div>
-            <p class="small mb-0" style="color:var(--azul-sombra);">Comercio</p>
-          </div>
-          <div class="icono-item">
-            <div class="icono-propuesta mx-auto mb-2">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <p class="small mb-0" style="color:var(--azul-sombra);">Residentes</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===========================================
-       PROPUESTA DE GROWTH
-       =========================================== -->
-  <section class="py-5" id="growth">
-    <div class="container">
-
-      <!-- Reto e idea clave -->
-      <p class="etiqueta mb-3">Plan de crecimiento (growth)</p>
-      <h2 class="titulo-seccion mb-3">Crecer por <em>conexión</em>, no por tráfico.</h2>
-      <p class="texto-seccion mb-4">
-        Este plan explica cómo conseguirá el proyecto sus primeros usuarios, cómo
-        comprobaremos que de verdad les aporta valor y cómo haremos que vuelvan.
-        <strong>El reto:</strong> crecer desde cero sin traicionar los valores del
-        producto. El mayor riesgo es parecer «otra app de planes».
-      </p>
-
-      <div class="panel-oscuro mb-4">
-        <p class="etiqueta mb-2">Idea clave</p>
-        <h3 class="h5">La tecnología como mediadora silenciosa</h3>
-        <p>El crecimiento de Madrid Habitada no se mide en descargas ni en tiempo de pantalla, sino en
-          conexiones reales con la ciudad. La tecnología no retiene la atención: resuelve una consulta y
-          devuelve a la persona a la calle.</p>
-      </div>
-
-      <div class="d-flex flex-wrap gap-2 mb-5">
-        <span class="pildora-contorno">Método: probar y aprender</span>
-        <span class="pildora-contorno">Embudo por etapas (RACE · AARRR)</span>
-        <span class="pildora-contorno">Prioridades con puntuación ICE</span>
-      </div>
-
-      <!-- Métrica norte -->
-      <p class="etiqueta mb-3">Métrica norte (North Star)</p>
-      <h2 class="titulo-seccion mb-4">Un solo dato como <em>brújula</em>.</h2>
-
-      <div class="panel-oscuro mb-5">
-        <p class="etiqueta mb-2">Definición</p>
-        <h3 class="h5">Recomendaciones Conectadas Semanales (RCS)</h3>
-        <p class="mb-2">De todos los datos posibles, elegimos uno para saber si el proyecto va bien:
-          cuántas personas, cada semana, guardan un lugar que encaja con ellas o empiezan una ruta
-          cotidiana, y además valoran esa recomendación con un 4 sobre 5 o más.</p>
-        <p><strong>Por qué este dato:</strong> solo sube cuando alguien siente la recomendación como
-          propia. No se puede inflar con descargas o tiempo en pantalla, cifras que lucen mucho pero
-          no dicen nada del valor real.</p>
-      </div>
-
-      <!-- Objetivos SMART -->
-      <p class="etiqueta mb-3">Objetivos de validación (SMART)</p>
-      <h2 class="titulo-seccion mb-3">Metas <em>medibles</em> en 4 semanas.</h2>
-      <p class="texto-seccion mb-4">Tres metas concretas, con número y plazo, para saber si el
-        proyecto funciona o hay que corregirlo.</p>
-      <div class="row g-3 mb-5">
-        <div class="col-md-4">
-          <article class="tarjeta-meta">
-            <p class="etiqueta mb-2">01 · Comprensión y utilidad</p>
-            <p>Que los residentes encuentren y guarden un lugar que encaje con su vida, o empiecen una ruta cotidiana.</p>
-            <span class="meta-valor">Meta: que lo consigan al menos 6 de cada 10 residentes (muestra de 40), en menos de 3 minutos.</span>
-          </article>
-        </div>
-        <div class="col-md-4">
-          <article class="tarjeta-meta">
-            <p class="etiqueta mb-2">02 · Calidad, no volumen</p>
-            <p>Que la recomendación se perciba como relevante y clara.</p>
-            <span class="meta-valor">Meta: valoración media de 4 sobre 5 o más en claridad, utilidad y afinidad.</span>
-          </article>
-        </div>
-        <div class="col-md-4">
-          <article class="tarjeta-meta">
-            <p class="etiqueta mb-2">03 · Retorno por valor</p>
-            <p>Que quienes ya conectaron con un lugar vuelvan a usar la app por decisión propia.</p>
-            <span class="meta-valor">Meta: que al menos 1 de cada 4 vuelva durante la primera semana.</span>
-          </article>
-        </div>
-      </div>
-
-      <!-- Embudo RACE / AARRR -->
-      <p class="etiqueta mb-3">El embudo de crecimiento</p>
-      <h2 class="titulo-seccion mb-3">El camino del usuario, <em>paso a paso</em>.</h2>
-      <p class="texto-seccion mb-4">Un embudo describe el recorrido de una persona: descubre la app,
-        la prueba, guarda su primer lugar, vuelve y la recomienda. En cada etapa medimos algo concreto
-        y fijamos un mínimo para darla por buena. (Seguimos los modelos RACE y AARRR, dos formas
-        habituales de nombrar estas etapas.)</p>
-      <div class="embudo mb-5">
-        <div class="embudo-paso" style="--w:100%; --bg:#C46A4A;">
-          <div class="embudo-num">1</div>
-          <div class="embudo-cuerpo">
-            <div class="embudo-titulo">Alcanzar · Adquisición <span>Descubrir la app</span></div>
-            <p class="embudo-medida">Visitas de personas afines y cuántas piden probar la app.</p>
-            <span class="embudo-meta">8 de cada 100 piden acceso · sin publicidad</span>
-          </div>
-        </div>
-        <div class="embudo-paso" style="--w:90%; --bg:#B15540;">
-          <div class="embudo-num">2</div>
-          <div class="embudo-cuerpo">
-            <div class="embudo-titulo">Actuar · Activación <span>Primera prueba</span></div>
-            <p class="embudo-medida">Cuántas personas llegan a su primera recomendación y cuánto tardan.</p>
-            <span class="embudo-meta">6 de cada 10 · en menos de 3 min</span>
-          </div>
-        </div>
-        <div class="embudo-paso" style="--w:80%; --bg:#9E4539;">
-          <div class="embudo-num">3</div>
-          <div class="embudo-cuerpo">
-            <div class="embudo-titulo">Convertir · Conversión <span>La conexión</span></div>
-            <p class="embudo-medida">Cuántas guardan un lugar o inician una ruta.</p>
-            <span class="embudo-meta">6 de cada 10 · valoración 4/5 o más</span>
-          </div>
-        </div>
-        <div class="embudo-paso" style="--w:70%; --bg:#8A3A32;">
-          <div class="embudo-num">4</div>
-          <div class="embudo-cuerpo">
-            <div class="embudo-titulo">Involucrar · Retención <span>Que vuelvan</span></div>
-            <p class="embudo-medida">Cuántas vuelven a los 7 y 30 días, y cuánto usan la app.</p>
-            <span class="embudo-meta">1 de cada 4 vuelve la 1ª semana</span>
-          </div>
-        </div>
-        <div class="embudo-paso" style="--w:60%; --bg:#74332F;">
-          <div class="embudo-num">5</div>
-          <div class="embudo-cuerpo">
-            <div class="embudo-titulo">Involucrar · Recomendación <span>Boca a boca</span></div>
-            <p class="embudo-medida">Invitaciones entre vecinos y cuántas traen un residente activo.</p>
-            <span class="embudo-meta">2 de cada 10 invitan · 1 de 4 se queda</span>
-          </div>
-        </div>
-        <div class="embudo-paso" style="--w:50%; --bg:#2F3A45;">
-          <div class="embudo-num">6</div>
-          <div class="embudo-cuerpo">
-            <div class="embudo-titulo">Planificar · Monetización <span>Sostener el proyecto</span></div>
-            <p class="embudo-medida">Disposición a apoyar el proyecto, medida en entrevistas.</p>
-            <span class="embudo-meta">Sostenibilidad sin dañar la experiencia</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hipótesis clave -->
-      <p class="etiqueta mb-3">Hipótesis clave</p>
-      <h2 class="titulo-seccion mb-3">Seis apuestas <em>de crecimiento</em>.</h2>
-      <p class="texto-seccion mb-4">Cada hipótesis sigue la forma «si hacemos esto, pasará esto otro»
-        y se comprueba después con un experimento y datos reales.</p>
-      <div class="row g-3 mb-5">
-        <div class="col-md-6">
-          <article class="tarjeta-hipotesis">
-            <div class="numero-hipotesis">H1</div>
-            <p>Si en el primer contacto dejamos claro que aquí no hay rankings, se registrarán más personas realmente interesadas.</p>
-          </article>
-        </div>
-        <div class="col-md-6">
-          <article class="tarjeta-hipotesis">
-            <div class="numero-hipotesis">H2</div>
-            <p>Si se puede empezar a usar la app sin registrarse, más gente llegará a su primera recomendación.</p>
-          </article>
-        </div>
-        <div class="col-md-6">
-          <article class="tarjeta-hipotesis">
-            <div class="numero-hipotesis">H3</div>
-            <p>Si cada ficha explica por qué un lugar encaja contigo, más gente lo guardará.</p>
-          </article>
-        </div>
-        <div class="col-md-6">
-          <article class="tarjeta-hipotesis">
-            <div class="numero-hipotesis">H4</div>
-            <p>Si se puede guardar un lugar sin registro previo (se pide más adelante), aumentará la acción principal: guardar.</p>
-          </article>
-        </div>
-        <div class="col-md-6">
-          <article class="tarjeta-hipotesis">
-            <div class="numero-hipotesis">H5</div>
-            <p>Si la app envía como mucho una recomendación por semana, más gente volverá a usarla.</p>
-          </article>
-        </div>
-        <div class="col-md-6">
-          <article class="tarjeta-hipotesis">
-            <div class="numero-hipotesis">H6</div>
-            <p>Si cada usuario puede invitar a un vecino y crear colecciones privadas, llegarán nuevos residentes por el boca a boca.</p>
-          </article>
-        </div>
-      </div>
-
-      <!-- Backlog priorizado ICE -->
-      <p class="etiqueta mb-3">Lista de experimentos, por orden de prioridad</p>
-      <h2 class="titulo-seccion mb-3">Qué se prueba primero.</h2>
-      <p class="texto-seccion mb-4">Cada experimento recibe una puntuación ICE (de 1 a 10), que es la
-        media de tres criterios: el impacto esperado, la confianza en que funcione y el esfuerzo que
-        requiere (cuanto menos esfuerzo, más puntos). Se prueba primero lo que más puntúa.</p>
-      <div class="ranking-ice mb-3">
-        <div class="ice-separador">Se prueba primero</div>
-        <div class="ice-fila">
-          <div class="ice-cabecera">
-            <span class="ice-codigo">B3</span>
-            <span class="ice-exp">Poder guardar un lugar sin registrarse antes</span>
-            <span class="ice-mejora">Conversión</span>
-          </div>
-          <div class="ice-barra-wrap"><div class="ice-barra" style="width:83%"><span class="ice-score">8,3</span></div></div>
-        </div>
-        <div class="ice-fila">
-          <div class="ice-cabecera">
-            <span class="ice-codigo">B1</span>
-            <span class="ice-exp">Empezar a usar la app sin registro inicial</span>
-            <span class="ice-mejora">Activación</span>
-          </div>
-          <div class="ice-barra-wrap"><div class="ice-barra" style="width:80%"><span class="ice-score">8,0</span></div></div>
-        </div>
-        <div class="ice-fila">
-          <div class="ice-cabecera">
-            <span class="ice-codigo">A1</span>
-            <span class="ice-exp">Probar dos mensajes de presentación y quedarse con el mejor (test A/B)</span>
-            <span class="ice-mejora">Adquisición</span>
-          </div>
-          <div class="ice-barra-wrap"><div class="ice-barra" style="width:80%"><span class="ice-score">8,0</span></div></div>
-        </div>
-        <div class="ice-fila">
-          <div class="ice-cabecera">
-            <span class="ice-codigo">B2</span>
-            <span class="ice-exp">Fichas que explican por qué un lugar encaja contigo</span>
-            <span class="ice-mejora">Conversión</span>
-          </div>
-          <div class="ice-barra-wrap"><div class="ice-barra" style="width:77%"><span class="ice-score">7,7</span></div></div>
-        </div>
-        <div class="ice-fila">
-          <div class="ice-cabecera">
-            <span class="ice-codigo">C1</span>
-            <span class="ice-exp">Una única recomendación semanal, discreta</span>
-            <span class="ice-mejora">Retención</span>
-          </div>
-          <div class="ice-barra-wrap"><div class="ice-barra" style="width:73%"><span class="ice-score">7,3</span></div></div>
-        </div>
-        <div class="ice-separador">Después</div>
-        <div class="ice-fila secundaria">
-          <div class="ice-cabecera">
-            <span class="ice-codigo">A2</span>
-            <span class="ice-exp">Invitación entre vecinos y colecciones privadas</span>
-            <span class="ice-mejora">Recomendación</span>
-          </div>
-          <div class="ice-barra-wrap"><div class="ice-barra" style="width:63%"><span class="ice-score">6,3</span></div></div>
-        </div>
-        <div class="ice-fila secundaria">
-          <div class="ice-cabecera">
-            <span class="ice-codigo">D1</span>
-            <span class="ice-exp">Preguntar a los usuarios si apoyarían económicamente el proyecto</span>
-            <span class="ice-mejora">Sostenibilidad</span>
-          </div>
-          <div class="ice-barra-wrap"><div class="ice-barra" style="width:57%"><span class="ice-score">5,7</span></div></div>
-        </div>
-      </div>
-      <p class="texto-seccion mb-5">Los cinco primeros (B3, B1, A1, B2, C1) concentran el esfuerzo en
-        lo esencial: que la gente pruebe la app, conecte con un lugar y vuelva. Solo después se
-        invierte en el boca a boca y en la sostenibilidad.</p>
-
-      <!-- Roadmap -->
-      <p class="etiqueta mb-3">Plan de ejecución</p>
-      <h2 class="titulo-seccion mb-3">Hoja de ruta de <em>6 semanas</em>.</h2>
-      <p class="texto-seccion mb-4">Seis semanas para lanzar los experimentos, leer los resultados y
-        decidir los siguientes pasos.</p>
-      <div class="linea-tiempo mb-5">
-        <div class="paso-tiempo">
-          <div class="semana-tiempo">S1</div>
-          <div class="punto-tiempo"><span></span></div>
-          <div class="contenido-tiempo">
-            <h3>Preparación</h3>
-            <p>Dejar todo listo: preparar la medición, elegir a los 40 participantes, fijar los límites de protección y publicar la página de presentación.</p>
-          </div>
-          <div class="etiqueta-tiempo"><span class="pildora-contorno">Arranque · A1</span></div>
-        </div>
-        <div class="paso-tiempo">
-          <div class="semana-tiempo">S2–S3</div>
-          <div class="punto-tiempo"><span></span></div>
-          <div class="contenido-tiempo">
-            <h3>Entrada y primera conexión</h3>
-            <p>Facilitar el primer uso: sin registro inicial, guardado directo y fichas que explican la afinidad.</p>
-          </div>
-          <div class="etiqueta-tiempo"><span class="pildora-contorno">B1 · B3 · B2</span></div>
-        </div>
-        <div class="paso-tiempo">
-          <div class="semana-tiempo">S4</div>
-          <div class="punto-tiempo"><span></span></div>
-          <div class="contenido-tiempo">
-            <h3>Revisión y decisión</h3>
-            <p>Analizar los resultados y decidir: si funciona, ampliar; si no, corregir.</p>
-          </div>
-          <div class="etiqueta-tiempo"><span class="pildora-contorno">Resultados A1 · B1 · B3 · B2</span></div>
-        </div>
-        <div class="paso-tiempo">
-          <div class="semana-tiempo">S5</div>
-          <div class="punto-tiempo"><span></span></div>
-          <div class="contenido-tiempo">
-            <h3>Retorno</h3>
-            <p>Trabajar la vuelta del usuario: recomendación semanal discreta y guardados como memoria personal.</p>
-          </div>
-          <div class="etiqueta-tiempo"><span class="pildora-contorno">C1</span></div>
-        </div>
-        <div class="paso-tiempo">
-          <div class="semana-tiempo">S6</div>
-          <div class="punto-tiempo"><span></span></div>
-          <div class="contenido-tiempo">
-            <h3>Boca a boca y sostenibilidad</h3>
-            <p>Activar las invitaciones entre vecinos, medir el apoyo al proyecto y documentar lo aprendido.</p>
-          </div>
-          <div class="etiqueta-tiempo"><span class="pildora-contorno">A2 · D1</span></div>
-        </div>
-      </div>
-
-      <!-- Medición y guardrails -->
-      <div class="panel-oscuro mb-5">
-        <p class="etiqueta mb-2">Cómo se controla</p>
-        <h3 class="h5">Medición y límites de protección</h3>
-        <p class="mb-2">Cada día se revisan los límites de protección; cada semana, la métrica norte y
-          el embudo; cada mes, cuántas personas vuelven a los 7 y a los 30 días. Un experimento solo
-          se da por ganador si mejora su métrica sin romper ningún límite.</p>
-        <p><strong>Los límites de protección (guardrails):</strong> afinidad mínima de 4 sobre 5 ·
-          como máximo una comunicación por semana · nunca un ranking turístico · menos de un minuto
-          hasta la primera recomendación.</p>
-      </div>
-
-      <hr style="border-color: rgba(138, 58, 50, 0.15);">
-      <div class="text-center pt-4">
-        <p class="h4 fw-bold" style="color: var(--granate);">Madrid se habita, no se consume.</p>
-        <p class="texto-seccion mb-0">Un plan de crecimiento sostenible: no persigue tráfico, sino conexión.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===========================================
-       PIE DE PÁGINA
-       =========================================== -->
-  <footer class="py-5">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-lg-5">
-          <h2 class="h4 fw-bold text-uppercase mb-3">Madrid Habitada</h2>
-          <p class="mb-2">Ciudad como lugar vivido, no como decorado.</p>
-          <p class="small mb-0">
-            Sistema digital para redescubrir Madrid desde la vida cotidiana, el barrio
-            y la pertenencia. Sin ruido, sin rankings, sin turismo.
+        <div class="tarjeta tarjeta--oscura tarjeta--ancha revela">
+          <span class="etiqueta">Guardrails</span>
+          <h3>Los límites que protegen la tesis</h3>
+          <p>
+            Cualquier palanca de crecimiento debe respetarlos: afinidad percibida mínima de
+            <strong style="color:var(--terracota-claro);">4/5</strong>, un máximo de
+            <strong style="color:var(--terracota-claro);">una comunicación semanal</strong>,
+            <strong style="color:var(--terracota-claro);">nunca un ranking turístico</strong> y menos de
+            <strong style="color:var(--terracota-claro);">60 segundos</strong> hasta la primera
+            recomendación. Un experimento solo se declara ganador si mejora su métrica sin romper
+            ninguno de ellos.
           </p>
         </div>
-        <div class="col-6 col-lg-2">
-          <h3 class="h6 fw-bold text-uppercase mb-3">Explorar</h3>
-          <ul class="list-unstyled small">
-            <li class="mb-2"><a href="#">Mi barrio</a></li>
-            <li class="mb-2"><a href="#">Momentos</a></li>
-            <li class="mb-2"><a href="#">Guardados</a></li>
-            <li class="mb-2"><a href="#">Rutas cotidianas</a></li>
+
+        <!-- Detalle del plan -->
+        <div class="desplegable revela">
+          <details>
+            <summary>Ver el plan completo: hipótesis, backlog priorizado y hoja de ruta</summary>
+            <div class="desplegable__cuerpo">
+
+              <h3 style="margin-top:18px;">Seis hipótesis de crecimiento</h3>
+              <p class="nota" style="margin-bottom:22px;">Cada una sigue la forma «si hacemos esto, pasará esto otro» y se comprueba con un experimento.</p>
+              <div class="rejilla rejilla--2" style="margin-bottom:38px;">
+                <div class="insight"><span class="insight__marca">H1</span><p>Si en el primer contacto dejamos claro que aquí no hay rankings, se registrarán más personas realmente interesadas.</p></div>
+                <div class="insight"><span class="insight__marca">H2</span><p>Si se puede empezar a usar la app sin registrarse, más gente llegará a su primera recomendación.</p></div>
+                <div class="insight"><span class="insight__marca">H3</span><p>Si cada ficha explica por qué un lugar encaja contigo, más gente lo guardará.</p></div>
+                <div class="insight"><span class="insight__marca">H4</span><p>Si se puede guardar un lugar sin registro previo, aumentará la acción principal: guardar.</p></div>
+                <div class="insight"><span class="insight__marca">H5</span><p>Si la app envía como mucho una recomendación por semana, más gente volverá a usarla.</p></div>
+                <div class="insight"><span class="insight__marca">H6</span><p>Si cada usuario puede invitar a un vecino y crear colecciones privadas, llegarán nuevos residentes por el boca a boca.</p></div>
+              </div>
+
+              <h3>Qué se prueba primero</h3>
+              <p class="nota" style="margin-bottom:22px;">
+                Puntuación ICE (1-10): media de impacto, confianza y facilidad. Se prueba primero lo
+                que más puntúa.
+              </p>
+              <div class="ice" style="margin-bottom:38px;">
+                <p class="ice__separador">Se prueba primero</p>
+                <div class="ice__fila">
+                  <div class="ice__cabecera"><span class="ice__codigo">B3</span><span class="ice__exp">Guardar un lugar sin registrarse antes</span><span class="ice__mejora">Conversión</span></div>
+                  <div class="ice__pista"><div class="ice__barra" style="width:83%">8,3</div></div>
+                </div>
+                <div class="ice__fila">
+                  <div class="ice__cabecera"><span class="ice__codigo">B1</span><span class="ice__exp">Onboarding progresivo sin registro inicial</span><span class="ice__mejora">Activación</span></div>
+                  <div class="ice__pista"><div class="ice__barra" style="width:80%">8,0</div></div>
+                </div>
+                <div class="ice__fila">
+                  <div class="ice__cabecera"><span class="ice__codigo">A1</span><span class="ice__exp">Landing con mensaje diferencial (test A/B)</span><span class="ice__mejora">Adquisición</span></div>
+                  <div class="ice__pista"><div class="ice__barra" style="width:80%">8,0</div></div>
+                </div>
+                <div class="ice__fila">
+                  <div class="ice__cabecera"><span class="ice__codigo">B2</span><span class="ice__exp">Fichas que explican la afinidad</span><span class="ice__mejora">Conversión</span></div>
+                  <div class="ice__pista"><div class="ice__barra" style="width:77%">7,7</div></div>
+                </div>
+                <div class="ice__fila">
+                  <div class="ice__cabecera"><span class="ice__codigo">C1</span><span class="ice__exp">Recomendación semanal discreta</span><span class="ice__mejora">Retención</span></div>
+                  <div class="ice__pista"><div class="ice__barra" style="width:73%">7,3</div></div>
+                </div>
+                <p class="ice__separador">Después</p>
+                <div class="ice__fila ice__fila--secundaria">
+                  <div class="ice__cabecera"><span class="ice__codigo">A2</span><span class="ice__exp">Invitación entre vecinos y colecciones privadas</span><span class="ice__mejora">Recomendación</span></div>
+                  <div class="ice__pista"><div class="ice__barra" style="width:63%">6,3</div></div>
+                </div>
+                <div class="ice__fila ice__fila--secundaria">
+                  <div class="ice__cabecera"><span class="ice__codigo">D1</span><span class="ice__exp">Test de sostenibilidad del modelo</span><span class="ice__mejora">Sostenibilidad</span></div>
+                  <div class="ice__pista"><div class="ice__barra" style="width:57%">5,7</div></div>
+                </div>
+              </div>
+
+              <h3>Hoja de ruta de seis semanas</h3>
+              <p class="nota" style="margin-bottom:26px;">Lanzar los experimentos, leer los resultados y decidir los siguientes pasos.</p>
+              <ol class="tiempo">
+                <li class="tiempo__paso">
+                  <span class="tiempo__semana">S1</span>
+                  <span class="tiempo__punto" aria-hidden="true"></span>
+                  <div class="tiempo__cuerpo">
+                    <h3>Preparación</h3>
+                    <p>Instrumentar eventos, definir la muestra y los guardrails, y publicar la landing.</p>
+                    <span class="pildora pildora--contorno">Setup A1</span>
+                  </div>
+                </li>
+                <li class="tiempo__paso">
+                  <span class="tiempo__semana">S2-S3</span>
+                  <span class="tiempo__punto" aria-hidden="true"></span>
+                  <div class="tiempo__cuerpo">
+                    <h3>Activación y conversión</h3>
+                    <p>Reducir la fricción de entrada y clarificar la afinidad.</p>
+                    <span class="pildora pildora--contorno">B1 · B3 · B2</span>
+                  </div>
+                </li>
+                <li class="tiempo__paso">
+                  <span class="tiempo__semana">S4</span>
+                  <span class="tiempo__punto" aria-hidden="true"></span>
+                  <div class="tiempo__cuerpo">
+                    <h3>Revisión y decisión</h3>
+                    <p>Cierre del núcleo del embudo: si funciona, ampliar; si no, corregir.</p>
+                    <span class="pildora pildora--contorno">Lectura A1 · B1 · B3 · B2</span>
+                  </div>
+                </li>
+                <li class="tiempo__paso">
+                  <span class="tiempo__semana">S5</span>
+                  <span class="tiempo__punto" aria-hidden="true"></span>
+                  <div class="tiempo__cuerpo">
+                    <h3>Retorno</h3>
+                    <p>Recomendación semanal discreta y guardados como memoria personal.</p>
+                    <span class="pildora pildora--contorno">C1</span>
+                  </div>
+                </li>
+                <li class="tiempo__paso">
+                  <span class="tiempo__semana">S6</span>
+                  <span class="tiempo__punto" aria-hidden="true"></span>
+                  <div class="tiempo__cuerpo">
+                    <h3>Boca a boca y sostenibilidad</h3>
+                    <p>Invitaciones entre vecinos, señal de sostenibilidad y documentación de aprendizajes.</p>
+                    <span class="pildora pildora--contorno">A2 · D1</span>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         APRENDIZAJES
+         ===================================================== -->
+    <section class="seccion" id="aprendizajes">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <span class="etiqueta">Aprendizajes</span>
+          <h2>Lo que me llevo de este <em>proyecto</em>.</h2>
+        </div>
+
+        <div class="rejilla rejilla--2 revela" style="gap:clamp(26px,3.5vw,44px);">
+          <article class="aprendizaje">
+            <h3>Una métrica puede traicionar una tesis</h3>
+            <p>
+              Medir descargas o tiempo de pantalla habría empujado el producto justo hacia lo que
+              criticaba. Definir una métrica norte propia fue una decisión de diseño, no de negocio.
+            </p>
+          </article>
+
+          <article class="aprendizaje">
+            <h3>La arquitectura de la información es una postura</h3>
+            <p>
+              Organizar por barrio, momento y afinidad —en lugar de por categorías comerciales— no es
+              una elección de taxonomía: cambia la relación que la persona construye con la ciudad.
+            </p>
+          </article>
+
+          <article class="aprendizaje">
+            <h3>Los principios funcionan mejor como restricciones</h3>
+            <p>
+              Convertir los seis principios UX/UI en guardrails medibles evitó que se quedaran en
+              declaración de intenciones y dio un criterio claro para decidir en cada pantalla.
+            </p>
+          </article>
+
+          <article class="aprendizaje">
+            <h3>Diseñar para que cierren la app</h3>
+            <p>
+              El éxito aquí es que alguien resuelva su consulta y vuelva a la calle. Trabajar contra
+              los patrones de retención habituales obliga a replantear casi todos los automatismos de
+              la interfaz.
+            </p>
+          </article>
+        </div>
+
+        <div class="desplegable desplegable--claro revela">
+          <details>
+            <summary>Próximos pasos del proyecto</summary>
+            <div class="desplegable__cuerpo">
+              <ul style="font-size:.95rem;color:var(--texto-suave);">
+                <li>Ejecutar los experimentos prioritarios (B3, B1, A1, B2, C1) sobre el prototipo y la landing.</li>
+                <li>Medir la métrica norte y las cohortes de retención durante la ventana de validación.</li>
+                <li>Completar el sistema de diseño: patrones de interacción, validación y ajuste.</li>
+                <li>Iterar el onboarding y las fichas de lugar según lo aprendido en cada experimento.</li>
+                <li>Consolidar un playbook de crecimiento reutilizable y coherente con los valores del producto.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         CONTACTO
+         ===================================================== -->
+    <section class="seccion seccion--oscura" id="contacto">
+      <div class="contenedor">
+        <div class="rejilla rejilla--2 revela" style="gap:clamp(32px,5vw,72px);align-items:center;">
+          <div>
+            <span class="etiqueta">Sobre el proyecto y sobre mí</span>
+            <p class="cierre__frase">Madrid se habita, no se consume.</p>
+          </div>
+
+          <div>
+            <p>
+              Soy <strong style="color:var(--crema);">Claudia Erustes</strong>, diseñadora gráfica y
+              multimedia especializada en UX/UI. Madrid Habitada es mi Trabajo Fin de Máster en el
+              Máster en UX/UI Design de la Universidad Europea: investigación, arquitectura de la
+              información, identidad, interfaz y plan de crecimiento.
+            </p>
+            <p>Si quieres ver el resto de mi trabajo o comentar este proyecto, escríbeme.</p>
+
+            <div class="contacto__enlaces">
+              <a class="boton boton--principal" href="mailto:claudia.erustesmp@gmail.com">Escríbeme</a>
+              <a class="boton boton--claro" href="memoria-madrid-habitada.pdf" target="_blank" rel="noopener">Memoria del TFM (PDF)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================
+       PIE
+       ===================================================== -->
+  <footer class="pie">
+    <div class="contenedor">
+      <div class="pie__rejilla">
+        <div>
+          <h2>Madrid Habitada</h2>
+          <p style="margin-bottom:10px;">Ciudad como lugar vivido, no como decorado.</p>
+          <p class="nota" style="color:rgba(243,230,211,.55);">
+            Sistema digital para redescubrir Madrid desde la vida cotidiana, el barrio y la
+            pertenencia. Caso de estudio de diseño UX/UI.
+          </p>
+        </div>
+
+        <div>
+          <h3>El caso</h3>
+          <ul>
+            <li><a href="#resumen">Resumen</a></li>
+            <li><a href="#problema">El reto</a></li>
+            <li><a href="#proceso">Proceso</a></li>
+            <li><a href="#personas">Personas</a></li>
           </ul>
         </div>
-        <div class="col-6 col-lg-2">
-          <h3 class="h6 fw-bold text-uppercase mb-3">Proyecto</h3>
-          <ul class="list-unstyled small">
-            <li class="mb-2"><a href="#">Sobre Madrid Habitada</a></li>
-            <li class="mb-2"><a href="#">Design System</a></li>
-            <li class="mb-2"><a href="#">Investigación UX</a></li>
-            <li class="mb-2"><a href="#">TFM</a></li>
+
+        <div>
+          <h3>El diseño</h3>
+          <ul>
+            <li><a href="#solucion">Solución</a></li>
+            <li><a href="#arquitectura">Arquitectura</a></li>
+            <li><a href="#identidad">Sistema de diseño</a></li>
+            <li><a href="#validacion">Validación</a></li>
           </ul>
         </div>
-        <div class="col-6 col-lg-2">
-          <h3 class="h6 fw-bold text-uppercase mb-3">Legal</h3>
-          <ul class="list-unstyled small">
-            <li class="mb-2"><a href="#">Privacidad</a></li>
-            <li class="mb-2"><a href="#">Términos de uso</a></li>
-            <li class="mb-2"><a href="#">Accesibilidad</a></li>
+
+        <div>
+          <h3>Contacto</h3>
+          <ul>
+            <li><a href="mailto:claudia.erustesmp@gmail.com">Email</a></li>
+            <li><a href="memoria-madrid-habitada.pdf" target="_blank" rel="noopener">Memoria (PDF)</a></li>
+            <li><a href="#growth">Plan de growth</a></li>
           </ul>
         </div>
       </div>
-      <hr class="my-4">
-      <p class="small mb-0">
-        © 2026 Madrid Habitada · Claudia Erustes · TFM Diseño UX/UI · Universidad Europea · Repensar Ciudades
+
+      <p class="pie__legal">
+        © 2026 Claudia Erustes · Madrid Habitada · Trabajo Fin de Máster, Máster en UX/UI Design,
+        Universidad Europea · Tipografía Plus Jakarta Sans · Iconos Lucide
       </p>
     </div>
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* --- Menú móvil --- */
+      var boton = document.getElementById('navBoton');
+      var navegacion = document.getElementById('navegacion');
+
+      function cerrarMenu() {
+        navegacion.removeAttribute('data-abierto');
+        boton.setAttribute('aria-expanded', 'false');
+        boton.setAttribute('aria-label', 'Abrir el menú de navegación');
+      }
+
+      boton.addEventListener('click', function () {
+        var abierto = navegacion.getAttribute('data-abierto') === 'true';
+        if (abierto) {
+          cerrarMenu();
+        } else {
+          navegacion.setAttribute('data-abierto', 'true');
+          boton.setAttribute('aria-expanded', 'true');
+          boton.setAttribute('aria-label', 'Cerrar el menú de navegación');
+        }
+      });
+
+      navegacion.addEventListener('click', function (e) {
+        if (e.target.closest('a')) cerrarMenu();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') cerrarMenu();
+      });
+
+      /* --- Barra de progreso de lectura --- */
+      var barra = document.getElementById('progreso');
+      var ticking = false;
+
+      function pintarProgreso() {
+        var alto = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = alto > 0 ? window.scrollY / alto : 0;
+        barra.style.transform = 'scaleX(' + Math.min(1, Math.max(0, pct)) + ')';
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          window.requestAnimationFrame(pintarProgreso);
+          ticking = true;
+        }
+      }, { passive: true });
+      pintarProgreso();
+
+      /* --- Sección activa en el menú --- */
+      var enlaces = Array.prototype.slice.call(document.querySelectorAll('.nav__enlace'));
+      var secciones = enlaces
+        .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+        .filter(Boolean);
+
+      if ('IntersectionObserver' in window && secciones.length) {
+        var observadorNav = new IntersectionObserver(function (entradas) {
+          entradas.forEach(function (entrada) {
+            if (!entrada.isIntersecting) return;
+            enlaces.forEach(function (a) {
+              var activo = a.getAttribute('href') === '#' + entrada.target.id;
+              if (activo) { a.setAttribute('aria-current', 'true'); }
+              else { a.removeAttribute('aria-current'); }
+            });
+          });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+
+        secciones.forEach(function (s) { observadorNav.observe(s); });
+      }
+
+      /* --- Aparición progresiva --- */
+      var revelables = document.querySelectorAll('.revela');
+
+      if (reduce || !('IntersectionObserver' in window)) {
+        Array.prototype.forEach.call(revelables, function (el) { el.classList.add('visible'); });
+      } else {
+        var observador = new IntersectionObserver(function (entradas, obs) {
+          entradas.forEach(function (entrada) {
+            if (entrada.isIntersecting) {
+              entrada.target.classList.add('visible');
+              obs.unobserve(entrada.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -12% 0px', threshold: .06 });
+
+        Array.prototype.forEach.call(revelables, function (el) { observador.observe(el); });
+      }
+    })();
+  </script>
 </body>
 
 </html>
