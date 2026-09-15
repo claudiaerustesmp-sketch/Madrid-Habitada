@@ -1779,11 +1779,8 @@
 /* =========================================================
        10 · ANIMACIÓN DE ENTRADA
        ========================================================= */
-    .revela {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
-    }
+    /* Sin animación de aparición: todo visible desde el principio */
+    .revela { opacity: 1; transform: none; }
 
     .revela.visible { opacity: 1; transform: none; }
 
@@ -1824,7 +1821,6 @@
 
       <nav class="nav__navegacion" id="navegacion" aria-label="Secciones del caso de estudio">
         <ul class="nav__menu">
-          <li><a class="nav__enlace" href="#resumen">Resumen</a></li>
           <li><a class="nav__enlace" href="#problema">Reto</a></li>
           <li><a class="nav__enlace" href="#proceso">Proceso</a></li>
           <li><a class="nav__enlace" href="#personas">Personas</a></li>
@@ -1853,7 +1849,7 @@
             Diseño de una app que ayuda a quien vive en Madrid a redescubrir
             su ciudad desde el barrio, el día a día y lo que le gusta a cada persona.
           </p>
-          <p class="portada__afirmacion">Sin listas de sitios de moda, sin modas pasajeras, sin ruido.</p>
+          <p class="portada__afirmacion">Sin listas de sitios de moda, sin rankings, sin ruido.</p>
           <div class="grupo-botones">
             <a class="boton boton--principal" href="#proceso">Recorrer el proceso</a>
             <a class="boton boton--secundario" href="memoria-madrid-habitada.pdf" target="_blank" rel="noopener">
@@ -2056,7 +2052,7 @@
               <p>
                 Toda la investigación se resume en seis patrones comunes, tres perfiles de usuario
                 con su necesidad principal, un mapa de empatía, el recorrido del usuario y un
-                análisis de puntos fuertes, débiles, oportunidades y riesgos (FODA). Aquí el reto
+                análisis de puntos fuertes, débiles, oportunidades y riesgos (DAFO). Aquí el reto
                 pasó de «una forma distinta de explorar la ciudad» a «una app que ayude a repartir
                 mejor la atención entre los barrios, en vez de concentrarla siempre en los mismos sitios».
               </p>
@@ -2080,7 +2076,6 @@
                 tipografía, iconos y biblioteca de componentes. Esta misma página pasó de Figma a HTML.
               </p>
               <ul class="lista-pildoras">
-                <li><span class="pildora">Bocetos</span></li>
                 <li><span class="pildora">Mapa del sitio</span></li>
                 <li><span class="pildora">8 bocetos de pantalla</span></li>
                 <li><span class="pildora">Sistema de diseño</span></li>
@@ -2182,8 +2177,7 @@
           <span class="etiqueta">Para quién</span>
           <h2>Tres formas de <em>habitar</em> Madrid.</h2>
           <p class="entradilla">
-            Cada persona aporta un verbo clave que funciona como criterio de diseño, y una implicación
-            directa sobre el embudo de crecimiento.
+            Cada persona aporta un verbo clave que funciona como criterio de diseño.
           </p>
         </div>
 
@@ -2200,7 +2194,6 @@
                 espacios de confianza frente a la masificación.
               </p>
               <p class="persona__cita">«Quiero seguir yendo a mis sitios sin que se llenen de gente que los descubrió en Instagram.»</p>
-              <p class="persona__crecimiento"><strong>Qué le da a la app:</strong> que vuelva porque el barrio le sigue pareciendo suyo, sin agobiarla.</p>
             </div>
           </article>
 
@@ -2216,7 +2209,6 @@
                 recomendaciones masivas.
               </p>
               <p class="persona__cita">«Llevo 15 años aquí y aún quiero descubrir sin que me lo dé un algoritmo de turistas.»</p>
-              <p class="persona__crecimiento"><strong>Qué le da a la app:</strong> que empiece a usarla porque encaja con sus gustos y le ayuda a explorar mejor.</p>
             </div>
           </article>
 
@@ -2232,7 +2224,6 @@
                 comprensible, sin rutas cerradas.
               </p>
               <p class="persona__cita">«Me mudé hace 6 meses y no quiero que mi única referencia sean las rutas de siempre.»</p>
-              <p class="persona__crecimiento"><strong>Qué le da a la app:</strong> gente nueva de verdad interesada, con una bienvenida guiada.</p>
             </div>
           </article>
         </div>
@@ -3755,6 +3746,39 @@
       ir('bienvenida', false);
     })();
   </script>
+  <script>
+    /* --- Pasar de sección con el teclado (← → · Av Pág · Re Pág) --- */
+    (function () {
+      'use strict';
+      var secciones = Array.prototype.slice.call(document.querySelectorAll('main > section'));
+      var navAlto = 66;
+
+      function indiceActual() {
+        var y = window.scrollY + navAlto + 20;
+        var actual = 0;
+        secciones.forEach(function (s, i) {
+          if (s.getBoundingClientRect().top + window.scrollY <= y) actual = i;
+        });
+        return actual;
+      }
+
+      document.addEventListener('keydown', function (e) {
+        if (e.altKey || e.ctrlKey || e.metaKey) return;
+        var t = e.target;
+        if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+
+        var paso = 0;
+        if (e.key === 'ArrowRight' || e.key === 'PageDown') paso = 1;
+        if (e.key === 'ArrowLeft' || e.key === 'PageUp') paso = -1;
+        if (!paso) return;
+
+        e.preventDefault();
+        var i = Math.min(secciones.length - 1, Math.max(0, indiceActual() + paso));
+        if (i === 0) { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        else { secciones[i].scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    })();
+  </script>
 </body>
 
-</html>
+</html>  
