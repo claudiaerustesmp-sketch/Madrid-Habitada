@@ -1016,9 +1016,10 @@
       width: var(--w);
       max-width: 100%;
       display: grid;
-      grid-template-columns: 34px minmax(0, 1.1fr) minmax(0, 1.3fr) auto;
+      grid-template-columns: 34px minmax(190px, .8fr) minmax(0, 1.5fr);
+      grid-template-areas: "num titulo medida" "num titulo objetivo";
       align-items: center;
-      gap: 18px;
+      gap: 6px 22px;
       margin: 0;
       padding: 16px 22px;
       border-radius: var(--r-m);
@@ -1028,6 +1029,7 @@
     }
 
     .etapa__num {
+      grid-area: num;
       display: grid;
       place-items: center;
       width: 34px;
@@ -1047,10 +1049,14 @@
       opacity: .85;
     }
 
+    .etapa > div { grid-area: titulo; }
     .etapa__pregunta { margin: 2px 0 0; font-size: 1.1rem; font-weight: 800; line-height: 1.25; }
-    .etapa__medida { margin: 0; font-size: .85rem; line-height: 1.45; }
+    .etapa__medida { grid-area: medida; align-self: end; margin: 0; font-size: .875rem; line-height: 1.45; }
 
     .etapa__objetivo {
+      grid-area: objetivo;
+      align-self: start;
+      justify-self: start;
       margin: 0;
       padding: 6px 14px;
       border-radius: 100px;
@@ -1059,17 +1065,16 @@
       font-size: .78rem;
       font-weight: 700;
       line-height: 1.35;
-      text-align: center;
+      text-align: left;
     }
 
     @media (max-width: 900px) {
       .etapa {
         width: 100% !important;
         grid-template-columns: 34px minmax(0, 1fr);
+        grid-template-areas: "num titulo" "num medida" "num objetivo";
         gap: 8px 14px;
       }
-      .etapa__medida, .etapa__objetivo { grid-column: 2; }
-      .etapa__objetivo { justify-self: start; text-align: left; }
     }
 
     /* 3 · Reglas */
@@ -1239,6 +1244,17 @@
     .aprendizaje h3 { font-size: 1.0625rem; }
     .aprendizaje p { font-size: .95rem; color: var(--texto-suave); margin: 0; }
 
+    .aprendizaje-cierre {
+      margin: clamp(36px, 5vw, 56px) 0 0;
+      padding-left: 20px;
+      border-left: 3px solid var(--terracota);
+      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+      font-weight: 600;
+      line-height: 1.5;
+      color: var(--azul);
+      max-width: 60ch;
+    }
+
     /* Cierre / contacto */
     .cierre__frase {
       font-size: clamp(1.6rem, 3.4vw, 2.6rem);
@@ -1309,6 +1325,458 @@
     }
 
     /* =========================================================
+       9B · PROTOTIPO NAVEGABLE
+       ========================================================= */
+    .proto {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: clamp(32px, 5vw, 72px);
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .proto { grid-template-columns: 1fr; }
+      .proto__movil { order: -1; justify-self: center; }
+    }
+
+    .proto-lista { margin: 0 0 28px; padding: 0; list-style: none; display: grid; gap: 6px; }
+    .proto-lista li { margin: 0; }
+
+    .proto-lista button {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      padding: 12px 16px;
+      border: 1px solid transparent;
+      border-radius: var(--r-m);
+      background: transparent;
+      font: inherit;
+      text-align: left;
+      color: var(--texto);
+      cursor: pointer;
+      transition: background-color .2s ease, border-color .2s ease;
+    }
+
+    .proto-lista button:hover { background-color: rgba(255, 255, 255, .55); }
+
+    .proto-lista button[aria-current="true"] {
+      background-color: var(--panel);
+      border-color: rgba(138, 58, 50, .35);
+      box-shadow: var(--sombra-s);
+    }
+
+    .proto-lista__num {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background-color: rgba(138, 58, 50, .1);
+      color: var(--granate);
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .proto-lista button[aria-current="true"] .proto-lista__num { background-color: var(--granate); color: var(--crema); }
+
+    .proto-lista__nombre { display: block; font-size: .95rem; font-weight: 700; color: var(--azul); line-height: 1.3; }
+    .proto-lista__desc { display: block; font-size: .84rem; line-height: 1.45; color: var(--texto-suave); }
+
+    .proto__pista { margin: 14px auto 0; max-width: 380px; text-align: center; }
+
+    /* Marco del móvil */
+    .proto__movil { position: sticky; top: calc(var(--nav-h) + 24px); }
+
+    @media (max-width: 960px) { .proto__movil { position: static; width: 100%; max-width: 410px; } }
+
+    .movil-marco {
+      width: 410px;
+      max-width: 100%;
+      padding: 10px;
+      border-radius: 52px;
+      background-color: var(--azul-fondo);
+      box-shadow: 0 30px 60px rgba(35, 43, 51, .22), 0 6px 16px rgba(35, 43, 51, .12);
+      zoom: .84;
+    }
+
+    @media (max-width: 960px) { .movil-marco { zoom: .9; } }
+    @media (max-width: 440px) { .movil-marco { zoom: 1; } }
+
+    .movil {
+      --p-fondo: #F3E6D3;
+      --p-chip: #F9ECD9;
+      --p-claro: #FFF4E6;
+      --p-txt: #211B0F;
+      --p-txt2: #554240;
+      --p-txt3: #88726F;
+      --p-oliva: #3C3E29;
+      --p-oliva-pill: #4E503A;
+      --p-granate: #8A3A32;
+      --p-granate-osc: #6C241D;
+      --p-oxido: #97472A;
+      --p-tostado: #EBDAC2;
+
+      position: relative;
+      height: min(780px, calc(100dvh - 120px));
+      min-height: 620px;
+      border-radius: 42px;
+      overflow: hidden;
+      background-color: var(--p-fondo);
+      color: var(--p-txt);
+      font-size: 14px;
+      line-height: 1.5;
+      isolation: isolate;
+    }
+
+    :where(.movil) p { margin: 0; }
+    :where(.movil) button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+    .movil svg { width: 1em; height: 1em; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .pr-pantalla {
+      position: absolute;
+      inset: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: 96px;
+      scrollbar-width: none;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity .25s ease, visibility .25s;
+    }
+
+    .pr-pantalla::-webkit-scrollbar { display: none; }
+    .pr-pantalla.activa { visibility: visible; opacity: 1; }
+    .pr-pantalla--sin-tabs { padding-bottom: 24px; }
+
+    /* Cabecera */
+    .pr-cab {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 20px;
+      background-color: rgba(243, 230, 211, .9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 1px 8px rgba(0, 0, 0, .04);
+    }
+
+    .pr-logo { display: flex; align-items: flex-start; gap: 3px; font-size: 13px; font-weight: 800; line-height: 1; letter-spacing: -.01em; color: #2F3A45; }
+    .pr-logo svg { font-size: 12px; margin-top: 1px; }
+
+    .pr-avatar { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; }
+    .pr-avatar .pr-foto { width: 100%; height: 100%; border-radius: 50%; }
+
+    .pr-cab__titulo { display: flex; align-items: center; gap: 14px; font-size: 18px; font-weight: 700; color: var(--p-txt); }
+    .pr-cab__titulo svg { font-size: 22px; color: var(--p-granate); }
+
+    /* Fotos con color de reserva */
+    .pr-foto { position: relative; display: block; overflow: hidden; background: linear-gradient(135deg, #D8BD9C, #B98E6C); }
+    .pr-foto img { width: 100%; height: 100%; object-fit: cover; }
+    .pr-foto img.sin-foto { visibility: hidden; }
+
+    /* Bloques comunes */
+    .pr-cuerpo { padding: 16px 20px 0; display: grid; gap: 22px; }
+    .pr-tarjeta { background-color: #fff; border-radius: 20px; box-shadow: 0 1px 2px rgba(0, 0, 0, .05); }
+    .pr-pad { padding: 16px; }
+    .pr-fila { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .pr-meta { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: var(--p-txt2); }
+    .pr-mini { font-size: 11px; font-weight: 600; color: var(--p-txt2); }
+    .pr-h1 { font-size: 30px; font-weight: 800; line-height: 1.18; letter-spacing: -.025em; color: var(--p-txt); }
+    .pr-h2 { font-size: 18px; font-weight: 700; letter-spacing: -.02em; color: var(--p-txt); }
+    .pr-h3 { font-size: 20px; font-weight: 700; line-height: 1.3; color: var(--p-txt); }
+    .pr-texto { font-size: 14px; line-height: 1.5; color: var(--p-txt2); }
+    .pr-rotulo { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--p-txt2); }
+
+    .pr-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background-color: var(--p-chip);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--p-oliva);
+      white-space: nowrap;
+    }
+
+    .pr-pill--melocoton { background-color: rgba(254, 153, 117, .9); color: #772F14; }
+    .pr-pill--oliva { background-color: rgba(83, 85, 63, .15); color: var(--p-oliva); }
+    .pr-pill--blanca { background-color: rgba(255, 255, 255, .88); color: var(--p-txt); }
+
+    .pr-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .pr-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background-color: var(--p-chip);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--p-txt);
+      transition: background-color .2s ease, color .2s ease;
+    }
+
+    .pr-chip[aria-pressed="true"] { background-color: var(--p-granate); color: #fff; }
+    .pr-chip--oliva[aria-pressed="true"] { background-color: var(--p-oliva-pill); }
+    .pr-chip__check { display: none; }
+    .pr-chip[aria-pressed="true"] .pr-chip__check { display: inline; }
+
+    .pr-boton {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .pr-boton--principal { background-color: var(--p-granate); color: #fff; box-shadow: 0 6px 16px rgba(138, 58, 50, .28); }
+    .pr-boton--suave { padding: 6px 16px; background-color: var(--p-chip); color: var(--p-granate-osc); font-size: 13px; font-weight: 600; }
+    .pr-boton--suave[aria-pressed="true"] { background-color: var(--p-granate); color: #fff; }
+
+    .pr-circulo {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--p-chip);
+      color: var(--p-granate-osc);
+      font-size: 16px;
+    }
+
+    .pr-circulo[aria-pressed="true"] { background-color: var(--p-granate); color: #fff; }
+    .pr-circulo[aria-pressed="true"] svg { fill: currentColor; }
+
+    .pr-marcador { display: grid; place-items: center; width: 28px; height: 28px; color: var(--p-txt2); font-size: 18px; }
+    .pr-marcador[aria-pressed="true"] { color: var(--p-granate); }
+    .pr-marcador[aria-pressed="true"] svg { fill: currentColor; }
+
+    .pr-enlace-tarjeta { display: block; width: 100%; text-align: left; transition: transform .2s ease; }
+    .pr-enlace-tarjeta:hover { transform: translateY(-2px); }
+
+    /* Barra inferior */
+    .pr-tabs {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      height: 72px;
+      padding: 0 4px 8px;
+      background-color: rgba(243, 230, 211, .94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 -2px 12px rgba(0, 0, 0, .04);
+      transition: transform .25s ease;
+    }
+
+    .pr-tabs[hidden] { display: grid; transform: translateY(100%); }
+
+    .pr-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 11px; font-weight: 600; color: var(--p-txt2); }
+    .pr-tab svg { font-size: 19px; }
+    .pr-tab[aria-current="page"] { color: var(--p-granate); }
+
+    /* Aviso */
+    .pr-aviso {
+      position: absolute;
+      left: 50%;
+      bottom: 88px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background-color: var(--p-oliva);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      transform: translate(-50%, 16px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+
+    .pr-aviso.visible { opacity: 1; transform: translate(-50%, 0); }
+
+    /* 1 · Bienvenida */
+    .pr-hero { position: relative; height: 290px; }
+    .pr-hero .pr-foto { height: 100%; }
+    .pr-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, var(--p-fondo) 100%); pointer-events: none; }
+    .pr-hero__arriba { position: absolute; top: 14px; left: 20px; right: 20px; z-index: 1; display: flex; justify-content: space-between; align-items: center; }
+    .pr-hero__raya { width: 56px; height: 18px; border-radius: 999px; background-color: rgba(255, 255, 255, .85); display: grid; place-items: center; }
+    .pr-hero__raya::before { content: ""; width: 26px; height: 5px; border-radius: 3px; background-color: var(--p-granate); }
+
+    .pr-antetitulo { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 600; letter-spacing: .08em; color: var(--p-txt2); }
+    .pr-antetitulo::before { content: ""; width: 16px; height: 2px; background-color: var(--p-txt); }
+
+    .pr-titular-bienvenida { font-size: 33px; font-weight: 800; line-height: 1.15; letter-spacing: -.03em; }
+    .pr-titular-bienvenida span { color: var(--p-granate-osc); }
+
+    .pr-campo { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; background-color: var(--p-claro); font-size: 15px; color: var(--p-txt); }
+    .pr-campo svg { font-size: 18px; color: var(--p-txt2); }
+
+    .pr-nota { display: flex; gap: 12px; padding: 16px; border-radius: 16px; background-color: var(--p-claro); font-size: 14px; color: var(--p-txt); }
+    .pr-nota strong { display: block; font-weight: 600; color: var(--p-oxido); }
+    .pr-nota svg { font-size: 18px; color: #E28C66; margin-top: 2px; }
+
+    /* 2 · Inicio */
+    .pr-barrita { width: 6px; height: 16px; border-radius: 999px; background-color: var(--p-oliva); }
+    .pr-imagen-card { height: 176px; }
+
+    /* 3 · Explorar */
+    .pr-busqueda { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 14px; background-color: #fff; font-size: 15px; color: var(--p-txt3); }
+    .pr-busqueda svg { font-size: 19px; color: var(--p-txt2); }
+    .pr-busqueda span { flex: 1; }
+
+    .pr-carrusel { display: flex; gap: 8px; margin: 0 -20px; padding: 0 20px 2px; overflow-x: auto; scrollbar-width: none; }
+    .pr-carrusel::-webkit-scrollbar { display: none; }
+    .pr-carrusel .pr-chip { background-color: #fff; white-space: nowrap; }
+    .pr-carrusel .pr-chip[aria-pressed="true"] { background-color: var(--p-granate); }
+
+    .pr-filtro { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background-color: #fff; font-size: 11px; font-weight: 600; color: var(--p-txt); }
+    .pr-filtro[aria-pressed="true"] { background-color: var(--p-oliva-pill); color: #fff; }
+
+    .pr-mapa { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 16px; background-color: #fff; }
+    .pr-mapa .pr-circulo { width: 34px; height: 34px; color: var(--p-oxido); }
+    .pr-mapa__texto { flex: 1; font-size: 14px; font-weight: 600; line-height: 1.25; }
+    .pr-mapa__texto span { display: block; font-size: 11px; font-weight: 500; color: var(--p-txt2); }
+
+    .pr-lugar { padding: 16px; }
+    .pr-lugar__top { display: grid; grid-template-columns: 96px minmax(0, 1fr) 28px; gap: 14px; align-items: start; }
+    .pr-lugar__img { width: 96px; height: 96px; border-radius: 10px; }
+    .pr-lugar__nombre { font-size: 19px; font-weight: 700; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pr-afinidad { display: inline-flex; align-items: flex-start; gap: 5px; margin-top: 6px; padding: 3px 8px; border-radius: 4px; background-color: var(--p-chip); font-size: 11px; font-weight: 600; line-height: 1.35; color: var(--p-txt); }
+    .pr-afinidad svg { margin-top: 1px; }
+    .pr-lugar__desc { margin-top: 14px !important; font-size: 14px; color: var(--p-txt2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* 4 · Ficha */
+    .pr-ficha-img { height: 288px; border-radius: 20px; }
+    .pr-ficha-img .pr-pill { position: absolute; left: 12px; bottom: 12px; z-index: 1; }
+    .pr-punto { width: 8px; height: 8px; border-radius: 50%; background-color: #5E6049; flex-shrink: 0; }
+
+    .pr-contexto { position: relative; padding: 20px 16px 16px 22px; border-radius: 20px; background-color: var(--p-claro); overflow: hidden; }
+    .pr-contexto::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background-color: var(--p-oxido); }
+    .pr-contexto__titulo { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 700; }
+    .pr-contexto__titulo svg { color: var(--p-oxido); }
+    .pr-papel { margin-top: 14px; padding: 14px 16px; border-radius: 12px; background-color: var(--p-chip); }
+    .pr-papel__titulo { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--p-txt); }
+    .pr-papel__titulo svg { color: var(--p-oxido); }
+
+    .pr-acordeon { display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 16px; border-radius: 12px; background-color: #fff; font-size: 14px; font-weight: 600; }
+    .pr-acordeon span { flex: 1; text-align: left; }
+    .pr-acordeon svg:first-child { font-size: 18px; color: var(--p-txt); }
+    .pr-acordeon svg:last-child { color: var(--p-txt2); }
+
+    .pr-barra-accion {
+      position: sticky;
+      bottom: -24px;
+      z-index: 6;
+      margin: 24px 0 -24px;
+      padding: 12px 16px 14px;
+      background: linear-gradient(180deg, rgba(243, 230, 211, 0), rgba(243, 230, 211, .96) 22%);
+    }
+
+    .pr-barra-accion__botones { display: grid; grid-template-columns: 1.4fr 1fr; gap: 8px; }
+    .pr-barra-accion .pr-boton { padding: 13px 10px; font-size: 14px; }
+    .pr-boton--blanco { background-color: #fff; color: var(--p-granate-osc); }
+    .pr-barra-accion__nota { display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 8px !important; font-size: 11px; color: var(--p-txt2); }
+
+    /* 5 · Mi barrio */
+    .pr-barrio-img { height: 142px; border-radius: 16px; }
+    .pr-barrio-img .pr-pill { position: absolute; z-index: 1; }
+    .pr-barrio-img__pie { position: absolute; left: 12px; right: 12px; bottom: 10px; z-index: 1; display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; color: #fff; text-shadow: 0 1px 4px rgba(0, 0, 0, .5); }
+
+    .pr-segmentos { display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px; border-radius: 999px; background-color: var(--p-chip); }
+    .pr-segmentos button { padding: 8px 4px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--p-txt); }
+    .pr-segmentos button[aria-pressed="true"] { background-color: var(--p-granate); color: #fff; font-weight: 600; }
+
+    .pr-seccion-titulo { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; }
+    .pr-seccion-titulo::before { content: ""; width: 5px; height: 16px; border-radius: 3px; background-color: var(--p-granate); }
+
+    .pr-relato { overflow: hidden; }
+    .pr-relato__img { height: 142px; }
+    .pr-relato__img .pr-pill { position: absolute; top: 10px; right: 10px; z-index: 1; }
+    .pr-relato__cat { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: .04em; color: var(--p-txt); }
+    .pr-relato__cat span { letter-spacing: 0; color: var(--p-txt2); }
+    .pr-relato__cat span::before { content: "·"; margin-right: 8px; }
+    .pr-relato__autor { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+    .pr-inicial { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 8px; border-radius: 50%; background-color: var(--p-chip); font-size: 11px; font-weight: 700; color: var(--p-oxido); }
+    .pr-leer { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: var(--p-granate-osc); }
+
+    .pr-invitacion { display: grid; justify-items: center; gap: 8px; padding: 8px 12px 0; text-align: center; }
+    .pr-invitacion > svg { font-size: 22px; color: var(--p-txt2); }
+
+    /* 6 · Momentos */
+    .pr-momento { padding: 16px; }
+    .pr-momento__cab { display: grid; grid-template-columns: 64px minmax(0, 1fr) 32px; gap: 14px; align-items: center; }
+    .pr-momento__thumb { width: 64px; height: 64px; border-radius: 10px; }
+    .pr-momento__nombre { display: flex; align-items: center; gap: 6px; font-size: 19px; font-weight: 700; line-height: 1.2; }
+    .pr-momento__nombre svg { color: var(--p-oxido); }
+    .pr-momento__hora { font-size: 12px; color: var(--p-txt2); }
+    .pr-chevron { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background-color: var(--p-chip); color: var(--p-txt); }
+
+    .pr-activo { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background-color: var(--p-chip); font-size: 12px; font-weight: 500; color: var(--p-granate-osc); }
+    .pr-activo::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background-color: var(--p-granate); }
+
+    .pr-tarde-img { height: 160px; margin-top: 14px; border-radius: 12px; }
+    .pr-tarde-img span { position: absolute; left: 20px; bottom: 10px; z-index: 1; font-size: 12px; font-weight: 600; color: #fff; text-shadow: 0 1px 4px rgba(0, 0, 0, .55); }
+
+    .pr-sugerencia { display: grid; grid-template-columns: 36px minmax(0, 1fr) 24px; gap: 12px; align-items: center; padding: 12px; border-radius: 8px; background-color: var(--p-tostado); }
+    .pr-sugerencia .pr-circulo { width: 36px; height: 36px; background-color: #fff; color: var(--p-granate-osc); font-size: 17px; }
+    .pr-sugerencia__nombre { font-size: 17px; font-weight: 700; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pr-sugerencia__desc { font-size: 13px; color: var(--p-txt2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* 7 · Guardados */
+    .pr-mosaico { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 84px 84px; gap: 8px; border-radius: 10px; overflow: hidden; }
+    .pr-mosaico--grande { grid-template-columns: 2fr 1fr; }
+    .pr-mosaico--grande .pr-foto:first-child { grid-row: span 2; }
+    .pr-lista__titulo { display: flex; align-items: baseline; gap: 4px; margin-top: 16px; font-size: 18px; font-weight: 700; }
+    .pr-lista__titulo span { font-size: 13px; font-weight: 500; color: var(--p-txt2); }
+    .pr-lista__zona { display: flex; align-items: center; gap: 6px; margin-top: 10px !important; font-size: 11px; font-weight: 600; letter-spacing: .04em; color: var(--p-txt); }
+
+    /* 8 · Perfil */
+    .pr-perfil-foto { position: relative; width: 64px; height: 64px; flex-shrink: 0; }
+    .pr-perfil-foto .pr-foto { width: 64px; height: 64px; border-radius: 50%; }
+    .pr-perfil-foto__badge { position: absolute; right: -2px; bottom: -2px; z-index: 1; display: grid; place-items: center; width: 20px; height: 20px; border: 2px solid #fff; border-radius: 50%; background-color: var(--p-oliva); color: #fff; font-size: 10px; }
+
+    .pr-ajuste__titulo { display: flex; align-items: center; gap: 8px; font-size: 19px; font-weight: 700; }
+    .pr-ajuste__titulo svg { color: var(--p-granate-osc); }
+
+    .pr-segmentos--cuadrado { border-radius: 8px; }
+    .pr-segmentos--cuadrado button { border-radius: 6px; }
+
+    .pr-interruptor { position: relative; width: 48px; height: 28px; border-radius: 999px; background-color: #D8C6AE; flex-shrink: 0; transition: background-color .2s ease; }
+    .pr-interruptor::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background-color: #fff; transition: transform .2s ease; }
+    .pr-interruptor[aria-checked="true"] { background-color: var(--p-granate); }
+    .pr-interruptor[aria-checked="true"]::after { transform: translateX(20px); }
+    .pr-interruptor:disabled { background-color: var(--p-tostado); cursor: not-allowed; }
+    .pr-interruptor:disabled::after { transform: translateX(20px); background-color: #F7EEE2; }
+
+    .pr-ajuste-fila { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .pr-ajuste-fila strong { display: block; font-size: 14px; font-weight: 600; line-height: 1.3; color: var(--p-txt); }
+    .pr-ajuste-fila span { display: block; font-size: 12px; color: var(--p-txt2); }
+
+    @media (max-width: 440px) {
+      .movil-marco { padding: 6px; border-radius: 40px; }
+      .movil { border-radius: 34px; min-height: 560px; }
+    }
+
+    
+/* =========================================================
        10 · ANIMACIÓN DE ENTRADA
        ========================================================= */
     .revela {
@@ -1363,6 +1831,7 @@
           <li><a class="nav__enlace" href="#solucion">Solución</a></li>
           <li><a class="nav__enlace" href="#identidad">Identidad</a></li>
           <li><a class="nav__enlace" href="#growth">Crecimiento</a></li>
+          <li><a class="nav__enlace" href="#prototipo">Prototipo</a></li>
           <li><a class="nav__cta" href="#contacto">Contacto</a></li>
         </ul>
       </nav>
@@ -2161,31 +2630,31 @@
               <p class="etapa__medida">Visitas cualificadas y cuántas personas piden probarla.</p>
               <p class="etapa__objetivo">8 de cada 100 piden acceso · coste ≈ 0</p>
             </li>
-            <li class="etapa" style="--w:90%; --bg:#96463A;">
+            <li class="etapa" style="--w:94%; --bg:#96463A;">
               <span class="etapa__num" aria-hidden="true">2</span>
               <div><span class="etapa__nombre">Activación</span><p class="etapa__pregunta">¿La prueba?</p></div>
               <p class="etapa__medida">Cuántas llegan a su primera recomendación y cuánto tardan.</p>
               <p class="etapa__objetivo">6 de cada 10 · en menos de 3 min</p>
             </li>
-            <li class="etapa" style="--w:80%; --bg:#8E4136;">
+            <li class="etapa" style="--w:88%; --bg:#8E4136;">
               <span class="etapa__num" aria-hidden="true">3</span>
               <div><span class="etapa__nombre">Conversión</span><p class="etapa__pregunta">¿Conecta con un lugar?</p></div>
               <p class="etapa__medida">Cuántas guardan un lugar afín o inician una ruta.</p>
               <p class="etapa__objetivo">6 de cada 10 · afinidad 4/5 o más</p>
             </li>
-            <li class="etapa" style="--w:70%; --bg:#8A3A32;">
+            <li class="etapa" style="--w:82%; --bg:#8A3A32;">
               <span class="etapa__num" aria-hidden="true">4</span>
               <div><span class="etapa__nombre">Retención</span><p class="etapa__pregunta">¿Vuelve?</p></div>
               <p class="etapa__medida">Retorno a 7 y a 30 días, y acciones de conexión por usuario.</p>
               <p class="etapa__objetivo">1 de cada 4 vuelve la 1.ª semana</p>
             </li>
-            <li class="etapa" style="--w:60%; --bg:#74332F;">
+            <li class="etapa" style="--w:76%; --bg:#74332F;">
               <span class="etapa__num" aria-hidden="true">5</span>
               <div><span class="etapa__nombre">Recomendación</span><p class="etapa__pregunta">¿Invita a un vecino?</p></div>
               <p class="etapa__medida">Invitaciones entre vecinos y cuántas traen un residente activo.</p>
               <p class="etapa__objetivo">2 de cada 10 invitan · 1 de 4 se queda</p>
             </li>
-            <li class="etapa" style="--w:50%; --bg:#2F3A45;">
+            <li class="etapa" style="--w:70%; --bg:#2F3A45;">
               <span class="etapa__num" aria-hidden="true">6</span>
               <div><span class="etapa__nombre">Sostenibilidad</span><p class="etapa__pregunta">¿Se puede sostener?</p></div>
               <p class="etapa__medida">Disposición a apoyar el proyecto, medida en entrevistas.</p>
@@ -2327,6 +2796,617 @@
     </section>
 
     <!-- =====================================================
+         PROTOTIPO
+         ===================================================== -->
+    <section class="seccion seccion--alt" id="prototipo">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <span class="etiqueta">Prototipo</span>
+          <h2>Ocho pantallas para <em>recorrer</em> Madrid Habitada.</h2>
+          <p class="entradilla">
+            El prototipo de alta fidelidad convierte las seis decisiones de diseño en pantallas reales.
+            Puedes probarlo aquí mismo: cambia de pestaña, abre la ficha de un lugar o guárdalo.
+          </p>
+        </div>
+
+        <div class="proto">
+          <div>
+            <ol class="proto-lista" aria-label="Pantallas del prototipo">
+              <li><button type="button" data-ir="bienvenida"><span class="proto-lista__num">1</span><span><span class="proto-lista__nombre">Bienvenida</span><span class="proto-lista__desc">Se empieza sin registro: barrio y gustos en dos pasos.</span></span></button></li>
+              <li><button type="button" data-ir="inicio"><span class="proto-lista__num">2</span><span><span class="proto-lista__nombre">Inicio</span><span class="proto-lista__desc">Tres bloques y nada más. Sin feed infinito.</span></span></button></li>
+              <li><button type="button" data-ir="explorar"><span class="proto-lista__num">3</span><span><span class="proto-lista__nombre">Explorar</span><span class="proto-lista__desc">Filtros por intención, mapa plegado y afinidad explicada.</span></span></button></li>
+              <li><button type="button" data-ir="ficha"><span class="proto-lista__num">4</span><span><span class="proto-lista__nombre">Ficha de lugar</span><span class="proto-lista__desc">Información en tres niveles: esencial, contexto y ampliada.</span></span></button></li>
+              <li><button type="button" data-ir="barrio"><span class="proto-lista__num">5</span><span><span class="proto-lista__nombre">Mi barrio</span><span class="proto-lista__desc">Crónicas del barrio contadas por sus vecinos.</span></span></button></li>
+              <li><button type="button" data-ir="momentos"><span class="proto-lista__num">6</span><span><span class="proto-lista__nombre">Momentos</span><span class="proto-lista__desc">Propuestas según el momento del día.</span></span></button></li>
+              <li><button type="button" data-ir="guardados"><span class="proto-lista__num">7</span><span><span class="proto-lista__nombre">Guardados</span><span class="proto-lista__desc">Listas privadas: una memoria personal de la ciudad.</span></span></button></li>
+              <li><button type="button" data-ir="perfil"><span class="proto-lista__num">8</span><span><span class="proto-lista__nombre">Perfil</span><span class="proto-lista__desc">Nivel de acompañamiento y privacidad bajo control.</span></span></button></li>
+            </ol>
+
+            <div class="grupo-botones">
+              <a class="boton boton--principal" href="https://www.figma.com/design/lflZfCGeVCzYbHU9L6AYws/Prototipo_Madrid-Habitada?node-id=0-1" target="_blank" rel="noopener">
+                Abrir en Figma
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+              </a>
+              <button class="boton boton--secundario" type="button" id="protoReiniciar" style="background:transparent;font-family:inherit;">Empezar desde el principio</button>
+            </div>
+          </div>
+
+          <div class="proto__movil">
+            <div class="movil-marco">
+              <div class="movil" id="movil" role="region" aria-label="Prototipo navegable de Madrid Habitada">
+
+                <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+                  <symbol id="i-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+                  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+                  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></symbol>
+                  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+                  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+                  <symbol id="i-bookmark-plus" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><line x1="12" x2="12" y1="7" y2="13"/><line x1="15" x2="9" y1="10" y2="10"/></symbol>
+                  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+                  <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></symbol>
+                  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+                  <symbol id="i-nav" viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></symbol>
+                  <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+                  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+                  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+                  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+                  <symbol id="i-map" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></symbol>
+                  <symbol id="i-sliders" viewBox="0 0 24 24"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></symbol>
+                  <symbol id="i-walk" viewBox="0 0 24 24"><circle cx="13" cy="4" r="2"/><path d="m9 20 3-6 3 3v4"/><path d="m6 12 3-4 4 1 3 4"/><path d="m12 14-1-5"/></symbol>
+                  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-14.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+                  <symbol id="i-sunset" viewBox="0 0 24 24"><path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/></symbol>
+                  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+                  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+                  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+                  <symbol id="i-store" viewBox="0 0 24 24"><path d="M2 7h20"/><path d="m2 7 2-5h16l2 5"/><path d="M4 7v13a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7"/><path d="M15 22v-6H9v6"/></symbol>
+                  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+                  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol>
+                  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+                  <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+                  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></symbol>
+                  <symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+                  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></symbol>
+                  <symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol>
+                  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol>
+                  <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></symbol>
+                  <symbol id="i-tree" viewBox="0 0 24 24"><path d="m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14h-.3a1 1 0 0 1-.7-1.7L9 9h-.2A1 1 0 0 1 8 7.3L12 3l4 4.3a1 1 0 0 1-.8 1.7H15l3 3.3a1 1 0 0 1-.7 1.7H17Z"/><path d="M12 22v-3"/></symbol>
+                  <symbol id="i-scroll" viewBox="0 0 24 24"><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/></symbol>
+                  <symbol id="i-route" viewBox="0 0 24 24"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></symbol>
+                  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></symbol>
+                  <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></symbol>
+                </svg>
+
+                <!-- ============ 1 · BIENVENIDA ============ -->
+                <div class="pr-pantalla" data-pantalla="bienvenida" data-tab="inicio">
+                  <div class="pr-cab">
+                    <span class="pr-logo"><svg><use href="#i-pin"/></svg><span>MADRID<br>HABITADA</span></span>
+                    <button class="pr-avatar" type="button" data-ir="perfil" aria-label="Perfil"><span class="pr-foto"><img src="img/claudia-erustes.webp" alt=""></span></button>
+                  </div>
+                  <div class="pr-hero">
+                    <div class="pr-foto"><img src="img/calle.webp" alt="Calle de barrio de Madrid"></div>
+                    <div class="pr-hero__arriba"><span class="pr-hero__raya"></span><span class="pr-pill pr-pill--blanca" style="letter-spacing:.06em;">PASO 1 DE 2</span></div>
+                  </div>
+                  <div class="pr-cuerpo" style="gap:18px;">
+                    <div style="display:grid;gap:10px;">
+                      <p class="pr-antetitulo">PASEO SIN PRISA</p>
+                      <p class="pr-titular-bienvenida"><span>Madrid como</span> lugar vivido.</p>
+                      <p class="pr-texto" style="font-size:16px;">Descubre tu ciudad desde tu barrio, sin rankings ni ruido.</p>
+                    </div>
+
+                    <div class="pr-tarjeta pr-pad" style="display:grid;gap:14px;">
+                      <div class="pr-fila">
+                        <span class="pr-ajuste__titulo" style="font-size:17px;"><svg style="color:var(--p-oxido)"><use href="#i-home"/></svg>¿Cuál es tu barrio?</span>
+                        <span class="pr-mini" style="font-weight:500;">Punto de partida</span>
+                      </div>
+                      <div class="pr-campo"><svg><use href="#i-search"/></svg><span data-barrio-texto>Carabanchel</span></div>
+                      <p class="pr-mini" style="color:var(--p-txt);font-weight:500;">Sugerencias habituales</p>
+                      <div class="pr-chips" data-grupo="barrio" data-modo="uno">
+                        <button class="pr-chip" type="button" aria-pressed="true">Carabanchel</button>
+                        <button class="pr-chip" type="button" aria-pressed="false">Chamberí</button>
+                        <button class="pr-chip" type="button" aria-pressed="false">Aluche</button>
+                        <button class="pr-chip" type="button" aria-pressed="false">Lavapiés</button>
+                      </div>
+                    </div>
+
+                    <div class="pr-tarjeta pr-pad" style="display:grid;gap:12px;">
+                      <div class="pr-fila" style="align-items:flex-start;">
+                        <span class="pr-ajuste__titulo" style="font-size:17px;"><svg style="color:var(--p-oliva)"><use href="#i-compass"/></svg>¿Qué te apetece encontrar?</span>
+                        <span class="pr-mini" style="font-weight:500;white-space:nowrap;">Elige varios</span>
+                      </div>
+                      <p class="pr-texto">Espacios con identidad donde el tiempo se mide en saludos.</p>
+                      <div class="pr-chips" data-grupo="gustos" data-modo="varios">
+                        <button class="pr-chip pr-chip--oliva" type="button" aria-pressed="true"><svg><use href="#i-tree"/></svg>Tranquilo</button>
+                        <button class="pr-chip pr-chip--oliva" type="button" aria-pressed="true"><svg><use href="#i-coffee"/></svg>Cotidiano</button>
+                        <button class="pr-chip pr-chip--oliva" type="button" aria-pressed="false"><svg><use href="#i-scroll"/></svg>Con historia</button>
+                        <button class="pr-chip pr-chip--oliva" type="button" aria-pressed="true"><svg><use href="#i-walk"/></svg>Para ir andando</button>
+                        <button class="pr-chip pr-chip--oliva" type="button" aria-pressed="false"><svg><use href="#i-store"/></svg>Comercio de barrio</button>
+                      </div>
+                    </div>
+
+                    <div class="pr-nota">
+                      <svg><use href="#i-sun"/></svg>
+                      <p><strong>Ritmo de barrio</strong>Sin listas patrocinadas ni recomendaciones apresuradas. Madrid empieza en tu acera.</p>
+                    </div>
+
+                    <div style="display:grid;gap:12px;justify-items:center;">
+                      <button class="pr-boton pr-boton--principal" type="button" data-ir="inicio" style="width:100%;padding:16px;font-size:18px;">Empezar sin registrarme <svg><use href="#i-arrow-right"/></svg></button>
+                      <span class="pr-mini" style="font-size:13px;color:var(--p-txt);">Ya tengo cuenta</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ============ 2 · INICIO ============ -->
+                <div class="pr-pantalla" data-pantalla="inicio" data-tab="inicio">
+                  <div class="pr-cab">
+                    <span class="pr-logo"><svg><use href="#i-pin"/></svg><span>MADRID<br>HABITADA</span></span>
+                    <button class="pr-avatar" type="button" data-ir="perfil" aria-label="Perfil"><span class="pr-foto"><img src="img/claudia-erustes.webp" alt=""></span></button>
+                  </div>
+                  <div class="pr-cuerpo">
+                    <div style="display:grid;gap:8px;">
+                      <div class="pr-fila">
+                        <span class="pr-pill"><svg><use href="#i-sun"/></svg>Martes de mercado · 19°C soleado</span>
+                        <span class="pr-mini" style="color:rgba(85,66,64,.8);white-space:nowrap;">Oporto, 28025</span>
+                      </div>
+                      <p class="pr-h1" style="font-size:32px;">Buenos días,<br><span data-barrio-texto>Carabanchel</span></p>
+                    </div>
+
+                    <div class="pr-tarjeta pr-pad" style="display:grid;gap:8px;">
+                      <span style="display:flex;align-items:center;gap:6px;"><span class="pr-barrita"></span><span class="pr-rotulo" style="font-size:13px;color:var(--p-oliva);">Tu barrio hoy</span></span>
+                      <p style="font-size:16px;line-height:1.4;">Mercado abierto hasta las 14:00 · Hoy hay mercadillo en la plaza</p>
+                      <span style="display:flex;gap:16px;"><span class="pr-meta"><svg><use href="#i-clock"/></svg>Ritmo de mañana</span><span class="pr-meta"><svg><use href="#i-store"/></svg>Plaza de Carabanchel</span></span>
+                    </div>
+
+                    <div style="display:grid;gap:8px;">
+                      <div class="pr-fila" style="padding:0 4px;"><span class="pr-h2">Cerca de ti</span><span class="pr-mini">Paseo matinal</span></div>
+                      <button class="pr-tarjeta pr-enlace-tarjeta" type="button" data-ir="ficha" style="overflow:hidden;">
+                        <div class="pr-foto pr-imagen-card">
+                          <img src="img/bar.webp" alt="Interior de Café Athenea">
+                          <span class="pr-pill pr-pill--melocoton" style="position:absolute;top:12px;right:12px;"><svg><use href="#i-walk"/></svg>A 4 min andando</span>
+                        </div>
+                        <div class="pr-pad" style="display:grid;gap:8px;">
+                          <div class="pr-fila"><span class="pr-h3">Café Athenea</span><span class="pr-pill pr-pill--oliva">Cafetería de barrio</span></div>
+                          <p class="pr-texto">Un café de barrio donde los vecinos leen el periódico por la mañana.</p>
+                          <span class="pr-meta" style="color:var(--p-txt3);"><svg><use href="#i-pin"/></svg>Calle del General Ricardos, 82</span>
+                        </div>
+                      </button>
+                    </div>
+
+                    <div style="display:grid;gap:8px;">
+                      <div class="pr-fila" style="padding:0 4px;"><span class="pr-h2">Sugerencia del día</span><span class="pr-mini">Espacio de calma</span></div>
+                      <div class="pr-tarjeta pr-pad" style="display:grid;gap:8px;">
+                        <div class="pr-fila" style="align-items:flex-start;">
+                          <div>
+                            <p class="pr-rotulo" style="color:var(--p-oxido);">Librería independiente</p>
+                            <p style="font-size:18px;font-weight:700;line-height:1.3;">Librería El Rincón de Oporto</p>
+                          </div>
+                          <button class="pr-circulo" type="button" data-guardar="rincon-oporto" aria-pressed="false" aria-label="Guardar Librería El Rincón de Oporto"><svg><use href="#i-bookmark"/></svg></button>
+                        </div>
+                        <p class="pr-texto">Especializada en novela gráfica e historia vecinal de Madrid sur. Trato pausado.</p>
+                        <div class="pr-fila" style="padding-top:8px;">
+                          <span class="pr-meta"><svg><use href="#i-walk"/></svg>A 7 min andando</span>
+                          <button class="pr-boton pr-boton--suave" type="button" data-guardar="rincon-oporto" aria-pressed="false"><svg><use href="#i-bookmark-plus"/></svg><span data-etiqueta-guardar>Guardar</span></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ============ 3 · EXPLORAR ============ -->
+                <div class="pr-pantalla" data-pantalla="explorar" data-tab="explorar">
+                  <div class="pr-cab">
+                    <span class="pr-logo"><svg><use href="#i-pin"/></svg><span>MADRID<br>HABITADA</span></span>
+                    <button class="pr-avatar" type="button" data-ir="perfil" aria-label="Perfil"><span class="pr-foto"><img src="img/claudia-erustes.webp" alt=""></span></button>
+                  </div>
+                  <div class="pr-cuerpo" style="gap:16px;">
+                    <div class="pr-busqueda"><svg><use href="#i-search"/></svg><span>Busca un lugar o un plan</span><svg><use href="#i-mic"/></svg></div>
+
+                    <div style="display:grid;gap:8px;">
+                      <div class="pr-carrusel pr-chips" data-grupo="intencion" data-modo="uno" style="flex-wrap:nowrap;">
+                        <button class="pr-chip" type="button" aria-pressed="false"><svg class="pr-chip__check"><use href="#i-check"/></svg>Para desconectar</button>
+                        <button class="pr-chip" type="button" aria-pressed="true"><svg class="pr-chip__check"><use href="#i-check"/></svg>Para ir sin prisa</button>
+                        <button class="pr-chip" type="button" aria-pressed="false"><svg class="pr-chip__check"><use href="#i-check"/></svg>Para redescubrir tu barrio</button>
+                        <button class="pr-chip" type="button" aria-pressed="false"><svg class="pr-chip__check"><use href="#i-check"/></svg>Para quedar cerca</button>
+                        <button class="pr-chip" type="button" aria-pressed="false"><svg class="pr-chip__check"><use href="#i-check"/></svg>Para un plan cotidiano</button>
+                        <button class="pr-chip" type="button" aria-pressed="false"><svg class="pr-chip__check"><use href="#i-check"/></svg>Para sentir Madrid más tuya</button>
+                      </div>
+                      <div class="pr-chips" data-grupo="filtros" data-modo="varios" style="gap:6px;">
+                        <button class="pr-filtro" type="button" aria-pressed="true"><svg><use href="#i-nav"/></svg>Cerca de mí</button>
+                        <button class="pr-filtro" type="button" aria-pressed="true"><svg><use href="#i-tree"/></svg>Tranquilo</button>
+                        <button class="pr-filtro" type="button" aria-pressed="false"><svg><use href="#i-scroll"/></svg>Con historia</button>
+                      </div>
+                    </div>
+
+                    <div class="pr-mapa">
+                      <span class="pr-circulo"><svg><use href="#i-map"/></svg></span>
+                      <p class="pr-mapa__texto">Ver en el mapa<span>Carabanchel · 4 remansos seleccionados</span></p>
+                      <svg style="font-size:18px;"><use href="#i-down"/></svg>
+                    </div>
+
+                    <div class="pr-fila" style="align-items:flex-end;">
+                      <div><p class="pr-h2" style="font-size:20px;">Rincones afines hoy</p><p class="pr-mini" style="font-weight:500;">Ponderados por sosiego y cercanía</p></div>
+                      <span class="pr-meta" style="color:var(--p-txt);"><svg><use href="#i-sliders"/></svg>Filtro suave</span>
+                    </div>
+
+                    <div style="display:grid;gap:16px;">
+                      <article class="pr-tarjeta pr-lugar">
+                        <div class="pr-lugar__top">
+                          <button class="pr-foto pr-lugar__img" type="button" data-ir="ficha" aria-label="Ver ficha de Café Athenea"><img src="img/bar.webp" alt=""></button>
+                          <button type="button" data-ir="ficha" style="text-align:left;min-width:0;">
+                            <p class="pr-lugar__nombre">Café Athenea</p>
+                            <p class="pr-mini" style="font-size:12px;">Carabanchel · A 4 min andando</p>
+                            <span class="pr-afinidad"><svg><use href="#i-tree"/></svg>Encaja contigo: tranquilo y a 4 min</span>
+                          </button>
+                          <button class="pr-marcador" type="button" data-guardar="athenea" aria-pressed="false" aria-label="Guardar Café Athenea"><svg><use href="#i-bookmark"/></svg></button>
+                        </div>
+                        <p class="pr-lugar__desc">Café reposado con ventanales de madera abierta, libros compartidos y música de fondo suave.</p>
+                      </article>
+
+                      <article class="pr-tarjeta pr-lugar">
+                        <div class="pr-lugar__top">
+                          <span class="pr-foto pr-lugar__img"><img src="img/mercado.webp" alt=""></span>
+                          <div style="min-width:0;">
+                            <p class="pr-lugar__nombre">Panadería Masa Madre</p>
+                            <p class="pr-mini" style="font-size:12px;">Carabanchel · A 6 min andando</p>
+                            <span class="pr-afinidad"><svg><use href="#i-store"/></svg>Encaja contigo: obrador propio desde 1962</span>
+                          </div>
+                          <button class="pr-marcador" type="button" data-guardar="panaderia" aria-pressed="false" aria-label="Guardar panadería"><svg><use href="#i-bookmark"/></svg></button>
+                        </div>
+                        <p class="pr-lugar__desc">Hogazas de fermentación lenta horneadas al alba. Trato familiar donde todavía se reserva el pan de siempre.</p>
+                      </article>
+
+                      <article class="pr-tarjeta pr-lugar">
+                        <div class="pr-lugar__top">
+                          <span class="pr-foto pr-lugar__img"><img src="img/plaza.webp" alt=""></span>
+                          <div style="min-width:0;">
+                            <p class="pr-lugar__nombre">Plaza de la Palmera</p>
+                            <p class="pr-mini" style="font-size:12px;">Carabanchel · A 8 min andando</p>
+                            <span class="pr-afinidad"><svg><use href="#i-tree"/></svg>Encaja contigo: bancos a la sombra y silencio</span>
+                          </div>
+                          <button class="pr-marcador" type="button" data-guardar="palmera" aria-pressed="false" aria-label="Guardar Plaza de la Palmera"><svg><use href="#i-bookmark"/></svg></button>
+                        </div>
+                        <p class="pr-lugar__desc">Un rincón resguardado del tráfico urbano. Ideal a media tarde cuando baja el sol y solo se oyen los pájaros.</p>
+                      </article>
+
+                      <article class="pr-tarjeta pr-lugar">
+                        <div class="pr-lugar__top">
+                          <span class="pr-foto pr-lugar__img"><img src="img/kiosko.webp" alt=""></span>
+                          <div style="min-width:0;">
+                            <p class="pr-lugar__nombre">Taller y Encuadernación</p>
+                            <p class="pr-mini" style="font-size:12px;">San Isidro · A 11 min andando</p>
+                            <span class="pr-afinidad"><svg><use href="#i-book"/></svg>Encaja contigo: oficio tradicional de barrio</span>
+                          </div>
+                          <button class="pr-marcador" type="button" data-guardar="taller" aria-pressed="false" aria-label="Guardar taller"><svg><use href="#i-bookmark"/></svg></button>
+                        </div>
+                        <p class="pr-lugar__desc">Prensa antigua, papeles al engrudo y encuadernación manual que preserva el pulso del oficio.</p>
+                      </article>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ============ 4 · FICHA ============ -->
+                <div class="pr-pantalla pr-pantalla--sin-tabs" data-pantalla="ficha" data-tab="">
+                  <div class="pr-cab">
+                    <button class="pr-cab__titulo" type="button" data-volver><svg><use href="#i-arrow-left"/></svg>Detalle del rincón</button>
+                    <button class="pr-avatar" type="button" data-ir="perfil" aria-label="Perfil"><span class="pr-foto"><img src="img/claudia-erustes.webp" alt=""></span></button>
+                  </div>
+                  <div class="pr-cuerpo" style="gap:16px;">
+                    <div class="pr-fila">
+                      <button class="pr-meta" type="button" data-volver style="font-size:14px;color:var(--p-granate-osc);gap:2px;"><svg style="font-size:18px;"><use href="#i-left"/></svg>Volver</button>
+                      <button class="pr-circulo" type="button" data-guardar="athenea" aria-pressed="false" aria-label="Guardar Café Athenea" style="background:#fff;color:var(--p-txt);"><svg><use href="#i-bookmark"/></svg></button>
+                    </div>
+
+                    <div class="pr-foto pr-ficha-img">
+                      <img src="img/bar.webp" alt="Terraza de Café Athenea">
+                      <span class="pr-pill pr-pill--blanca"><span class="pr-punto"></span>Rincón sereno matinal</span>
+                    </div>
+
+                    <div class="pr-tarjeta pr-pad" style="display:grid;gap:4px;">
+                      <div class="pr-fila"><span class="pr-h1" style="font-size:26px;">Café Athenea</span><span class="pr-pill pr-pill--melocoton" style="background:#FBE3D6;"><svg><use href="#i-walk"/></svg>A 4 min</span></div>
+                      <p class="pr-texto">Cafetería · Carabanchel</p>
+                      <div class="pr-fila" style="margin-top:12px;">
+                        <span style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;"><span class="pr-punto"></span>Abierto hoy hasta las 20:30</span>
+                        <span class="pr-mini" style="color:var(--p-txt);">Sin prisas</span>
+                      </div>
+                    </div>
+
+                    <div class="pr-contexto">
+                      <p class="pr-contexto__titulo"><svg><use href="#i-heart"/></svg>Por qué encaja contigo</p>
+                      <p class="pr-texto" style="margin-top:6px;color:var(--p-txt);">Buscas sitios tranquilos para empezar el día. Aquí se desayuna sin prisa y casi todos son del barrio.</p>
+                      <div class="pr-papel">
+                        <p class="pr-papel__titulo"><svg><use href="#i-home"/></svg>Su papel en el barrio</p>
+                        <p class="pr-texto" style="margin-top:4px;">Abierto desde 1978, es punto de encuentro de vecinos mayores y de quien trabaja cerca. Pepe y Elena mantienen el café de puchero tradicional.</p>
+                      </div>
+                    </div>
+
+                    <div style="display:grid;gap:8px;">
+                      <div class="pr-fila" style="padding:4px 4px 2px;"><span class="pr-rotulo" style="color:var(--p-txt);">Detalles arquitectónicos y de entorno</span><svg style="color:var(--p-txt2);"><use href="#i-down"/></svg></div>
+                      <div class="pr-acordeon"><svg><use href="#i-clock"/></svg><span>Horarios de apertura</span><svg><use href="#i-down"/></svg></div>
+                      <div class="pr-acordeon"><svg><use href="#i-scroll"/></svg><span>Historia del local</span><svg><use href="#i-down"/></svg></div>
+                      <div class="pr-acordeon"><svg><use href="#i-compass"/></svg><span>Qué hay alrededor</span><svg><use href="#i-down"/></svg></div>
+                    </div>
+                  </div>
+
+                  <div class="pr-barra-accion">
+                    <div class="pr-barra-accion__botones">
+                      <button class="pr-boton pr-boton--principal" type="button" data-guardar="athenea" aria-pressed="false"><svg><use href="#i-bookmark-plus"/></svg><span data-etiqueta-guardar data-texto-no="Guardar en mis lugares" data-texto-si="Guardado en mis lugares">Guardar en mis lugares</span></button>
+                      <span class="pr-boton pr-boton--blanco"><svg><use href="#i-route"/></svg>Cómo llegar</span>
+                    </div>
+                    <p class="pr-barra-accion__nota"><svg><use href="#i-lock"/></svg>Tus guardados son privados. Nadie más los ve.</p>
+                  </div>
+                </div>
+
+                <!-- ============ 5 · MI BARRIO ============ -->
+                <div class="pr-pantalla" data-pantalla="barrio" data-tab="barrio">
+                  <div class="pr-cab">
+                    <span class="pr-logo"><svg><use href="#i-pin"/></svg><span>MADRID<br>HABITADA</span></span>
+                    <button class="pr-avatar" type="button" data-ir="perfil" aria-label="Perfil"><span class="pr-foto"><img src="img/claudia-erustes.webp" alt=""></span></button>
+                  </div>
+                  <div class="pr-cuerpo" style="gap:18px;">
+                    <div class="pr-foto pr-barrio-img">
+                      <img src="img/calle.webp" alt="Balcones de Carabanchel">
+                      <span class="pr-pill pr-pill--blanca" style="top:10px;left:10px;letter-spacing:.05em;"><span class="pr-punto" style="background:var(--p-txt);"></span>DISTRITO 11 · SUROESTE</span>
+                      <span class="pr-barrio-img__pie"><span>Ritmo vecinal pausado</span><span>Madrid Sur</span></span>
+                    </div>
+
+                    <div style="display:grid;gap:6px;">
+                      <div class="pr-fila"><span class="pr-h1" style="font-size:26px;">Carabanchel</span><span class="pr-circulo" style="width:30px;height:30px;background:#fff;color:var(--p-txt);"><svg><use href="#i-info"/></svg></span></div>
+                      <p class="pr-texto">Un barrio de oficio, plazas vivas y ritmo propio.</p>
+                      <span style="display:flex;gap:14px;"><span class="pr-meta" style="color:var(--p-txt);"><svg><use href="#i-store"/></svg>Comercio tradicional</span><span class="pr-meta" style="color:var(--p-txt);"><svg style="color:var(--p-oxido)"><use href="#i-users"/></svg>Vida comunitaria</span></span>
+                    </div>
+
+                    <div class="pr-segmentos" data-grupo="barrio-seg" data-modo="uno">
+                      <button type="button" aria-pressed="false">Lugares</button>
+                      <button type="button" aria-pressed="true">Historias</button>
+                      <button type="button" aria-pressed="false">Comunidad</button>
+                    </div>
+
+                    <div class="pr-fila"><span class="pr-seccion-titulo">Crónicas de la acera</span><span class="pr-mini" style="font-weight:500;">3 relatos</span></div>
+
+                    <article class="pr-tarjeta pr-relato">
+                      <div class="pr-foto pr-relato__img"><img src="img/mercado.webp" alt=""><span class="pr-pill"><svg><use href="#i-book"/></svg>3 min de lectura</span></div>
+                      <div class="pr-pad" style="display:grid;gap:6px;">
+                        <p class="pr-relato__cat">MEMORIA DE BARRIO <span>Calle de la Oca</span></p>
+                        <p style="font-size:19px;font-weight:700;line-height:1.3;">El mercado que resiste desde 1941</p>
+                        <p class="pr-texto">Tres generaciones de pescaderos y carniceros que conocen por su nombre a cada vecino que entra por la puerta.</p>
+                        <div class="pr-relato__autor"><span class="pr-mini" style="color:var(--p-txt);display:flex;align-items:center;"><span class="pr-inicial">M</span>Manuel G. · Cronista local</span><span class="pr-leer">Leer <svg><use href="#i-arrow-right"/></svg></span></div>
+                      </div>
+                    </article>
+
+                    <article class="pr-tarjeta pr-relato">
+                      <div class="pr-foto pr-relato__img"><img src="img/calle.webp" alt=""><span class="pr-pill"><svg><use href="#i-book"/></svg>3 min de lectura</span></div>
+                      <div class="pr-pad" style="display:grid;gap:6px;">
+                        <p class="pr-relato__cat">ARQUITECTURA COTIDIANA <span>General Ricardos</span></p>
+                        <p style="font-size:19px;font-weight:700;line-height:1.3;">Las persianas verdes de la calle General Ricardos</p>
+                        <p class="pr-texto">La historia tras el color reglamentario que protegió del calor castellano a los primeros bloques obreros del barrio.</p>
+                        <div class="pr-relato__autor"><span class="pr-mini" style="color:var(--p-txt);display:flex;align-items:center;"><span class="pr-inicial">C</span>Clara V. · Arquitecta de barrio</span><span class="pr-leer">Leer <svg><use href="#i-arrow-right"/></svg></span></div>
+                      </div>
+                    </article>
+
+                    <article class="pr-tarjeta pr-relato">
+                      <div class="pr-foto pr-relato__img"><img src="img/plaza.webp" alt=""><span class="pr-pill"><svg><use href="#i-book"/></svg>3 min de lectura</span></div>
+                      <div class="pr-pad" style="display:grid;gap:6px;">
+                        <p class="pr-relato__cat">TRANSFORMACIÓN URBANA <span>Plaza de San Vicente de Paúl</span></p>
+                        <p style="font-size:19px;font-weight:700;line-height:1.3;">Cómo cambió la plaza en diez años</p>
+                        <p class="pr-texto">De rotonda con coches a espacio donde los niños juegan a la pelota y los mayores toman el sol de invierno.</p>
+                        <div class="pr-relato__autor"><span class="pr-mini" style="color:var(--p-txt);display:flex;align-items:center;"><span class="pr-inicial">R</span>Rafa S. · Vecino desde 1978</span><span class="pr-leer">Leer <svg><use href="#i-arrow-right"/></svg></span></div>
+                      </div>
+                    </article>
+
+                    <div class="pr-invitacion">
+                      <svg><use href="#i-book"/></svg>
+                      <p style="font-size:14px;font-weight:600;">¿Tienes una historia de Carabanchel?</p>
+                      <p class="pr-texto">Las crónicas de barrio las escriben sus propios vecinos. Acércate a la asociación o comparte tu recuerdo.</p>
+                      <span class="pr-boton" style="margin-top:4px;padding:8px 18px;background:#fff;font-size:13px;font-weight:600;color:var(--p-txt);"><svg style="color:var(--p-oxido)"><use href="#i-pen"/></svg>Proponer un relato vecinal</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ============ 6 · MOMENTOS ============ -->
+                <div class="pr-pantalla" data-pantalla="momentos" data-tab="momentos">
+                  <div class="pr-cab">
+                    <span class="pr-logo"><svg><use href="#i-pin"/></svg><span>MADRID<br>HABITADA</span></span>
+                    <button class="pr-avatar" type="button" data-ir="perfil" aria-label="Perfil"><span class="pr-foto"><img src="img/claudia-erustes.webp" alt=""></span></button>
+                  </div>
+                  <div class="pr-cuerpo" style="gap:18px;">
+                    <div style="display:grid;gap:8px;justify-items:start;">
+                      <span class="pr-pill" style="font-size:10px;letter-spacing:.04em;color:var(--p-txt);"><svg><use href="#i-hourglass"/></svg>EL RITMO DEL BARRIO</span>
+                      <p class="pr-h1" style="font-size:28px;">¿Cuándo sales?</p>
+                      <p class="pr-texto">Propuestas pausadas pensadas para el ritmo de cada hora.</p>
+                    </div>
+
+                    <article class="pr-tarjeta pr-momento">
+                      <div class="pr-momento__cab">
+                        <span class="pr-foto pr-momento__thumb"><img src="img/plaza.webp" alt=""></span>
+                        <div><p class="pr-momento__nombre"><svg><use href="#i-sun"/></svg>Mañana</p><p class="pr-momento__hora">08:00 - 14:00</p></div>
+                        <span class="pr-chevron"><svg><use href="#i-down"/></svg></span>
+                      </div>
+                      <p class="pr-texto" style="margin-top:14px;">Olor a café recién molido, mercados abiertos y plazas con sol suave.</p>
+                    </article>
+
+                    <article class="pr-tarjeta pr-momento">
+                      <div class="pr-fila">
+                        <p class="pr-momento__nombre" style="color:var(--p-granate-osc);"><svg><use href="#i-sunset"/></svg>Tarde <span class="pr-momento__hora" style="font-weight:400;">· 16:00 - 20:30</span></p>
+                        <span class="pr-activo">Ahora activo</span>
+                      </div>
+                      <div class="pr-foto pr-tarde-img"><img src="img/calle.webp" alt=""><span>Sol bajo de poniente</span></div>
+                      <p class="pr-texto" style="margin-top:12px;">Horas de paseo sin rumbo, tertulias en terrazas a la sombra y librerías vacías.</p>
+                      <div style="width:40px;height:2px;margin:14px 0;background:#C9B9A6;"></div>
+                      <div class="pr-fila" style="align-items:flex-start;margin-bottom:10px;">
+                        <p class="pr-rotulo" style="font-size:12px;color:var(--p-txt);">Sugerencias para esta tarde cerca de ti</p>
+                        <span class="pr-mini" style="font-weight:500;white-space:nowrap;">Radio de 10 min</span>
+                      </div>
+                      <div style="display:grid;gap:10px;">
+                        <div class="pr-sugerencia">
+                          <span class="pr-circulo"><svg><use href="#i-tree"/></svg></span>
+                          <div style="min-width:0;"><p class="pr-sugerencia__nombre">Plaza de San Vicente de Paúl</p><p class="pr-sugerencia__desc">Bancos a la sombra y fuente fresca</p><p class="pr-meta" style="color:var(--p-txt);"><svg><use href="#i-walk"/></svg>A 5 min andando</p></div>
+                          <button class="pr-marcador" type="button" data-guardar="san-vicente" aria-pressed="false" aria-label="Guardar plaza"><svg><use href="#i-bookmark"/></svg></button>
+                        </div>
+                        <div class="pr-sugerencia">
+                          <span class="pr-circulo"><svg><use href="#i-book"/></svg></span>
+                          <div style="min-width:0;"><p class="pr-sugerencia__nombre">Librería Libros y Café Oporto</p><p class="pr-sugerencia__desc">Tertulia tranquila y catálogo independiente</p><p class="pr-meta" style="color:var(--p-txt);"><svg><use href="#i-walk"/></svg>A 7 min andando</p></div>
+                          <button class="pr-marcador" type="button" data-guardar="libros-cafe" aria-pressed="false" aria-label="Guardar librería"><svg><use href="#i-bookmark"/></svg></button>
+                        </div>
+                        <div class="pr-sugerencia">
+                          <span class="pr-circulo"><svg><use href="#i-coffee"/></svg></span>
+                          <div style="min-width:0;"><p class="pr-sugerencia__nombre">Terraza Bar Manolo</p><p class="pr-sugerencia__desc">Sombra de plátanos y vermú casero</p><p class="pr-meta" style="color:var(--p-txt);"><svg><use href="#i-walk"/></svg>A 9 min andando</p></div>
+                          <button class="pr-marcador" type="button" data-guardar="manolo" aria-pressed="false" aria-label="Guardar terraza"><svg><use href="#i-bookmark"/></svg></button>
+                        </div>
+                      </div>
+                    </article>
+
+                    <article class="pr-tarjeta pr-momento">
+                      <div class="pr-momento__cab">
+                        <span class="pr-foto pr-momento__thumb"><img src="img/bar.webp" alt=""></span>
+                        <div><p class="pr-momento__nombre"><svg><use href="#i-moon"/></svg>Noche</p><p class="pr-momento__hora">20:30 - 00:00</p></div>
+                        <span class="pr-chevron"><svg><use href="#i-down"/></svg></span>
+                      </div>
+                      <p class="pr-texto" style="margin-top:14px;">Conversaciones serenas, tabernas de barrio y calles en silencio.</p>
+                    </article>
+
+                    <div class="pr-nota" style="font-size:12px;align-items:center;">
+                      <svg style="color:var(--p-oliva);"><use href="#i-sunset"/></svg>
+                      <p>Sincronizado con la caída del sol en Madrid (ocaso estimado: 20:18 h). Disfruta sin prisas.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ============ 7 · GUARDADOS ============ -->
+                <div class="pr-pantalla" data-pantalla="guardados" data-tab="guardados">
+                  <div class="pr-cab">
+                    <span class="pr-logo"><svg><use href="#i-pin"/></svg><span>MADRID<br>HABITADA</span></span>
+                    <button class="pr-avatar" type="button" data-ir="perfil" aria-label="Perfil"><span class="pr-foto"><img src="img/claudia-erustes.webp" alt=""></span></button>
+                  </div>
+                  <div class="pr-cuerpo" style="gap:20px;">
+                    <div style="display:grid;gap:6px;">
+                      <div class="pr-fila" style="align-items:flex-start;">
+                        <p class="pr-h1" style="font-size:24px;">Tu memoria de la ciudad</p>
+                        <span class="pr-boton pr-boton--suave" style="white-space:nowrap;"><svg><use href="#i-plus"/></svg>Nueva lista</span>
+                      </div>
+                      <p class="pr-meta" style="font-size:14px;font-weight:500;color:var(--p-oxido);"><svg><use href="#i-lock"/></svg>Solo tú ves lo que guardas.</p>
+                    </div>
+
+                    <div class="pr-chips" data-grupo="guardados-seg" data-modo="uno">
+                      <button class="pr-chip" type="button" aria-pressed="true" style="font-size:14px;padding:7px 16px;">Lugares</button>
+                      <button class="pr-chip" type="button" aria-pressed="false" style="font-size:14px;padding:7px 16px;background:#fff;">Historias</button>
+                      <button class="pr-chip" type="button" aria-pressed="false" style="font-size:14px;padding:7px 16px;background:#fff;">Recorridos</button>
+                    </div>
+
+                    <article class="pr-tarjeta" style="padding:20px;">
+                      <div class="pr-mosaico">
+                        <span class="pr-foto"><img src="img/bar.webp" alt=""></span>
+                        <span class="pr-foto"><img src="img/calle.webp" alt=""></span>
+                        <span class="pr-foto"><img src="img/kiosko.webp" alt=""></span>
+                        <span class="pr-foto"><img src="img/mercado.webp" alt=""></span>
+                      </div>
+                      <div class="pr-fila"><p class="pr-lista__titulo">Mis sitios de siempre <span>(<span data-contador>8</span>)</span></p><svg style="color:var(--p-txt2);margin-top:16px;"><use href="#i-more"/></svg></div>
+                      <p class="pr-texto" style="margin-top:4px;">Los que no fallan un martes cualquiera.</p>
+                      <p class="pr-lista__zona"><svg><use href="#i-pin"/></svg>CARABANCHEL Y CHAMBERÍ</p>
+                    </article>
+
+                    <article class="pr-tarjeta" style="padding:20px;">
+                      <div class="pr-mosaico pr-mosaico--grande">
+                        <span class="pr-foto"><img src="img/plaza.webp" alt=""></span>
+                        <span class="pr-foto"><img src="img/kiosko.webp" alt=""></span>
+                        <span class="pr-foto"><img src="img/bar.webp" alt=""></span>
+                      </div>
+                      <div class="pr-fila"><p class="pr-lista__titulo">Para ir sin prisa <span>(5)</span></p><svg style="color:var(--p-txt2);margin-top:16px;"><use href="#i-more"/></svg></div>
+                      <p class="pr-texto" style="margin-top:4px;">Bancos con sombra, cafés con libros y plazas silenciosas.</p>
+                      <p class="pr-lista__zona"><svg><use href="#i-pin"/></svg>CARABANCHEL</p>
+                    </article>
+
+                    <article class="pr-tarjeta" style="padding:20px;">
+                      <div class="pr-mosaico">
+                        <span class="pr-foto"><img src="img/mercado.webp" alt=""></span>
+                        <span class="pr-foto"><img src="img/bar.webp" alt=""></span>
+                        <span class="pr-foto"><img src="img/plaza.webp" alt=""></span>
+                        <span class="pr-foto"><img src="img/calle.webp" alt=""></span>
+                      </div>
+                      <div class="pr-fila"><p class="pr-lista__titulo">Cuando venga mi madre <span>(3)</span></p><svg style="color:var(--p-txt2);margin-top:16px;"><use href="#i-more"/></svg></div>
+                      <p class="pr-texto" style="margin-top:4px;">Comida casera, sin música alta y con mesas amplias.</p>
+                      <p class="pr-lista__zona"><svg><use href="#i-pin"/></svg>OPORTO Y ALUCHE</p>
+                    </article>
+
+                    <div class="pr-nota" style="align-items:center;">
+                      <span class="pr-circulo" style="width:36px;height:36px;flex-shrink:0;color:var(--p-txt);"><svg><use href="#i-shield-check"/></svg></span>
+                      <p>Tus listas y notas son 100% locales y privadas. No compartimos tus rincones favoritos.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ============ 8 · PERFIL ============ -->
+                <div class="pr-pantalla pr-pantalla--sin-tabs" data-pantalla="perfil" data-tab="">
+                  <div class="pr-cab">
+                    <button class="pr-cab__titulo" type="button" data-volver><svg><use href="#i-arrow-left"/></svg>Perfil</button>
+                    <span class="pr-avatar"><span class="pr-foto"><img src="img/claudia-erustes.webp" alt=""></span></span>
+                  </div>
+                  <div class="pr-cuerpo" style="gap:18px;">
+                    <div class="pr-fila"><p class="pr-h2" style="font-size:20px;">Ajustes personales</p><span class="pr-circulo" style="width:36px;height:36px;color:var(--p-txt);"><svg><use href="#i-settings"/></svg></span></div>
+
+                    <div class="pr-tarjeta" style="display:flex;align-items:center;gap:18px;padding:18px;">
+                      <span class="pr-perfil-foto"><span class="pr-foto"><img src="img/claudia-erustes.webp" alt="Claudia"></span><span class="pr-perfil-foto__badge"><svg><use href="#i-pin"/></svg></span></span>
+                      <div style="display:grid;gap:4px;justify-items:start;">
+                        <p style="font-size:20px;font-weight:700;">Claudia</p>
+                        <span class="pr-pill" style="color:var(--p-txt);"><svg style="color:var(--p-oxido)"><use href="#i-pin"/></svg>Barrio habitual: <span data-barrio-texto>Carabanchel</span></span>
+                      </div>
+                    </div>
+
+                    <div class="pr-tarjeta" style="display:grid;gap:8px;padding:18px;">
+                      <div class="pr-fila"><p class="pr-ajuste__titulo"><svg><use href="#i-sliders"/></svg>Mis preferencias</p><span class="pr-mini" style="font-size:13px;font-weight:500;color:var(--p-granate-osc);">Editar preferencias</span></div>
+                      <p class="pr-texto">Matices con los que exploras las calles y plazuelas.</p>
+                      <div class="pr-chips" style="gap:6px;">
+                        <span class="pr-chip" style="background:var(--p-oliva-pill);color:#fff;padding:4px 12px;"><svg><use href="#i-check"/></svg>Tranquilo</span>
+                        <span class="pr-chip" style="background:var(--p-granate-osc);color:#fff;padding:4px 12px;"><svg><use href="#i-check"/></svg>Con historia</span>
+                        <span class="pr-chip" style="background:var(--p-oliva-pill);color:#fff;padding:4px 12px;"><svg><use href="#i-check"/></svg>Para ir andando</span>
+                      </div>
+                    </div>
+
+                    <div class="pr-tarjeta" style="display:grid;gap:8px;padding:18px;">
+                      <p class="pr-ajuste__titulo"><svg><use href="#i-compass"/></svg>Nivel de acompañamiento</p>
+                      <p class="pr-texto">Define cómo y cuánto te sugiere la app.</p>
+                      <div class="pr-segmentos pr-segmentos--cuadrado" data-grupo="acompanamiento" data-modo="uno" style="margin-top:6px;">
+                        <button type="button" aria-pressed="true">Discreto</button>
+                        <button type="button" aria-pressed="false">Equilibrado</button>
+                        <button type="button" aria-pressed="false">Guiado</button>
+                      </div>
+                      <p class="pr-meta" style="align-items:flex-start;font-weight:500;color:var(--p-txt);"><svg style="margin-top:2px;"><use href="#i-info"/></svg>Solo recibes sugerencias cuando abres la app. Sin alertas intrusivas.</p>
+                    </div>
+
+                    <div class="pr-tarjeta" style="display:grid;gap:12px;padding:18px;">
+                      <p class="pr-ajuste__titulo"><svg><use href="#i-bell"/></svg>Notificaciones</p>
+                      <div class="pr-ajuste-fila"><strong>Una recomendación a la semana, como máximo</strong><button class="pr-interruptor" type="button" role="switch" aria-checked="true" aria-label="Una recomendación a la semana"></button></div>
+                    </div>
+
+                    <div class="pr-tarjeta" style="display:grid;gap:14px;padding:18px;">
+                      <p class="pr-ajuste__titulo"><svg><use href="#i-shield"/></svg>Privacidad</p>
+                      <div class="pr-ajuste-fila"><div><strong>Guardados privados <svg style="font-size:11px;vertical-align:-1px;"><use href="#i-lock"/></svg></strong><span>Siempre activo por diseño</span></div><button class="pr-interruptor" type="button" role="switch" aria-checked="true" disabled aria-label="Guardados privados, siempre activo"></button></div>
+                      <div style="height:1px;background:rgba(138,58,50,.12);"></div>
+                      <div class="pr-ajuste-fila"><div><strong>Usar mi ubicación solo mientras uso la app</strong><span style="font-size:13px;">Sin rastreo de fondo ni creación de rutas históricas.</span></div><button class="pr-interruptor" type="button" role="switch" aria-checked="true" aria-label="Usar mi ubicación solo mientras uso la app"></button></div>
+                    </div>
+
+                    <p class="pr-meta" style="justify-content:center;font-weight:500;color:var(--p-txt);"><svg><use href="#i-tree"/></svg>Madrid Habitada no usa rankings ni vende tus datos.</p>
+                  </div>
+                </div>
+
+                <!-- Barra de pestañas -->
+                <nav class="pr-tabs" id="prTabs" aria-label="Navegación del prototipo">
+                  <button class="pr-tab" type="button" data-ir="inicio" data-tab-id="inicio"><svg><use href="#i-home"/></svg>Inicio</button>
+                  <button class="pr-tab" type="button" data-ir="barrio" data-tab-id="barrio"><svg><use href="#i-pin"/></svg>Mi barrio</button>
+                  <button class="pr-tab" type="button" data-ir="explorar" data-tab-id="explorar"><svg><use href="#i-compass"/></svg>Explorar</button>
+                  <button class="pr-tab" type="button" data-ir="momentos" data-tab-id="momentos"><svg><use href="#i-clock"/></svg>Momentos</button>
+                  <button class="pr-tab" type="button" data-ir="guardados" data-tab-id="guardados"><svg><use href="#i-bookmark"/></svg>Guardados</button>
+                </nav>
+
+                <div class="pr-aviso" id="prAviso" role="status" aria-live="polite"><svg><use href="#i-lock"/></svg><span>Guardado en tus lugares · privado</span></div>
+              </div>
+            </div>
+            <p class="nota proto__pista">Toca la tarjeta de Café Athenea, guarda lugares con el marcador o cambia de pestaña.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+<!-- =====================================================
          APRENDIZAJES
          ===================================================== -->
     <section class="seccion" id="aprendizajes">
@@ -2334,43 +3414,35 @@
         <div class="cabecera-seccion">
           <span class="etiqueta">Aprendizajes</span>
           <h2>Lo que me llevo de este <em>proyecto</em>.</h2>
+          <p class="entradilla">Empecé diseñando una app para descubrir sitios y acabé replanteándome cosas que hacía en automático.</p>
         </div>
 
         <div class="rejilla rejilla--2 revela" style="gap:clamp(26px,3.5vw,44px);">
           <article class="aprendizaje">
-            <h3>Un indicador mal elegido puede traicionar la idea del proyecto</h3>
-            <p>
-              Medir descargas o tiempo de pantalla habría empujado el producto justo hacia lo que
-              criticaba. Definir un indicador propio fue una decisión de diseño, no de negocio.
-            </p>
+            <h3>Elegir qué medir me costó más que diseñar las pantallas</h3>
+            <p>Descargas y tiempo de pantalla premiaban justo lo que el proyecto critica. Llegar a las RCS me llevó muchas vueltas.</p>
           </article>
 
           <article class="aprendizaje">
-            <h3>Cómo organizas la información también toma partido</h3>
-            <p>
-              Organizar la app por barrio, momento del día y gustos personales —en vez de por
-              categorías comerciales— no es un simple detalle técnico: cambia la relación que la
-              persona tiene con la ciudad.
-            </p>
+            <h3>Una lista de categorías también toma partido</h3>
+            <p>Cambiar «Comer» por «Para ir sin prisa» parece solo texto, pero cambia cómo miras tu barrio.</p>
           </article>
 
           <article class="aprendizaje">
-            <h3>Los principios funcionan mejor como restricciones</h3>
-            <p>
-              Convertir los seis principios de diseño en límites medibles evitó que se quedaran en
-              buenas intenciones y dio un criterio claro para decidir en cada pantalla.
-            </p>
+            <h3>Los principios solo sirven si te obligan a decir que no</h3>
+            <p>«Sin rankings» es fácil de escribir. Lo difícil es mantenerlo cuando un «más populares» resolvería la pantalla.</p>
           </article>
 
           <article class="aprendizaje">
-            <h3>Diseñar para que cierren la app</h3>
-            <p>
-              El éxito aquí es que alguien resuelva su consulta y vuelva a la calle. Ir en contra de
-              las técnicas habituales para que la gente no se vaya de la app obliga a replantear casi
-              todos los automatismos de la interfaz.
-            </p>
+            <h3>Diseñar para que la gente cierre la app</h3>
+            <p>Aquí el éxito es que encuentres lo que buscas y salgas a la calle. Quité más cosas de las que añadí.</p>
           </article>
         </div>
+
+        <p class="aprendizaje-cierre revela">
+          Diseñar para los barrios que nunca salen en las listas de moda ha sido la parte del máster con
+          la que más me he identificado.
+        </p>
 
         <div class="desplegable desplegable--claro revela">
           <details>
@@ -2451,6 +3523,7 @@
             <li><a href="#arquitectura">Arquitectura</a></li>
             <li><a href="#identidad">Sistema de diseño</a></li>
             <li><a href="#growth">Plan de crecimiento</a></li>
+            <li><a href="#prototipo">Prototipo</a></li>
           </ul>
         </div>
 
@@ -2562,6 +3635,124 @@
 
         Array.prototype.forEach.call(revelables, function (el) { observador.observe(el); });
       }
+    })();
+  </script>
+  <script>
+    /* --- Prototipo navegable --- */
+    (function () {
+      'use strict';
+      var movil = document.getElementById('movil');
+      if (!movil) return;
+
+      var pantallas = movil.querySelectorAll('.pr-pantalla');
+      var tabs = document.getElementById('prTabs');
+      var aviso = document.getElementById('prAviso');
+      var lista = document.querySelectorAll('.proto-lista button');
+      var historial = [];
+      var actual = null;
+      var guardados = {};
+      var temporizador;
+
+      /* Fotos que no cargan: se deja el color de fondo */
+      movil.querySelectorAll('.pr-foto img').forEach(function (img) {
+        function marcar() { img.classList.add('sin-foto'); }
+        if (img.complete && img.naturalWidth === 0) marcar();
+        img.addEventListener('error', marcar);
+      });
+
+      function ir(id, guardarHistorial) {
+        var destino = movil.querySelector('[data-pantalla="' + id + '"]');
+        if (!destino || id === actual) return;
+        if (guardarHistorial !== false && actual) historial.push(actual);
+
+        pantallas.forEach(function (p) {
+          var activa = p === destino;
+          p.classList.toggle('activa', activa);
+          p.setAttribute('aria-hidden', activa ? 'false' : 'true');
+          if ('inert' in p) p.inert = !activa;
+        });
+        destino.scrollTop = 0;
+        actual = id;
+
+        var tab = destino.getAttribute('data-tab');
+        if (tab) { tabs.removeAttribute('hidden'); } else { tabs.setAttribute('hidden', ''); }
+        tabs.querySelectorAll('.pr-tab').forEach(function (t) {
+          if (t.getAttribute('data-tab-id') === tab) { t.setAttribute('aria-current', 'page'); }
+          else { t.removeAttribute('aria-current'); }
+        });
+
+        lista.forEach(function (b) {
+          if (b.getAttribute('data-ir') === id) { b.setAttribute('aria-current', 'true'); }
+          else { b.removeAttribute('aria-current'); }
+        });
+      }
+
+      function mostrarAviso(texto) {
+        aviso.querySelector('span').textContent = texto;
+        aviso.classList.add('visible');
+        clearTimeout(temporizador);
+        temporizador = setTimeout(function () { aviso.classList.remove('visible'); }, 1800);
+      }
+
+      function actualizarGuardar(lugar) {
+        var si = !!guardados[lugar];
+        movil.querySelectorAll('[data-guardar="' + lugar + '"]').forEach(function (b) {
+          b.setAttribute('aria-pressed', si ? 'true' : 'false');
+          var etiqueta = b.querySelector('[data-etiqueta-guardar]');
+          if (etiqueta) {
+            etiqueta.textContent = si ? (etiqueta.getAttribute('data-texto-si') || 'Guardado') : (etiqueta.getAttribute('data-texto-no') || 'Guardar');
+          }
+        });
+        var total = Object.keys(guardados).filter(function (k) { return guardados[k]; }).length;
+        movil.querySelectorAll('[data-contador]').forEach(function (c) { c.textContent = 8 + total; });
+      }
+
+      document.addEventListener('click', function (e) {
+        var guardar = e.target.closest('#movil [data-guardar]');
+        if (guardar) {
+          var lugar = guardar.getAttribute('data-guardar');
+          guardados[lugar] = !guardados[lugar];
+          actualizarGuardar(lugar);
+          mostrarAviso(guardados[lugar] ? 'Guardado en tus lugares · privado' : 'Quitado de tus lugares');
+          return;
+        }
+
+        var destino = e.target.closest('[data-ir]');
+        if (destino && (movil.contains(destino) || destino.closest('.proto-lista'))) {
+          if (destino.closest('.proto-lista')) historial = [];
+          ir(destino.getAttribute('data-ir'));
+          return;
+        }
+
+        if (e.target.closest('#movil [data-volver]')) {
+          ir(historial.length ? historial.pop() : 'inicio', false);
+          return;
+        }
+
+        var chip = e.target.closest('#movil [data-grupo] > button');
+        if (chip) {
+          var grupo = chip.parentElement;
+          if (grupo.getAttribute('data-modo') === 'uno') {
+            grupo.querySelectorAll(':scope > button').forEach(function (b) { b.setAttribute('aria-pressed', b === chip ? 'true' : 'false'); });
+            if (grupo.getAttribute('data-grupo') === 'barrio') {
+              movil.querySelectorAll('[data-barrio-texto]').forEach(function (t) { t.textContent = chip.textContent.trim(); });
+            }
+          } else {
+            chip.setAttribute('aria-pressed', chip.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+          }
+          return;
+        }
+
+        var interruptor = e.target.closest('#movil .pr-interruptor');
+        if (interruptor && !interruptor.disabled) {
+          interruptor.setAttribute('aria-checked', interruptor.getAttribute('aria-checked') === 'true' ? 'false' : 'true');
+        }
+      });
+
+      var reiniciar = document.getElementById('protoReiniciar');
+      if (reiniciar) reiniciar.addEventListener('click', function () { historial = []; actual = null; ir('bienvenida', false); });
+
+      ir('bienvenida', false);
     })();
   </script>
 </body>
