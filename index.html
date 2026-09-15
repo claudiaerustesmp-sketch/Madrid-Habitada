@@ -835,35 +835,34 @@
 
     tbody tr:nth-child(even) td, tbody tr:nth-child(even) th { background-color: rgba(243, 230, 211, .38); }
 
-    /* Comparativa A/B */
-    .ab { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-
-    .ab__col { padding: clamp(22px, 2.6vw, 28px); border-radius: var(--r-l); border: 1px solid var(--borde); background: var(--panel); }
-    .ab__col--b { border-color: var(--granate); border-width: 2px; }
-
-    .ab__marca {
-      display: inline-block;
-      margin-bottom: 14px;
-      padding: 4px 13px;
-      border-radius: 6px;
-      background-color: var(--azul);
-      color: var(--crema);
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .08em;
+    /* Prueba A/B (versión compacta, dentro de Arquitectura) */
+    .ab-mini {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+      gap: 14px;
+      margin: 18px 0;
     }
 
-    .ab__col--b .ab__marca { background-color: var(--granate); }
+    .ab-mini__col {
+      padding: 16px 18px;
+      border: 1px solid var(--borde-oscuro);
+      border-radius: var(--r-m);
+      background-color: rgba(243, 230, 211, .03);
+    }
 
-    .ab__lista { list-style: none; padding: 0; margin: 0; }
-
-    .ab__lista li {
-      padding: 9px 0;
-      border-top: 1px solid var(--borde);
+    .ab-mini__titulo {
+      margin: 0 0 6px;
       font-size: .9rem;
-      color: var(--texto-suave);
+      font-weight: 700;
+      color: var(--crema);
     }
-    .ab__lista li:first-child { border-top: 0; }
+
+    .ab-mini__titulo span {
+      font-weight: 500;
+      color: rgba(243, 230, 211, .55);
+    }
+
+    .ab-mini__col p:last-child { font-size: .875rem; line-height: 1.55; }
 
     /* Paleta e identidad */
     .galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
@@ -929,14 +928,98 @@
     .icono-item .icono { margin: 0 auto 8px; }
     .icono-item span { font-size: .78rem; color: var(--texto-suave); }
 
-    /* Embudo */
-    .embudo { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    /* Plan de crecimiento: bloques numerados */
+    .crece-bloque { margin-top: clamp(56px, 7vw, 88px); }
+    .crece-bloque:first-of-type { margin-top: 0; }
 
-    .embudo__paso {
+    .crece-titulo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 6px;
+    }
+
+    .crece-titulo__num {
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--terracota);
+      color: var(--azul-fondo);
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .crece-titulo h3 { margin: 0; font-size: clamp(1.3rem, 2.2vw, 1.6rem); }
+
+    .crece-intro { margin: 0 0 24px 54px; }
+
+    @media (max-width: 560px) { .crece-intro { margin-left: 0; } }
+
+    /* 1 · Indicador */
+    .rcs {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 820px) { .rcs { grid-template-columns: 1fr; } }
+
+    .rcs__principal {
+      padding: clamp(24px, 3vw, 34px);
+      border: 1px solid rgba(226, 140, 102, .35);
+      border-radius: var(--r-l);
+      background: linear-gradient(135deg, rgba(196, 106, 74, .16), rgba(138, 58, 50, .1));
+    }
+
+    .rcs__sigla {
+      display: block;
+      margin-bottom: 4px;
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -.03em;
+      color: var(--crema);
+    }
+
+    .rcs__nombre { margin-bottom: 16px; font-size: 1.05rem; font-weight: 700; color: var(--terracota-claro); }
+    .rcs__principal p:last-child { font-size: 1.05rem; color: var(--crema); }
+
+    .contraste { display: grid; gap: 12px; }
+
+    .contraste__caja {
+      padding: 18px 20px;
+      border: 1px solid var(--borde-oscuro);
+      border-radius: var(--r-m);
+      background-color: rgba(243, 230, 211, .03);
+    }
+
+    .contraste__caja--si { border-color: rgba(226, 140, 102, .45); background-color: rgba(226, 140, 102, .08); }
+
+    .contraste__rotulo { margin: 0 0 4px; font-size: .8rem; font-weight: 800; color: var(--crema); }
+    .contraste__caja p:last-child { font-size: .9rem; }
+
+    /* 2 · Recorrido en embudo */
+    .embudo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .etapa {
       width: var(--w);
       max-width: 100%;
-      display: flex;
-      gap: 16px;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1.1fr) minmax(0, 1.3fr) auto;
+      align-items: center;
+      gap: 18px;
+      margin: 0;
       padding: 16px 22px;
       border-radius: var(--r-m);
       background-color: var(--bg);
@@ -944,35 +1027,96 @@
       box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
     }
 
-    .embudo__num {
-      flex-shrink: 0;
+    .etapa__num {
       display: grid;
       place-items: center;
       width: 34px;
       height: 34px;
       border-radius: 50%;
       background-color: rgba(243, 230, 211, .22);
-      font-weight: 800;
       font-size: .9rem;
+      font-weight: 800;
     }
 
-    .embudo__cuerpo { min-width: 0; }
+    .etapa__nombre {
+      display: block;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      opacity: .85;
+    }
 
-    .embudo__titulo { font-weight: 800; font-size: .95rem; line-height: 1.3; }
-    .embudo__titulo span { display: block; font-weight: 500; font-size: .78rem; opacity: .85; }
-    .embudo__medida { margin: 4px 0 8px; font-size: .85rem; opacity: .92; }
+    .etapa__pregunta { margin: 2px 0 0; font-size: 1.1rem; font-weight: 800; line-height: 1.25; }
+    .etapa__medida { margin: 0; font-size: .85rem; line-height: 1.45; }
 
-    .embudo__meta {
-      display: inline-block;
-      padding: 4px 13px;
+    .etapa__objetivo {
+      margin: 0;
+      padding: 6px 14px;
       border-radius: 100px;
       background-color: rgba(243, 230, 211, .95);
       color: var(--granate);
-      font-size: .76rem;
+      font-size: .78rem;
       font-weight: 700;
+      line-height: 1.35;
+      text-align: center;
     }
 
-    @media (max-width: 700px) { .embudo__paso { width: 100% !important; } }
+    @media (max-width: 900px) {
+      .etapa {
+        width: 100% !important;
+        grid-template-columns: 34px minmax(0, 1fr);
+        gap: 8px 14px;
+      }
+      .etapa__medida, .etapa__objetivo { grid-column: 2; }
+      .etapa__objetivo { justify-self: start; text-align: left; }
+    }
+
+    /* 3 · Reglas */
+    .reglas { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+
+    .regla {
+      padding: 22px;
+      border: 1px solid var(--borde-oscuro);
+      border-radius: var(--r-m);
+      background-color: rgba(243, 230, 211, .04);
+    }
+
+    .regla__cifra {
+      display: block;
+      margin-bottom: 8px;
+      font-size: clamp(2rem, 3.4vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -.03em;
+      color: var(--terracota-claro);
+    }
+
+    .regla p { margin: 0; font-size: .9rem; color: var(--crema); }
+
+    /* 4 · Semanas */
+    .semanas {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    @media (max-width: 960px) { .semanas { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); } }
+
+    .semana {
+      margin: 0;
+      padding: 18px;
+      border-top: 3px solid var(--terracota);
+      border-radius: 0 0 var(--r-m) var(--r-m);
+      background-color: rgba(243, 230, 211, .04);
+    }
+
+    .semana__cuando { font-size: .8rem; font-weight: 800; letter-spacing: .08em; color: var(--terracota-claro); }
+    .semana h4 { margin: 6px 0; font-size: 1rem; }
+    .semana p { margin: 0 0 10px; font-size: .85rem; }
 
     /* Ranking ICE */
     .ice { display: flex; flex-direction: column; gap: 12px; }
@@ -1044,52 +1188,6 @@
     }
     .ice__separador::after { content: ""; flex: 1; height: 1px; background-color: rgba(138, 58, 50, .2); }
 
-    /* Línea de tiempo */
-    .tiempo { margin: 0; padding: 0; list-style: none; }
-
-    .tiempo__paso {
-      position: relative;
-      display: grid;
-      grid-template-columns: 58px 16px 1fr;
-      gap: 18px;
-      padding-bottom: 32px;
-      margin: 0;
-    }
-    .tiempo__paso:last-child { padding-bottom: 0; }
-
-    .tiempo__semana { font-size: .875rem; font-weight: 800; color: var(--granate); padding-top: 2px; }
-
-    .tiempo__punto { position: relative; }
-
-    .tiempo__punto::after {
-      content: "";
-      position: absolute;
-      top: 6px;
-      left: 0;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background-color: var(--terracota);
-      box-shadow: 0 0 0 4px var(--fondo-alt);
-    }
-
-    .tiempo__paso:not(:last-child) .tiempo__punto::before {
-      content: "";
-      position: absolute;
-      top: 18px;
-      left: 6px;
-      width: 2px;
-      height: calc(100% + 20px);
-      background-color: rgba(138, 58, 50, .22);
-    }
-
-    .tiempo__cuerpo h3 { font-size: 1rem; margin-bottom: .25em; }
-    .tiempo__cuerpo p { font-size: .9rem; color: var(--texto-suave); margin-bottom: 10px; }
-
-    @media (max-width: 560px) {
-      .tiempo__paso { grid-template-columns: 46px 16px 1fr; gap: 12px; }
-    }
-
     /* Bloque desplegable */
     .desplegable {
       margin-top: 30px;
@@ -1098,6 +1196,8 @@
       background-color: rgba(243, 230, 211, .04);
       overflow: hidden;
     }
+
+    .desplegable + .desplegable { margin-top: 14px; }
 
     .desplegable summary {
       display: flex;
@@ -1829,6 +1929,38 @@
             </div>
           </details>
         </div>
+
+        <!-- Prueba A/B: versión compacta, antes era una sección propia -->
+        <div class="desplegable revela" id="validacion">
+          <details>
+            <summary>Prueba A/B de la pantalla Explorar: afinidad frente a categorías</summary>
+            <div class="desplegable__cuerpo">
+              <p class="nota">
+                Hipótesis: organizar la información por afinidad y contexto de uso mejora la comprensión
+                y facilita encontrar recomendaciones relevantes. Tarea: «busca un lugar que encaje contigo
+                para un plan cotidiano y guárdalo».
+              </p>
+
+              <div class="ab-mini">
+                <div class="ab-mini__col">
+                  <p class="ab-mini__titulo">Versión A <span>· categorías funcionales</span></p>
+                  <p>Comer · Pasear · Comprar · Cultura · Cerca de ti · Más populares</p>
+                </div>
+                <div class="ab-mini__col">
+                  <p class="ab-mini__titulo">Versión B <span>· intención, momento y afinidad</span></p>
+                  <p>Para desconectar · Para ir sin prisa · Para redescubrir tu barrio · Para quedar cerca · Para un plan cotidiano · Para sentir Madrid más tuya</p>
+                </div>
+              </div>
+
+              <p class="nota">
+                Se mide el tiempo hasta encontrar un lugar, los clics hasta guardarlo, los retrocesos y el
+                porcentaje de tarea completada, junto con la claridad percibida y si el lugar guardado
+                encajaba con lo que se buscaba. Dos prototipos en Figma con la misma tarea y los mismos
+                lugares: solo cambia la organización de la pantalla.
+              </p>
+            </div>
+          </details>
+        </div>
       </div>
     </section>
 
@@ -1970,66 +2102,6 @@
     </section>
 
     <!-- =====================================================
-         VALIDACIÓN
-         ===================================================== -->
-    <section class="seccion seccion--alt" id="validacion">
-      <div class="contenedor">
-        <div class="cabecera-seccion">
-          <span class="etiqueta">Validación</span>
-          <h2>Una prueba A/B (comparar dos versiones) para saber si <em>lo que te gusta</em> funciona mejor que la categoría.</h2>
-          <p class="entradilla">
-            Hipótesis: organizar la información por afinidad y contexto de uso mejora la comprensión
-            y facilita encontrar recomendaciones relevantes. Tarea: «busca un lugar que encaje contigo
-            para un plan cotidiano y guárdalo».
-          </p>
-        </div>
-
-        <div class="ab revela">
-          <div class="ab__col">
-            <span class="ab__marca">Versión A · control</span>
-            <h3>Categorías funcionales</h3>
-            <ul class="ab__lista">
-              <li>Comer</li>
-              <li>Pasear</li>
-              <li>Comprar</li>
-              <li>Cultura</li>
-              <li>Cerca de ti</li>
-              <li>Más populares</li>
-            </ul>
-          </div>
-
-          <div class="ab__col ab__col--b">
-            <span class="ab__marca">Versión B · propuesta</span>
-            <h3>Intención, momento y afinidad</h3>
-            <ul class="ab__lista">
-              <li>Para desconectar</li>
-              <li>Para ir sin prisa</li>
-              <li>Para redescubrir tu barrio</li>
-              <li>Para quedar cerca</li>
-              <li>Para un plan cotidiano</li>
-              <li>Para sentir Madrid más tuya</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="rejilla rejilla--3 revela" style="margin-top:clamp(26px,3vw,38px);">
-          <article class="tarjeta">
-            <h3>Qué se mide</h3>
-            <p>Tiempo hasta encontrar un lugar, clics hasta guardarlo, errores o retrocesos de navegación y porcentaje de tarea completada.</p>
-          </article>
-          <article class="tarjeta">
-            <h3>Cómo se valora</h3>
-            <p>Claridad de la pantalla, facilidad para guardar sin dificultad y percepción de afinidad: ¿el lugar guardado encajaba con lo que buscaba?</p>
-          </article>
-          <article class="tarjeta">
-            <h3>Estado honesto</h3>
-            <p>Los dos prototipos en Figma y el diseño del experimento están listos. La ejecución sobre la muestra de residentes es el siguiente paso del proyecto.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================
          GROWTH
          ===================================================== -->
     <section class="seccion seccion--oscura" id="growth">
@@ -2039,201 +2111,217 @@
           <h2>Crecer por <em>conexión</em>, no por tráfico.</h2>
           <p class="entradilla">
             El reto: conseguir los primeros usuarios sin traicionar los valores del producto. El mayor
-            riesgo del proyecto es parecer «otra app de planes».
+            riesgo es parecer «otra app de planes». El plan responde a cuatro preguntas.
           </p>
         </div>
 
-        <div class="tarjeta tarjeta--oscura tarjeta--ancha revela" style="margin-bottom:clamp(30px,4vw,44px);">
-          <span class="etiqueta">Indicador principal</span>
-          <h3>Recomendaciones Conectadas Semanales (RCS)</h3>
-          <p style="margin-bottom:1em;">
-            Número de personas que, cada semana, guardan un lugar que sienten suyo o empiezan una
-            ruta cotidiana valorando la recomendación con un 4 sobre 5 o más.
-          </p>
-          <p>
-            <strong style="color:var(--terracota-claro);">Por qué este indicador:</strong> solo sube
-            cuando alguien siente la recomendación como propia. No puede inflarse con descargas ni con
-            tiempo de pantalla, cifras que lucen mucho pero no dicen nada del valor real.
-          </p>
-        </div>
-
-        <h3 style="margin-bottom:16px;">El recorrido del usuario, paso a paso</h3>
-        <p class="nota" style="margin-bottom:26px;">
-          En cada etapa se mide algo concreto y se fija un mínimo para darla por buena.
-        </p>
-
-        <div class="embudo revela" style="margin-bottom:clamp(30px,4vw,44px);">
-          <div class="embudo__paso" style="--w:100%; --bg:#C46A4A;">
-            <span class="embudo__num" aria-hidden="true">1</span>
-            <div class="embudo__cuerpo">
-              <p class="embudo__titulo">Alcanzar <span>Descubrir la app</span></p>
-              <p class="embudo__medida">Visitas cualificadas y cuántas personas piden probar la app.</p>
-              <span class="embudo__meta">8 de cada 100 piden acceso · coste ≈ 0</span>
-            </div>
+        <!-- 1 · Qué medimos -->
+        <div class="crece-bloque revela">
+          <div class="crece-titulo">
+            <span class="crece-titulo__num" aria-hidden="true">1</span>
+            <h3>¿Qué medimos?</h3>
           </div>
-          <div class="embudo__paso" style="--w:90%; --bg:#B15540;">
-            <span class="embudo__num" aria-hidden="true">2</span>
-            <div class="embudo__cuerpo">
-              <p class="embudo__titulo">Actuar <span>Primera prueba</span></p>
-              <p class="embudo__medida">Cuántas llegan a su primera recomendación y cuánto tardan.</p>
-              <span class="embudo__meta">6 de cada 10 · en menos de 3 min</span>
-            </div>
-          </div>
-          <div class="embudo__paso" style="--w:80%; --bg:#9E4539;">
-            <span class="embudo__num" aria-hidden="true">3</span>
-            <div class="embudo__cuerpo">
-              <p class="embudo__titulo">Convertir <span>La conexión</span></p>
-              <p class="embudo__medida">Cuántas guardan un lugar afín o inician una ruta.</p>
-              <span class="embudo__meta">6 de cada 10 · afinidad 4/5 o más</span>
-            </div>
-          </div>
-          <div class="embudo__paso" style="--w:70%; --bg:#8A3A32;">
-            <span class="embudo__num" aria-hidden="true">4</span>
-            <div class="embudo__cuerpo">
-              <p class="embudo__titulo">Involucrar <span>Que vuelvan</span></p>
-              <p class="embudo__medida">Retorno a 7 y a 30 días, y acciones de conexión por usuario.</p>
-              <span class="embudo__meta">1 de cada 4 vuelve la 1.ª semana</span>
-            </div>
-          </div>
-          <div class="embudo__paso" style="--w:60%; --bg:#74332F;">
-            <span class="embudo__num" aria-hidden="true">5</span>
-            <div class="embudo__cuerpo">
-              <p class="embudo__titulo">Involucrar <span>Boca a boca</span></p>
-              <p class="embudo__medida">Invitaciones entre vecinos y cuántas traen un residente activo.</p>
-              <span class="embudo__meta">2 de cada 10 invitan · 1 de 4 se queda</span>
-            </div>
-          </div>
-          <div class="embudo__paso" style="--w:50%; --bg:#2F3A45;">
-            <span class="embudo__num" aria-hidden="true">6</span>
-            <div class="embudo__cuerpo">
-              <p class="embudo__titulo">Planificar <span>Sostener el proyecto</span></p>
-              <p class="embudo__medida">Disposición a apoyar el proyecto, medida en entrevistas.</p>
-              <span class="embudo__meta">Sostenibilidad sin dañar la experiencia</span>
-            </div>
-          </div>
-        </div>
+          <p class="nota crece-intro">Un solo indicador principal, pensado para que no se pueda hacer trampa.</p>
 
-        <div class="tarjeta tarjeta--oscura tarjeta--ancha revela">
-          <span class="etiqueta">Límites</span>
-          <h3>Los límites que protegen la idea central</h3>
-          <p>
-            Cualquier acción para crecer debe respetarlos: una valoración mínima de
-            <strong style="color:var(--terracota-claro);">4/5</strong> en lo bien que encaja la
-            recomendación, un máximo de
-            <strong style="color:var(--terracota-claro);">una comunicación semanal</strong>,
-            <strong style="color:var(--terracota-claro);">nunca un ranking turístico</strong> y menos de
-            <strong style="color:var(--terracota-claro);">60 segundos</strong> hasta la primera
-            recomendación. Un experimento solo se considera un éxito si mejora su resultado sin
-            romper ninguno de estos límites.
-          </p>
-        </div>
-
-        <!-- Detalle del plan -->
-        <div class="desplegable revela">
-          <details>
-            <summary>Ver el plan completo: hipótesis, lista de pruebas priorizada y hoja de ruta</summary>
-            <div class="desplegable__cuerpo">
-
-              <h3 style="margin-top:18px;">Seis hipótesis de crecimiento</h3>
-              <p class="nota" style="margin-bottom:22px;">Cada una sigue la forma «si hacemos esto, pasará esto otro» y se comprueba con un experimento.</p>
-              <div class="rejilla rejilla--2" style="margin-bottom:38px;">
-                <div class="insight"><span class="insight__marca">H1</span><p>Si en el primer contacto dejamos claro que aquí no hay rankings, se registrarán más personas realmente interesadas.</p></div>
-                <div class="insight"><span class="insight__marca">H2</span><p>Si se puede empezar a usar la app sin registrarse, más gente llegará a su primera recomendación.</p></div>
-                <div class="insight"><span class="insight__marca">H3</span><p>Si cada ficha explica por qué un lugar encaja contigo, más gente lo guardará.</p></div>
-                <div class="insight"><span class="insight__marca">H4</span><p>Si se puede guardar un lugar sin registro previo, aumentará la acción principal: guardar.</p></div>
-                <div class="insight"><span class="insight__marca">H5</span><p>Si la app envía como mucho una recomendación por semana, más gente volverá a usarla.</p></div>
-                <div class="insight"><span class="insight__marca">H6</span><p>Si cada usuario puede invitar a un vecino y crear colecciones privadas, llegarán nuevos residentes por el boca a boca.</p></div>
-              </div>
-
-              <h3>Qué se prueba primero</h3>
-              <p class="nota" style="margin-bottom:22px;">
-                Cada prueba se puntúa del 1 al 10 combinando impacto, confianza y facilidad
-                (puntuación ICE). Se hace primero la que más puntúa.
+          <div class="rcs">
+            <div class="rcs__principal">
+              <span class="rcs__sigla">RCS</span>
+              <p class="rcs__nombre">Recomendaciones Conectadas Semanales</p>
+              <p>
+                Número de personas que, cada semana, guardan un lugar que sienten suyo o empiezan una
+                ruta cotidiana valorando la recomendación con un 4 sobre 5 o más.
               </p>
-              <div class="ice" style="margin-bottom:38px;">
-                <p class="ice__separador">Se prueba primero</p>
-                <div class="ice__fila">
-                  <div class="ice__cabecera"><span class="ice__codigo">B3</span><span class="ice__exp">Guardar un lugar sin registrarse antes</span><span class="ice__mejora">Conversión</span></div>
-                  <div class="ice__pista"><div class="ice__barra" style="width:83%">8,3</div></div>
+            </div>
+
+            <div class="contraste">
+              <div class="contraste__caja">
+                <p class="contraste__rotulo">Lo que no medimos</p>
+                <p>Descargas y tiempo de pantalla: cifras que lucen mucho pero no dicen nada del valor real.</p>
+              </div>
+              <div class="contraste__caja contraste__caja--si">
+                <p class="contraste__rotulo">Lo que sí medimos</p>
+                <p>Que alguien sienta la recomendación como propia. Solo así sube el indicador.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 · Recorrido -->
+        <div class="crece-bloque revela">
+          <div class="crece-titulo">
+            <span class="crece-titulo__num" aria-hidden="true">2</span>
+            <h3>¿Por qué pasos avanza una persona?</h3>
+          </div>
+          <p class="nota crece-intro">Seis etapas. En cada una se mide algo concreto y se fija un objetivo.</p>
+
+          <ol class="embudo">
+            <li class="etapa" style="--w:100%; --bg:#A34E3A;">
+              <span class="etapa__num" aria-hidden="true">1</span>
+              <div><span class="etapa__nombre">Adquisición</span><p class="etapa__pregunta">¿Descubre la app?</p></div>
+              <p class="etapa__medida">Visitas cualificadas y cuántas personas piden probarla.</p>
+              <p class="etapa__objetivo">8 de cada 100 piden acceso · coste ≈ 0</p>
+            </li>
+            <li class="etapa" style="--w:90%; --bg:#96463A;">
+              <span class="etapa__num" aria-hidden="true">2</span>
+              <div><span class="etapa__nombre">Activación</span><p class="etapa__pregunta">¿La prueba?</p></div>
+              <p class="etapa__medida">Cuántas llegan a su primera recomendación y cuánto tardan.</p>
+              <p class="etapa__objetivo">6 de cada 10 · en menos de 3 min</p>
+            </li>
+            <li class="etapa" style="--w:80%; --bg:#8E4136;">
+              <span class="etapa__num" aria-hidden="true">3</span>
+              <div><span class="etapa__nombre">Conversión</span><p class="etapa__pregunta">¿Conecta con un lugar?</p></div>
+              <p class="etapa__medida">Cuántas guardan un lugar afín o inician una ruta.</p>
+              <p class="etapa__objetivo">6 de cada 10 · afinidad 4/5 o más</p>
+            </li>
+            <li class="etapa" style="--w:70%; --bg:#8A3A32;">
+              <span class="etapa__num" aria-hidden="true">4</span>
+              <div><span class="etapa__nombre">Retención</span><p class="etapa__pregunta">¿Vuelve?</p></div>
+              <p class="etapa__medida">Retorno a 7 y a 30 días, y acciones de conexión por usuario.</p>
+              <p class="etapa__objetivo">1 de cada 4 vuelve la 1.ª semana</p>
+            </li>
+            <li class="etapa" style="--w:60%; --bg:#74332F;">
+              <span class="etapa__num" aria-hidden="true">5</span>
+              <div><span class="etapa__nombre">Recomendación</span><p class="etapa__pregunta">¿Invita a un vecino?</p></div>
+              <p class="etapa__medida">Invitaciones entre vecinos y cuántas traen un residente activo.</p>
+              <p class="etapa__objetivo">2 de cada 10 invitan · 1 de 4 se queda</p>
+            </li>
+            <li class="etapa" style="--w:50%; --bg:#2F3A45;">
+              <span class="etapa__num" aria-hidden="true">6</span>
+              <div><span class="etapa__nombre">Sostenibilidad</span><p class="etapa__pregunta">¿Se puede sostener?</p></div>
+              <p class="etapa__medida">Disposición a apoyar el proyecto, medida en entrevistas.</p>
+              <p class="etapa__objetivo">Sostenibilidad sin dañar la experiencia</p>
+            </li>
+          </ol>
+        </div>
+
+        <!-- 3 · Reglas -->
+        <div class="crece-bloque revela">
+          <div class="crece-titulo">
+            <span class="crece-titulo__num" aria-hidden="true">3</span>
+            <h3>¿Qué reglas no se rompen?</h3>
+          </div>
+          <p class="nota crece-intro">
+            Cuatro límites que protegen la idea central. Un experimento solo cuenta como éxito si mejora
+            su resultado sin romper ninguno.
+          </p>
+
+          <div class="reglas">
+            <div class="regla">
+              <span class="regla__cifra">4/5</span>
+              <p>Valoración mínima de lo bien que encaja la recomendación.</p>
+            </div>
+            <div class="regla">
+              <span class="regla__cifra">1</span>
+              <p>Comunicación por semana, como máximo.</p>
+            </div>
+            <div class="regla">
+              <span class="regla__cifra">0</span>
+              <p>Rankings turísticos. Nunca.</p>
+            </div>
+            <div class="regla">
+              <span class="regla__cifra">&lt;60 s</span>
+              <p>Hasta la primera recomendación.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 · Puesta en marcha -->
+        <div class="crece-bloque revela">
+          <div class="crece-titulo">
+            <span class="crece-titulo__num" aria-hidden="true">4</span>
+            <h3>¿Cómo se pone en marcha?</h3>
+          </div>
+          <p class="nota crece-intro">Seis semanas para lanzar los experimentos, leer los resultados y decidir los siguientes pasos.</p>
+
+          <ol class="semanas">
+            <li class="semana">
+              <span class="semana__cuando">S1</span>
+              <h4>Preparación</h4>
+              <p>Preparar la medición, definir la muestra y los límites de seguridad, y publicar esta página.</p>
+              <span class="pildora">Setup A1</span>
+            </li>
+            <li class="semana">
+              <span class="semana__cuando">S2-S3</span>
+              <h4>Activación y conversión</h4>
+              <p>Reducir la fricción de entrada y clarificar la afinidad.</p>
+              <span class="pildora">B1 · B3 · B2</span>
+            </li>
+            <li class="semana">
+              <span class="semana__cuando">S4</span>
+              <h4>Revisión y decisión</h4>
+              <p>Si la parte central del recorrido funciona, se amplía; si no, se corrige.</p>
+              <span class="pildora">Lectura A1 · B1 · B3 · B2</span>
+            </li>
+            <li class="semana">
+              <span class="semana__cuando">S5</span>
+              <h4>Retorno</h4>
+              <p>Recomendación semanal discreta y guardados como memoria personal.</p>
+              <span class="pildora">C1</span>
+            </li>
+            <li class="semana">
+              <span class="semana__cuando">S6</span>
+              <h4>Boca a boca y sostenibilidad</h4>
+              <p>Invitaciones entre vecinos, señal de sostenibilidad y documentación de aprendizajes.</p>
+              <span class="pildora">A2 · D1</span>
+            </li>
+          </ol>
+
+          <div class="desplegable">
+            <details>
+              <summary>Ver las hipótesis y cómo se decidió qué probar primero</summary>
+              <div class="desplegable__cuerpo">
+
+                <h3 style="margin-top:18px;">Seis hipótesis de crecimiento</h3>
+                <p class="nota" style="margin-bottom:22px;">Cada una sigue la forma «si hacemos esto, pasará esto otro» y se comprueba con un experimento.</p>
+                <div class="rejilla rejilla--2" style="margin-bottom:38px;">
+                  <div class="insight"><span class="insight__marca">H1</span><p>Si en el primer contacto dejamos claro que aquí no hay rankings, se registrarán más personas realmente interesadas.</p></div>
+                  <div class="insight"><span class="insight__marca">H2</span><p>Si se puede empezar a usar la app sin registrarse, más gente llegará a su primera recomendación.</p></div>
+                  <div class="insight"><span class="insight__marca">H3</span><p>Si cada ficha explica por qué un lugar encaja contigo, más gente lo guardará.</p></div>
+                  <div class="insight"><span class="insight__marca">H4</span><p>Si se puede guardar un lugar sin registro previo, aumentará la acción principal: guardar.</p></div>
+                  <div class="insight"><span class="insight__marca">H5</span><p>Si la app envía como mucho una recomendación por semana, más gente volverá a usarla.</p></div>
+                  <div class="insight"><span class="insight__marca">H6</span><p>Si cada usuario puede invitar a un vecino y crear colecciones privadas, llegarán nuevos residentes por el boca a boca.</p></div>
                 </div>
-                <div class="ice__fila">
-                  <div class="ice__cabecera"><span class="ice__codigo">B1</span><span class="ice__exp">Bienvenida progresiva sin necesidad de registro previo</span><span class="ice__mejora">Activación</span></div>
-                  <div class="ice__pista"><div class="ice__barra" style="width:80%">8,0</div></div>
-                </div>
-                <div class="ice__fila">
-                  <div class="ice__cabecera"><span class="ice__codigo">A1</span><span class="ice__exp">Landing con mensaje diferencial (test A/B)</span><span class="ice__mejora">Adquisición</span></div>
-                  <div class="ice__pista"><div class="ice__barra" style="width:80%">8,0</div></div>
-                </div>
-                <div class="ice__fila">
-                  <div class="ice__cabecera"><span class="ice__codigo">B2</span><span class="ice__exp">Fichas que explican la afinidad</span><span class="ice__mejora">Conversión</span></div>
-                  <div class="ice__pista"><div class="ice__barra" style="width:77%">7,7</div></div>
-                </div>
-                <div class="ice__fila">
-                  <div class="ice__cabecera"><span class="ice__codigo">C1</span><span class="ice__exp">Recomendación semanal discreta</span><span class="ice__mejora">Retención</span></div>
-                  <div class="ice__pista"><div class="ice__barra" style="width:73%">7,3</div></div>
-                </div>
-                <p class="ice__separador">Después</p>
-                <div class="ice__fila ice__fila--secundaria">
-                  <div class="ice__cabecera"><span class="ice__codigo">A2</span><span class="ice__exp">Invitación entre vecinos y colecciones privadas</span><span class="ice__mejora">Recomendación</span></div>
-                  <div class="ice__pista"><div class="ice__barra" style="width:63%">6,3</div></div>
-                </div>
-                <div class="ice__fila ice__fila--secundaria">
-                  <div class="ice__cabecera"><span class="ice__codigo">D1</span><span class="ice__exp">Test de sostenibilidad del modelo</span><span class="ice__mejora">Sostenibilidad</span></div>
-                  <div class="ice__pista"><div class="ice__barra" style="width:57%">5,7</div></div>
+
+                <h3>Qué se prueba primero</h3>
+                <p class="nota" style="margin-bottom:22px;">
+                  Cada prueba se puntúa del 1 al 10 combinando impacto, confianza y facilidad
+                  (puntuación ICE). Se hace primero la que más puntúa.
+                </p>
+                <div class="ice">
+                  <p class="ice__separador">Se prueba primero</p>
+                  <div class="ice__fila">
+                    <div class="ice__cabecera"><span class="ice__codigo">B3</span><span class="ice__exp">Guardar un lugar sin registrarse antes</span><span class="ice__mejora">Conversión</span></div>
+                    <div class="ice__pista"><div class="ice__barra" style="width:83%">8,3</div></div>
+                  </div>
+                  <div class="ice__fila">
+                    <div class="ice__cabecera"><span class="ice__codigo">B1</span><span class="ice__exp">Bienvenida progresiva sin necesidad de registro previo</span><span class="ice__mejora">Activación</span></div>
+                    <div class="ice__pista"><div class="ice__barra" style="width:80%">8,0</div></div>
+                  </div>
+                  <div class="ice__fila">
+                    <div class="ice__cabecera"><span class="ice__codigo">A1</span><span class="ice__exp">Landing con mensaje diferencial (test A/B)</span><span class="ice__mejora">Adquisición</span></div>
+                    <div class="ice__pista"><div class="ice__barra" style="width:80%">8,0</div></div>
+                  </div>
+                  <div class="ice__fila">
+                    <div class="ice__cabecera"><span class="ice__codigo">B2</span><span class="ice__exp">Fichas que explican la afinidad</span><span class="ice__mejora">Conversión</span></div>
+                    <div class="ice__pista"><div class="ice__barra" style="width:77%">7,7</div></div>
+                  </div>
+                  <div class="ice__fila">
+                    <div class="ice__cabecera"><span class="ice__codigo">C1</span><span class="ice__exp">Recomendación semanal discreta</span><span class="ice__mejora">Retención</span></div>
+                    <div class="ice__pista"><div class="ice__barra" style="width:73%">7,3</div></div>
+                  </div>
+                  <p class="ice__separador">Después</p>
+                  <div class="ice__fila ice__fila--secundaria">
+                    <div class="ice__cabecera"><span class="ice__codigo">A2</span><span class="ice__exp">Invitación entre vecinos y colecciones privadas</span><span class="ice__mejora">Recomendación</span></div>
+                    <div class="ice__pista"><div class="ice__barra" style="width:63%">6,3</div></div>
+                  </div>
+                  <div class="ice__fila ice__fila--secundaria">
+                    <div class="ice__cabecera"><span class="ice__codigo">D1</span><span class="ice__exp">Test de sostenibilidad del modelo</span><span class="ice__mejora">Sostenibilidad</span></div>
+                    <div class="ice__pista"><div class="ice__barra" style="width:57%">5,7</div></div>
+                  </div>
                 </div>
               </div>
-
-              <h3>Hoja de ruta de seis semanas</h3>
-              <p class="nota" style="margin-bottom:26px;">Lanzar los experimentos, leer los resultados y decidir los siguientes pasos.</p>
-              <ol class="tiempo">
-                <li class="tiempo__paso">
-                  <span class="tiempo__semana">S1</span>
-                  <span class="tiempo__punto" aria-hidden="true"></span>
-                  <div class="tiempo__cuerpo">
-                    <h3>Preparación</h3>
-                    <p>Preparar la medición, definir la muestra y los límites de seguridad, y publicar esta página.</p>
-                    <span class="pildora pildora--contorno">Setup A1</span>
-                  </div>
-                </li>
-                <li class="tiempo__paso">
-                  <span class="tiempo__semana">S2-S3</span>
-                  <span class="tiempo__punto" aria-hidden="true"></span>
-                  <div class="tiempo__cuerpo">
-                    <h3>Activación y conversión</h3>
-                    <p>Reducir la fricción de entrada y clarificar la afinidad.</p>
-                    <span class="pildora pildora--contorno">B1 · B3 · B2</span>
-                  </div>
-                </li>
-                <li class="tiempo__paso">
-                  <span class="tiempo__semana">S4</span>
-                  <span class="tiempo__punto" aria-hidden="true"></span>
-                  <div class="tiempo__cuerpo">
-                    <h3>Revisión y decisión</h3>
-                    <p>Se revisa la parte central del recorrido del usuario: si funciona, se amplía; si no, se corrige.</p>
-                    <span class="pildora pildora--contorno">Lectura A1 · B1 · B3 · B2</span>
-                  </div>
-                </li>
-                <li class="tiempo__paso">
-                  <span class="tiempo__semana">S5</span>
-                  <span class="tiempo__punto" aria-hidden="true"></span>
-                  <div class="tiempo__cuerpo">
-                    <h3>Retorno</h3>
-                    <p>Recomendación semanal discreta y guardados como memoria personal.</p>
-                    <span class="pildora pildora--contorno">C1</span>
-                  </div>
-                </li>
-                <li class="tiempo__paso">
-                  <span class="tiempo__semana">S6</span>
-                  <span class="tiempo__punto" aria-hidden="true"></span>
-                  <div class="tiempo__cuerpo">
-                    <h3>Boca a boca y sostenibilidad</h3>
-                    <p>Invitaciones entre vecinos, señal de sostenibilidad y documentación de aprendizajes.</p>
-                    <span class="pildora pildora--contorno">A2 · D1</span>
-                  </div>
-                </li>
-              </ol>
-            </div>
-          </details>
+            </details>
+          </div>
         </div>
       </div>
     </section>
@@ -2362,7 +2450,7 @@
             <li><a href="#solucion">Solución</a></li>
             <li><a href="#arquitectura">Arquitectura</a></li>
             <li><a href="#identidad">Sistema de diseño</a></li>
-            <li><a href="#validacion">Validación</a></li>
+            <li><a href="#growth">Plan de crecimiento</a></li>
           </ul>
         </div>
 
@@ -2371,7 +2459,6 @@
           <ul>
             <li><a href="mailto:claudia.erustesmp@gmail.com">Email</a></li>
             <li><a href="memoria-madrid-habitada.pdf" target="_blank" rel="noopener">Memoria (PDF)</a></li>
-            <li><a href="#growth">Plan de crecimiento</a></li>
           </ul>
         </div>
       </div>
